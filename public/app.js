@@ -13,7 +13,7 @@ const T = {
     nouveau: 'Nouveau',
     genres: 'Tous les genres', genre: 'Genre', tri: 'Trier',
     triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
-    installerIos: "Pour installer : touche le bouton Partager (carré avec une flèche) puis « Sur l'écran d'accueil ».", installer: 'Installer', jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
+    installerIos: "Pour installer : touche le bouton Partager (carré avec une flèche) puis « Sur l'écran d'accueil ».", suisMoi: 'Tu aimes ces bons plans ? Suis Geekozor :', installer: 'Installer', jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
     recherche: 'Rechercher un jeu…', toutes: 'Toutes', recuperer: 'Récupérer', jouer: 'Jouer gratuitement',
     gratuit: 'Gratuit', encore: (n) => `Encore ${n} j`,
     nbOffres: (n) => `${n} offres en cours`, nbF2p: (n) => `${n} jeux free-to-play`,
@@ -35,7 +35,7 @@ const T = {
     nouveau: 'New',
     genres: 'All genres', genre: 'Genre', tri: 'Sort',
     triFin: 'Ending soonest', triRecent: 'Newest', triValeur: 'Highest value', triPopulaire: 'Popular', triAZ: 'A to Z',
-    installerIos: 'To install: tap the Share button (square with an arrow), then “Add to Home Screen”.', installer: 'Install', jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'To install: tap the Share button (square with an arrow), then “Add to Home Screen”.', suisMoi: 'Like these deals? Follow Geekozor:', installer: 'Install', jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Search a game…', toutes: 'All', recuperer: 'Claim', jouer: 'Play for free',
     gratuit: 'Free', encore: (n) => `${n} days left`,
     nbOffres: (n) => `${n} active offers`, nbF2p: (n) => `${n} free-to-play games`,
@@ -57,7 +57,7 @@ const T = {
     nouveau: 'Nuovo',
     genres: 'Tutti i generi', genre: 'Genere', tri: 'Ordina',
     triFin: 'In scadenza', triRecent: 'Più recenti', triValeur: 'Valore più alto', triPopulaire: 'Popolari', triAZ: 'Dalla A alla Z',
-    installerIos: 'Per installare: tocca il pulsante Condividi (quadrato con una freccia), poi « Aggiungi alla schermata Home ».', installer: 'Installa', jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
+    installerIos: 'Per installare: tocca il pulsante Condividi (quadrato con una freccia), poi « Aggiungi alla schermata Home ».', suisMoi: 'Ti piacciono queste offerte? Segui Geekozor:', installer: 'Installa', jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
     recherche: 'Cerca un gioco…', toutes: 'Tutte', recuperer: 'Riscatta', jouer: 'Gioca gratis',
     gratuit: 'Gratis', encore: (n) => `Ancora ${n} g`,
     nbOffres: (n) => `${n} offerte attive`, nbF2p: (n) => `${n} giochi free-to-play`,
@@ -79,7 +79,7 @@ const T = {
     nouveau: 'Neu',
     genres: 'Alle Genres', genre: 'Genre', tri: 'Sortieren',
     triFin: 'Endet bald', triRecent: 'Neueste', triValeur: 'Höchster Wert', triPopulaire: 'Beliebt', triAZ: 'A bis Z',
-    installerIos: 'Zum Installieren: Tippe auf Teilen (Quadrat mit Pfeil) und dann auf „Zum Home-Bildschirm“.', installer: 'Installieren', jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'Zum Installieren: Tippe auf Teilen (Quadrat mit Pfeil) und dann auf „Zum Home-Bildschirm“.', suisMoi: 'Gefallen dir diese Angebote? Folge Geekozor:', installer: 'Installieren', jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Spiel suchen…', toutes: 'Alle', recuperer: 'Holen', jouer: 'Kostenlos spielen',
     gratuit: 'Gratis', encore: (n) => `Noch ${n} T.`,
     nbOffres: (n) => `${n} aktuelle Angebote`, nbF2p: (n) => `${n} Free-to-play-Spiele`,
@@ -101,7 +101,7 @@ const T = {
     nouveau: 'Nuevo',
     genres: 'Todos los géneros', genre: 'Género', tri: 'Ordenar',
     triFin: 'Terminan antes', triRecent: 'Más recientes', triValeur: 'Mayor valor', triPopulaire: 'Populares', triAZ: 'De la A a la Z',
-    installerIos: 'Para instalar: toca el botón Compartir (cuadrado con una flecha) y luego «Añadir a pantalla de inicio».', installer: 'Instalar', jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'Para instalar: toca el botón Compartir (cuadrado con una flecha) y luego «Añadir a pantalla de inicio».', suisMoi: '¿Te gustan estas ofertas? Sigue a Geekozor:', installer: 'Instalar', jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Buscar un juego…', toutes: 'Todas', recuperer: 'Conseguir', jouer: 'Jugar gratis',
     gratuit: 'Gratis', encore: (n) => `Quedan ${n} d`,
     nbOffres: (n) => `${n} ofertas activas`, nbF2p: (n) => `${n} juegos free-to-play`,
@@ -145,6 +145,16 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(
 // Statistiques GoatCounter. count.js arrive parfois après app.js (lien partagé vers une fiche) : on attend qu'il soit chargé.
 const stat = (o) => (window.goatcounter?.count ? goatcounter.count(o)
   : document.querySelector('script[data-goatcounter]')?.addEventListener('load', () => window.goatcounter?.count?.(o), { once: true }));
+// Réseaux de Geekozor : en-tête, bas de page et fiche de chaque jeu.
+const RESEAUX = [
+  ['tiktok', 'TikTok', 'https://www.tiktok.com/@geekozor', 'M12.53.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z'],
+  ['instagram', 'Instagram', 'https://www.instagram.com/geekozorgaming/', 'M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z'],
+  ['youtube', 'YouTube', 'https://www.youtube.com/@geekozorgaming', 'M9.5 7.5v9l7.5-4.5z'],
+];
+const reseauxHTML = RESEAUX.map(([id, nom, url, d]) =>
+  `<a class="${id}" href="${url}" target="_blank" rel="noopener" aria-label="Geekozor ${nom}" title="${nom}" data-reseau="${id}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg></a>`).join('');
+document.querySelectorAll('.reseaux').forEach((el) => { el.innerHTML = reseauxHTML; });
+
 // Adresses https, ou images hébergées avec l'app (jeux libres) ; tout le reste est neutralisé.
 const lienSur = (u) => (/^https:\/\//.test(u) || /^images\/[\w./-]+$/.test(u) ? u : '#');
 
@@ -248,6 +258,7 @@ function rendreFiche() {
       <div class="badges">${badgesDe(g, Infinity)}</div>
       ${caseRecupere(g)}
       ${actionsDe(g)}
+      <p class="suis-moi">${t('suisMoi')} <span class="reseaux">${reseauxHTML}</span></p>
       ${d && !d.videos?.length ? `<a class="bande-annonce" href="${youtube}" target="_blank" rel="noopener">▶ ${t('bandeAnnonce')}</a>` : ''}
       <p>${esc(descriptionDe(g))}</p>
       ${!d ? `<p class="meta">${t('chargement')}</p>` : ''}
@@ -471,6 +482,11 @@ $('#plateformes').addEventListener('click', (e) => {
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a.recuperer');
   if (a) stat({ path: `clic/${a.dataset.id ?? 'abandonware'}`, title: `${a.dataset.titre ?? 'Abandonware France'} → ${new URL(a.href).hostname}`, event: true });
+});
+// Clic vers un réseau de Geekozor
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-reseau]');
+  if (a) stat({ path: `reseau/${a.dataset.reseau}`, title: `Réseau ${a.title}`, event: true });
 });
 // Partage : menu natif du téléphone, sinon copie du lien
 document.addEventListener('click', async (e) => { // liste et fiche
