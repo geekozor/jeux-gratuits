@@ -240,7 +240,7 @@ function rendreFiche() {
   const infos = [['developpeur', d?.developpeur], ['editeur', g.editeur], ['sortie', d?.sortie]].filter(([, v]) => v);
   const config = Object.entries(d?.config ?? {}).filter(([, v]) => v && !/not defined/i.test(v));
   $('#fiche').innerHTML = `<div class="fiche-contenu">
-    <button class="fermer" aria-label="${t('fermer')}">✕</button>
+    <button class="fermer">✕ ${t('fermer')}</button>
     ${g.image ? `<img class="fiche-image${g.type === 'libre' ? ' logo' : ''}" src="${esc(lienSur(g.image))}" alt="">` : ''}
     <div class="corps">
       <h2 id="fiche-titre">${esc(g.titre)}</h2>
