@@ -1,0 +1,4 @@
+{
+  "_lisez-moi": "Jeux à ne jamais afficher, toutes catégories confondues. Mettre le nom exact du jeu tel qu'il apparaît dans l'app, entre guillemets, séparés par des virgules. Exemple : \"titres\": [\"Nom du jeu 1\", \"Nom du jeu 2\"]",
+  "titres": []
+}

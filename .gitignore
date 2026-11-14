@@ -1,0 +1,5 @@
+# Générée automatiquement par scripts/update.mjs
+public/data/
+node_modules/
+.env
+data/alertes.txt

@@ -1,0 +1,178 @@
+:root {
+  --fond: #0f1115;
+  --carte: #181b22;
+  --bord: #262a34;
+  --texte: #e9ecf1;
+  --doux: #9aa3b2;
+  --accent: #3ddc84;
+  --alerte: #ffb020;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+a { color: var(--accent); }
+
+header {
+  position: sticky; top: 0; z-index: 2;
+  background: color-mix(in srgb, var(--fond) 92%, transparent);
+  backdrop-filter: blur(8px);
+  padding: calc(env(safe-area-inset-top) + 12px) 16px 10px;
+  border-bottom: 1px solid var(--bord);
+}
+.titre { display: flex; align-items: center; gap: 10px; }
+h1 { font-size: 18px; line-height: 1.15; margin: 0; flex: 1; }
+h1 span { display: block; font-size: 13px; font-weight: 600; color: var(--accent); }
+#langue {
+  background: var(--carte); color: var(--texte); border: 1px solid var(--bord);
+  border-radius: 8px; padding: 6px 4px; font: inherit; font-size: 13px;
+}
+#installer {
+  background: var(--accent); color: #062b16; border: 0; border-radius: 99px;
+  padding: 7px 14px; font-weight: 700; cursor: pointer;
+}
+
+/* 6 onglets : ils défilent horizontalement sur téléphone */
+.onglets { display: flex; gap: 6px; margin: 12px 0 10px; overflow-x: auto; scrollbar-width: none; }
+.onglets button {
+  flex: 1 0 auto; white-space: nowrap; padding: 8px 12px; border-radius: 10px; font-size: 13px; line-height: 1.2;
+  border: 1px solid var(--bord); background: var(--carte); color: var(--doux);
+  font: inherit; font-weight: 600; cursor: pointer;
+}
+.onglets button[aria-selected="true"] { background: var(--accent); color: #062b16; border-color: var(--accent); }
+
+#recherche {
+  width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--bord);
+  background: var(--carte); color: var(--texte); font: inherit;
+}
+.puces { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; scrollbar-width: none; }
+.puces button {
+  white-space: nowrap; padding: 5px 12px; border-radius: 99px; border: 1px solid var(--bord);
+  background: transparent; color: var(--doux); font: inherit; font-size: 13px; cursor: pointer;
+}
+.puces button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.selects { display: flex; gap: 8px; margin-top: 8px; }
+.selects select {
+  flex: 1; min-width: 0; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--bord);
+  background: var(--carte); color: var(--texte); font: inherit; font-size: 13px;
+}
+
+main { padding: 12px 16px; max-width: 1100px; margin: 0 auto; }
+.resume { color: var(--doux); margin: 0 0 12px; font-size: 13px; }
+.grille { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+.carte {
+  background: var(--carte); border: 1px solid var(--bord); border-radius: 14px;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.carte img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--bord); display: block; }
+.corps { padding: 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.carte h2 { font-size: 16px; margin: 0; }
+.meta { color: var(--doux); font-size: 12.5px; }
+.desc {
+  color: var(--doux); font-size: 13px; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--bord); }
+.badge.prix s { color: var(--doux); font-weight: 400; margin-right: 4px; }
+.badge.prix { color: var(--accent); }
+.badge.fin { color: var(--alerte); }
+.badge.nouveau { background: var(--accent); color: #062b16; }
+.carte.retro { max-width: 560px; }
+.carte.retro p { margin: 0; }
+.actions { margin-top: auto; display: flex; gap: 8px; }
+.actions .recuperer { flex: 1; }
+.partager {
+  background: transparent; color: var(--texte); border: 1px solid var(--bord); border-radius: 10px;
+  padding: 10px 12px; font: inherit; font-weight: 600; cursor: pointer;
+}
+.recuperer {
+  margin-top: auto; display: block; text-align: center; text-decoration: none;
+  background: var(--accent); color: #062b16; font-weight: 700; padding: 10px; border-radius: 10px;
+}
+.vide { color: var(--doux); text-align: center; padding: 40px 0; grid-column: 1 / -1; }
+
+footer { color: var(--doux); font-size: 12.5px; text-align: center; padding: 20px 16px 32px; }
+footer p { margin: 4px 0; }
+.carte.cible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Fiche d'un jeu ---------- */
+.ouvrir { color: inherit; text-decoration: none; display: block; }
+body.fiche-ouverte { overflow: hidden; }
+.fiche {
+  position: fixed; inset: 0; z-index: 10; overflow-y: auto; background: var(--fond);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.fiche-contenu { max-width: 760px; margin: 0 auto; position: relative; }
+.fiche-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--bord); }
+.fiche .corps { padding: 16px; gap: 10px; }
+.fiche h2 { font-size: 22px; margin: 0; }
+.fiche h3 { font-size: 16px; margin: 14px 0 0; }
+.fiche p { margin: 0; }
+.fiche .texte { white-space: pre-line; color: var(--doux); font-size: 14px; }
+.fermer {
+  position: fixed; top: calc(env(safe-area-inset-top) + 10px); right: 10px; z-index: 11;
+  width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(15, 17, 21, .8); color: var(--texte); font-size: 18px;
+}
+.bande-annonce {
+  display: block; text-align: center; text-decoration: none; padding: 10px; border-radius: 10px;
+  border: 1px solid var(--bord); color: var(--texte); font-weight: 600;
+}
+.captures { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; }
+.captures img { width: 85%; max-width: 420px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; flex: none; scroll-snap-align: start; background: var(--bord); }
+.fiche dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: 14px; }
+.fiche dt { color: var(--doux); }
+.fiche dd { margin: 0; }
+.lire-video { position: relative; padding: 0; border: 0; background: none; cursor: pointer; flex: none; width: 85%; max-width: 420px; }
+.lire-video img { width: 100%; }
+.lire-video span {
+  position: absolute; inset: 0; margin: auto; width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(0, 0, 0, .65); color: #fff; font-size: 22px;
+}
+.video { width: 85%; max-width: 420px; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; background: #000; flex: none; }
+
+/* Titres de section (« Bientôt gratuit ») et cartes sans image (jeux libres) */
+.section { grid-column: 1 / -1; font-size: 17px; margin: 6px 0 -4px; }
+.sans-image {
+  aspect-ratio: 16 / 9; display: grid; place-items: center; padding: 16px; text-align: center;
+  background: linear-gradient(135deg, #1f2a24, #182b3a); color: var(--accent); font-weight: 800; font-size: 22px;
+}
+/* Jeux libres : souvent des logos, affichés en entier plutôt que recadrés */
+.carte[id^="libre"] img, .fiche-image.logo { object-fit: contain; background: #10141a; }
+
+/* Jeux suivis */
+.suivre {
+  background: transparent; color: var(--doux); border: 1px solid var(--bord); border-radius: 10px;
+  padding: 10px 12px; font: inherit; font-size: 16px; line-height: 1; cursor: pointer;
+}
+.suivre[aria-pressed="true"], #suivis[aria-pressed="true"] { color: #ffc940; border-color: #ffc940; }
+#suivis {
+  flex: none; white-space: nowrap; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--bord);
+  background: var(--carte); color: var(--texte); font: inherit; font-size: 13px; cursor: pointer;
+}
+.bandeau { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.bandeau a {
+  display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; font-weight: 600;
+  background: #3a2f0b; color: #ffe08a; border: 1px solid #ffc940;
+}
+
+/* Déjà récupéré */
+.case-recupere { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--doux); cursor: pointer; }
+.case-recupere input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
+.carte.recupere { opacity: .55; }
+.carte.recupere img { filter: grayscale(1); }
+
+/* Liste vide, voir plus */
+.vide p { margin: 0 0 12px; }
+.effacer, .voir-plus {
+  background: transparent; color: var(--accent); border: 1px solid var(--accent); border-radius: 10px;
+  padding: 10px 16px; font: inherit; font-weight: 600; cursor: pointer;
+}
+.voir-plus { grid-column: 1 / -1; justify-self: center; }

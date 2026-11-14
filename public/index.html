@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Les jeux gratuits de Geekozor</title>
+  <meta name="description" content="Tous les jeux vidéo gratuits du moment sur PC, consoles, mobile et VR : jeux offerts, DLC et free-to-play.">
+  <meta name="theme-color" content="#0f1115">
+  <!-- Aperçu quand on partage le lien (Discord, WhatsApp, Facebook…).
+       shortcut: og:image et og:url doivent être des adresses complètes : à remplacer à la mise en ligne. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Les jeux gratuits de Geekozor">
+  <meta property="og:title" content="Les jeux gratuits de Geekozor">
+  <meta property="og:description" content="Tous les jeux vidéo gratuits du moment : jeux offerts, DLC et free-to-play sur PC, PS5, Xbox, Switch, mobile et VR.">
+  <meta property="og:image" content="icons/partage.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="./">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Geekozor">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="titre">
+      <img src="icons/icon.svg" alt="" width="32" height="32">
+      <h1>Les jeux gratuits <span>de Geekozor</span></h1>
+      <select id="langue" aria-label="Langue">
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+        <option value="it">IT</option>
+        <option value="de">DE</option>
+        <option value="es">ES</option>
+      </select>
+      <button id="installer" hidden data-t="installer"></button>
+    </div>
+    <nav class="onglets" role="tablist">
+      <button role="tab" data-onglet="jeux" aria-selected="true" data-t="jeux"></button>
+      <button role="tab" data-onglet="dlc" data-t="dlc"></button>
+      <button role="tab" data-onglet="f2p" data-t="f2p"></button>
+      <button role="tab" data-onglet="indes" data-t="indes"></button>
+      <button role="tab" data-onglet="demos" data-t="demos"></button>
+      <button role="tab" data-onglet="libres" data-t="libres"></button>
+    </nav>
+    <div class="filtres">
+      <input id="recherche" type="search" data-t-placeholder="recherche">
+      <div id="plateformes" class="puces"></div>
+      <div class="selects">
+        <select id="genre"></select>
+        <select id="tri"></select>
+        <button id="suivis" aria-pressed="false"></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="bandeau" class="bandeau" role="status" hidden></div>
+    <p id="resume" class="resume"></p>
+    <div id="liste" class="grille"></div>
+  </main>
+
+  <footer>
+    <p><span data-t="sources"></span>
+      <a href="https://www.gamerpower.com" target="_blank" rel="noopener">GamerPower.com</a>,
+      <a href="https://www.freetogame.com" target="_blank" rel="noopener">FreeToGame.com</a>,
+      <a href="https://itch.io" target="_blank" rel="noopener">itch.io</a>, GOG, Epic Games Store, Steam, Xbox, Nintendo. Images des jeux libres : Wikimedia Commons (licences libres, auteur indiqué dans chaque fiche).</p>
+    <p id="maj"></p>
+  </footer>
+
+  <section id="fiche" class="fiche" role="dialog" aria-modal="true" aria-labelledby="fiche-titre" hidden></section>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

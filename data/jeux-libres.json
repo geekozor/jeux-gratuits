@@ -1,0 +1,201 @@
+[
+  {
+    "titre": "0 A.D.",
+    "description": "A historical real-time strategy game about ancient civilizations, in the spirit of Age of Empires.",
+    "lien": "https://play0ad.com",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "image": "images/libres/0-a-d.jpg",
+    "credit": "Wikimedia Commons : Wildfire Games, CC BY-SA 3.0",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:0_A.D._alpha_25_-_playing_as_Spartans.jpg"
+  },
+  {
+    "titre": "OpenTTD",
+    "description": "Build a transport empire with trains, trucks, ships and planes, based on Transport Tycoon Deluxe.",
+    "lien": "https://www.openttd.org",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Simulation",
+      "Strategy"
+    ]
+  },
+  {
+    "titre": "SuperTuxKart",
+    "description": "A colourful kart racing game with items, battle modes and online multiplayer.",
+    "lien": "https://supertuxkart.net",
+    "plateformes": [
+      "pc",
+      "mobile"
+    ],
+    "genres": [
+      "Racing"
+    ],
+    "image": "images/libres/supertuxkart.jpg",
+    "credit": "Wikimedia Commons : rastapax, CC BY-SA 3.0",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:Logo_de_SuperTuxKart.png"
+  },
+  {
+    "titre": "The Battle for Wesnoth",
+    "description": "A turn-based tactical strategy game with a fantasy theme and dozens of campaigns.",
+    "lien": "https://www.wesnoth.org",
+    "plateformes": [
+      "pc",
+      "mobile"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "image": "images/libres/the-battle-for-wesnoth.jpg",
+    "credit": "Wikimedia Commons : The Battle for Wesnoth developer team., GPL",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:The_Battle_for_Wesnoth_1.16.2_title_screen.png"
+  },
+  {
+    "titre": "Mindustry",
+    "description": "A factory-building tower defense game: mine resources, build conveyor belts and defend your core.",
+    "lien": "https://mindustrygame.github.io",
+    "plateformes": [
+      "pc",
+      "mobile"
+    ],
+    "genres": [
+      "Strategy",
+      "Tower Defense"
+    ]
+  },
+  {
+    "titre": "Xonotic",
+    "description": "A fast-paced arena first-person shooter in the tradition of Quake and Unreal Tournament.",
+    "lien": "https://xonotic.org",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "image": "images/libres/xonotic.jpg",
+    "credit": "Wikimedia Commons : Team Xonotic, GPL",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:Xonotic_icon.svg"
+  },
+  {
+    "titre": "DDraceNetwork",
+    "description": "A cooperative online platformer where you swing with a grappling hook through hard levels with friends.",
+    "lien": "https://ddnet.org",
+    "plateformes": [
+      "pc",
+      "mobile"
+    ],
+    "genres": [
+      "Platformer"
+    ]
+  },
+  {
+    "titre": "Luanti",
+    "description": "A voxel sandbox game and engine (formerly Minetest): build, explore and play hundreds of community games.",
+    "lien": "https://www.luanti.org",
+    "plateformes": [
+      "pc",
+      "mobile"
+    ],
+    "genres": [
+      "Sandbox"
+    ],
+    "image": "images/libres/luanti.jpg",
+    "credit": "Wikimedia Commons : Ælla Chiana Moskopp (erle), CC BY-SA 3.0",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:Minetest_logo.svg"
+  },
+  {
+    "titre": "OpenRA",
+    "description": "Classic Command & Conquer and Dune 2000 real-time strategy games, rebuilt with modern online play.",
+    "lien": "https://www.openra.net",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "image": "https://www.openra.net/images/social.jpg",
+    "credit": "Site officiel OpenRA",
+    "creditLien": "https://www.openra.net"
+  },
+  {
+    "titre": "Freeciv",
+    "description": "A turn-based empire-building strategy game inspired by Civilization.",
+    "lien": "https://www.freeciv.org",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "image": "images/libres/freeciv.jpg",
+    "credit": "Wikimedia Commons : Jimbo, GPL",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:Freeciv_Web_Logo.png"
+  },
+  {
+    "titre": "Veloren",
+    "description": "A multiplayer voxel RPG with an open world, dungeons and crafting.",
+    "lien": "https://veloren.net",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "RPG",
+      "Open World"
+    ]
+  },
+  {
+    "titre": "Cataclysm: Dark Days Ahead",
+    "description": "A deep turn-based survival game set in a post-apocalyptic world.",
+    "lien": "https://cataclysmdda.org",
+    "plateformes": [
+      "pc",
+      "mobile"
+    ],
+    "genres": [
+      "Survival",
+      "RPG"
+    ]
+  },
+  {
+    "titre": "Shattered Pixel Dungeon",
+    "description": "A traditional roguelike dungeon crawler with pixel art and hundreds of items.",
+    "lien": "https://shatteredpixel.com",
+    "plateformes": [
+      "pc",
+      "mobile"
+    ],
+    "genres": [
+      "RPG",
+      "Dungeon Crawler"
+    ]
+  },
+  {
+    "titre": "Endless Sky",
+    "description": "A space exploration, trading and combat game in the style of Escape Velocity.",
+    "lien": "https://endless-sky.github.io",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Space",
+      "Strategy"
+    ]
+  },
+  {
+    "titre": "Hedgewars",
+    "description": "A turn-based artillery game where teams of hedgehogs fight with absurd weapons.",
+    "lien": "https://www.hedgewars.org",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ]
+  }
+]

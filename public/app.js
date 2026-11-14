@@ -1,0 +1,520 @@
+import { cleNom, variantesNom } from './noms.js';
+
+// ---------- Traductions de l'interface ----------
+const T = {
+  fr: {
+    recupere: "Je l'ai récupéré", heures: (n) => `Plus que ${n} h`, videOnglet: (o) => `Rien dans « ${o} » en ce moment. La liste est mise à jour toutes les heures.`, videFiltres: (o, f) => `Rien dans « ${o} » pour ${f} en ce moment.`, effacer: 'Effacer les filtres', voirPlus: (n) => `Voir plus (${n} restants)`,
+    suivre: 'Suivre ce jeu', mesSuivis: 'Mes jeux suivis', alerteJusqua: (x, d) => `${x}, que tu suis, est gratuit jusqu'au ${d} !`, alerteMaintenant: (x) => `${x}, que tu suis, est gratuit en ce moment !`, alerteBientot: (x, d) => `${x}, que tu suis, sera gratuit le ${d} !`, aucunSuivi: 'Aucun jeu suivi ici. Touche ★ sur un jeu pour être prévenu quand il devient gratuit.',
+    creditImage: 'Image :',
+    indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro', bientot: 'Bientôt gratuit', enCeMoment: 'Gratuits en ce moment', gratuitDes: (d) => `Gratuit dès ${d}`, voirEpic: 'Voir sur Epic', essayer: 'Essayer la démo', nbJeux: (n) => `${n} jeux`,
+    videos: 'Vidéos', lire: 'Lire', sourcesMedias: 'Vidéos et captures :',
+    fermer: 'Fermer', bandeAnnonce: 'Bande-annonce', commentRecuperer: 'Comment le récupérer', captures: "Captures d'écran", aPropos: 'À propos', enAnglais: '(en anglais)', configMin: 'Configuration minimale', developpeur: 'Développeur', editeur: 'Éditeur', sortie: 'Sortie', os: 'Système', processeur: 'Processeur', memoire: 'Mémoire', graphismes: 'Carte graphique', stockage: 'Stockage', chargement: 'Chargement…',
+    economie: (m) => `${m} de jeux offerts`, partager: 'Partager', lienCopie: 'Lien copié', partageTexte: (x) => `${x} est gratuit en ce moment !`,
+    nouveau: 'Nouveau',
+    genres: 'Tous les genres', genre: 'Genre', tri: 'Trier',
+    triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
+    installer: 'Installer', jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
+    recherche: 'Rechercher un jeu…', toutes: 'Toutes', recuperer: 'Récupérer', jouer: 'Jouer gratuitement',
+    gratuit: 'Gratuit', encore: (n) => `Encore ${n} j`,
+    nbOffres: (n) => `${n} offres en cours`, nbF2p: (n) => `${n} jeux free-to-play`,
+    erreur: 'Impossible de charger la liste. Vérifie ta connexion.',
+    sources: 'Données :', maj: 'Mis à jour le', navigateur: 'Navigateur', mobile: 'Mobile',
+    retroTitre: 'Les vieux jeux, gratuitement',
+    retroTexte: "Des milliers de jeux des années 80, 90 et 2000 que leurs éditeurs n'exploitent plus, présentés avec leur histoire par Abandonware France.",
+    retroBouton: 'Voir Abandonware France',
+    retroNote: "Site externe. Ces jeux restent souvent protégés par le droit d'auteur : renseigne-toi avant de télécharger.",
+  },
+  en: {
+    recupere: 'I got it', heures: (n) => `Only ${n} h left`, videOnglet: (o) => `Nothing in “${o}” right now. The list is updated every hour.`, videFiltres: (o, f) => `Nothing in “${o}” for ${f} right now.`, effacer: 'Clear filters', voirPlus: (n) => `Show more (${n} left)`,
+    suivre: 'Follow this game', mesSuivis: 'My followed games', alerteJusqua: (x, d) => `${x}, which you follow, is free until ${d}!`, alerteMaintenant: (x) => `${x}, which you follow, is free right now!`, alerteBientot: (x, d) => `${x}, which you follow, will be free on ${d}!`, aucunSuivi: 'No followed game here. Tap ★ on a game to be told when it goes free.',
+    creditImage: 'Image:',
+    indes: 'Indie', demos: 'Demos', libres: 'Open source & retro', bientot: 'Free soon', enCeMoment: 'Free right now', gratuitDes: (d) => `Free from ${d}`, voirEpic: 'View on Epic', essayer: 'Try the demo', nbJeux: (n) => `${n} games`,
+    videos: 'Videos', lire: 'Play', sourcesMedias: 'Videos and screenshots:',
+    fermer: 'Close', bandeAnnonce: 'Trailer', commentRecuperer: 'How to claim', captures: 'Screenshots', aPropos: 'About', enAnglais: '', configMin: 'Minimum requirements', developpeur: 'Developer', editeur: 'Publisher', sortie: 'Release', os: 'OS', processeur: 'Processor', memoire: 'Memory', graphismes: 'Graphics', stockage: 'Storage', chargement: 'Loading…',
+    economie: (m) => `${m} worth of free games`, partager: 'Share', lienCopie: 'Link copied', partageTexte: (x) => `${x} is free right now!`,
+    nouveau: 'New',
+    genres: 'All genres', genre: 'Genre', tri: 'Sort',
+    triFin: 'Ending soonest', triRecent: 'Newest', triValeur: 'Highest value', triPopulaire: 'Popular', triAZ: 'A to Z',
+    installer: 'Install', jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    recherche: 'Search a game…', toutes: 'All', recuperer: 'Claim', jouer: 'Play for free',
+    gratuit: 'Free', encore: (n) => `${n} days left`,
+    nbOffres: (n) => `${n} active offers`, nbF2p: (n) => `${n} free-to-play games`,
+    erreur: 'Could not load the list. Check your connection.',
+    sources: 'Data:', maj: 'Updated on', navigateur: 'Browser', mobile: 'Mobile',
+    retroTitre: 'Old games, for free',
+    retroTexte: 'Thousands of games from the 80s, 90s and 2000s that publishers no longer sell, presented with their history by Abandonware France.',
+    retroBouton: 'Visit Abandonware France',
+    retroNote: 'External site (in French). These games are often still under copyright: check before downloading.',
+  },
+  it: {
+    recupere: "L'ho riscattato", heures: (n) => `Solo più ${n} h`, videOnglet: (o) => `Niente in «${o}» al momento. La lista si aggiorna ogni ora.`, videFiltres: (o, f) => `Niente in «${o}» per ${f} al momento.`, effacer: 'Cancella i filtri', voirPlus: (n) => `Mostra altri (${n} rimanenti)`,
+    suivre: 'Segui questo gioco', mesSuivis: 'I miei giochi seguiti', alerteJusqua: (x, d) => `${x}, che segui, è gratis fino al ${d}!`, alerteMaintenant: (x) => `${x}, che segui, è gratis adesso!`, alerteBientot: (x, d) => `${x}, che segui, sarà gratis il ${d}!`, aucunSuivi: 'Nessun gioco seguito qui. Tocca ★ su un gioco per sapere quando diventa gratis.',
+    creditImage: 'Immagine:',
+    indes: 'Indie', demos: 'Demo', libres: 'Liberi e retrò', bientot: 'Presto gratis', enCeMoment: 'Gratis adesso', gratuitDes: (d) => `Gratis da ${d}`, voirEpic: 'Vedi su Epic', essayer: 'Prova la demo', nbJeux: (n) => `${n} giochi`,
+    videos: 'Video', lire: 'Riproduci', sourcesMedias: 'Video e screenshot:',
+    fermer: 'Chiudi', bandeAnnonce: 'Trailer', commentRecuperer: 'Come riscattarlo', captures: 'Screenshot', aPropos: 'Informazioni', enAnglais: '(in inglese)', configMin: 'Requisiti minimi', developpeur: 'Sviluppatore', editeur: 'Editore', sortie: 'Uscita', os: 'Sistema', processeur: 'Processore', memoire: 'Memoria', graphismes: 'Scheda video', stockage: 'Archiviazione', chargement: 'Caricamento…',
+    economie: (m) => `${m} di giochi in regalo`, partager: 'Condividi', lienCopie: 'Link copiato', partageTexte: (x) => `${x} è gratis in questo momento!`,
+    nouveau: 'Nuovo',
+    genres: 'Tutti i generi', genre: 'Genere', tri: 'Ordina',
+    triFin: 'In scadenza', triRecent: 'Più recenti', triValeur: 'Valore più alto', triPopulaire: 'Popolari', triAZ: 'Dalla A alla Z',
+    installer: 'Installa', jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
+    recherche: 'Cerca un gioco…', toutes: 'Tutte', recuperer: 'Riscatta', jouer: 'Gioca gratis',
+    gratuit: 'Gratis', encore: (n) => `Ancora ${n} g`,
+    nbOffres: (n) => `${n} offerte attive`, nbF2p: (n) => `${n} giochi free-to-play`,
+    erreur: 'Impossibile caricare la lista. Controlla la connessione.',
+    sources: 'Dati:', maj: 'Aggiornato il', navigateur: 'Browser', mobile: 'Mobile',
+    retroTitre: 'Vecchi giochi, gratis',
+    retroTexte: 'Migliaia di giochi degli anni 80, 90 e 2000 non più venduti dagli editori, presentati con la loro storia da Abandonware France.',
+    retroBouton: 'Vai su Abandonware France',
+    retroNote: "Sito esterno (in francese). Questi giochi sono spesso ancora protetti da diritto d'autore: informati prima di scaricare.",
+  },
+  de: {
+    recupere: 'Hab ich schon', heures: (n) => `Nur noch ${n} Std.`, videOnglet: (o) => `Gerade nichts in „${o}“. Die Liste wird stündlich aktualisiert.`, videFiltres: (o, f) => `Gerade nichts in „${o}“ für ${f}.`, effacer: 'Filter löschen', voirPlus: (n) => `Mehr anzeigen (noch ${n})`,
+    suivre: 'Diesem Spiel folgen', mesSuivis: 'Meine gefolgten Spiele', alerteJusqua: (x, d) => `${x}, dem du folgst, ist gratis bis ${d}!`, alerteMaintenant: (x) => `${x}, dem du folgst, ist gerade gratis!`, alerteBientot: (x, d) => `${x}, dem du folgst, ist gratis ab ${d}!`, aucunSuivi: 'Hier folgst du keinem Spiel. Tippe auf ★, um zu erfahren, wann ein Spiel gratis wird.',
+    creditImage: 'Bild:',
+    indes: 'Indie', demos: 'Demos', libres: 'Open Source & Retro', bientot: 'Bald gratis', enCeMoment: 'Jetzt gratis', gratuitDes: (d) => `Gratis ab ${d}`, voirEpic: 'Bei Epic ansehen', essayer: 'Demo testen', nbJeux: (n) => `${n} Spiele`,
+    videos: 'Videos', lire: 'Abspielen', sourcesMedias: 'Videos und Screenshots:',
+    fermer: 'Schließen', bandeAnnonce: 'Trailer', commentRecuperer: 'So holst du es dir', captures: 'Screenshots', aPropos: 'Über das Spiel', enAnglais: '(auf Englisch)', configMin: 'Mindestanforderungen', developpeur: 'Entwickler', editeur: 'Publisher', sortie: 'Erscheinung', os: 'System', processeur: 'Prozessor', memoire: 'Arbeitsspeicher', graphismes: 'Grafik', stockage: 'Speicher', chargement: 'Wird geladen…',
+    economie: (m) => `Spiele im Wert von ${m} gratis`, partager: 'Teilen', lienCopie: 'Link kopiert', partageTexte: (x) => `${x} ist gerade gratis!`,
+    nouveau: 'Neu',
+    genres: 'Alle Genres', genre: 'Genre', tri: 'Sortieren',
+    triFin: 'Endet bald', triRecent: 'Neueste', triValeur: 'Höchster Wert', triPopulaire: 'Beliebt', triAZ: 'A bis Z',
+    installer: 'Installieren', jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    recherche: 'Spiel suchen…', toutes: 'Alle', recuperer: 'Holen', jouer: 'Kostenlos spielen',
+    gratuit: 'Gratis', encore: (n) => `Noch ${n} T.`,
+    nbOffres: (n) => `${n} aktuelle Angebote`, nbF2p: (n) => `${n} Free-to-play-Spiele`,
+    erreur: 'Liste konnte nicht geladen werden. Prüfe deine Verbindung.',
+    sources: 'Daten:', maj: 'Aktualisiert am', navigateur: 'Browser', mobile: 'Mobil',
+    retroTitre: 'Alte Spiele, kostenlos',
+    retroTexte: 'Tausende Spiele aus den 80ern, 90ern und 2000ern, die nicht mehr verkauft werden, mit ihrer Geschichte vorgestellt von Abandonware France.',
+    retroBouton: 'Zu Abandonware France',
+    retroNote: 'Externe Seite (auf Französisch). Diese Spiele sind oft noch urheberrechtlich geschützt: informiere dich vor dem Download.',
+  },
+  es: {
+    recupere: 'Ya lo tengo', heures: (n) => `Solo quedan ${n} h`, videOnglet: (o) => `Nada en «${o}» por ahora. La lista se actualiza cada hora.`, videFiltres: (o, f) => `Nada en «${o}» para ${f} por ahora.`, effacer: 'Borrar filtros', voirPlus: (n) => `Ver más (quedan ${n})`,
+    suivre: 'Seguir este juego', mesSuivis: 'Mis juegos seguidos', alerteJusqua: (x, d) => `¡${x}, que sigues, está gratis hasta el ${d}!`, alerteMaintenant: (x) => `¡${x}, que sigues, está gratis ahora!`, alerteBientot: (x, d) => `¡${x}, que sigues, estará gratis el ${d}!`, aucunSuivi: 'Ningún juego seguido aquí. Toca ★ en un juego para saber cuándo sea gratis.',
+    creditImage: 'Imagen:',
+    indes: 'Indie', demos: 'Demos', libres: 'Libres y retro', bientot: 'Pronto gratis', enCeMoment: 'Gratis ahora', gratuitDes: (d) => `Gratis desde ${d}`, voirEpic: 'Ver en Epic', essayer: 'Probar la demo', nbJeux: (n) => `${n} juegos`,
+    videos: 'Vídeos', lire: 'Reproducir', sourcesMedias: 'Vídeos y capturas:',
+    fermer: 'Cerrar', bandeAnnonce: 'Tráiler', commentRecuperer: 'Cómo conseguirlo', captures: 'Capturas', aPropos: 'Acerca de', enAnglais: '(en inglés)', configMin: 'Requisitos mínimos', developpeur: 'Desarrollador', editeur: 'Editor', sortie: 'Lanzamiento', os: 'Sistema', processeur: 'Procesador', memoire: 'Memoria', graphismes: 'Gráficos', stockage: 'Almacenamiento', chargement: 'Cargando…',
+    economie: (m) => `${m} en juegos regalados`, partager: 'Compartir', lienCopie: 'Enlace copiado', partageTexte: (x) => `¡${x} está gratis ahora mismo!`,
+    nouveau: 'Nuevo',
+    genres: 'Todos los géneros', genre: 'Género', tri: 'Ordenar',
+    triFin: 'Terminan antes', triRecent: 'Más recientes', triValeur: 'Mayor valor', triPopulaire: 'Populares', triAZ: 'De la A a la Z',
+    installer: 'Instalar', jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
+    recherche: 'Buscar un juego…', toutes: 'Todas', recuperer: 'Conseguir', jouer: 'Jugar gratis',
+    gratuit: 'Gratis', encore: (n) => `Quedan ${n} d`,
+    nbOffres: (n) => `${n} ofertas activas`, nbF2p: (n) => `${n} juegos free-to-play`,
+    erreur: 'No se pudo cargar la lista. Revisa tu conexión.',
+    sources: 'Datos:', maj: 'Actualizado el', navigateur: 'Navegador', mobile: 'Móvil',
+    retroTitre: 'Juegos antiguos, gratis',
+    retroTexte: 'Miles de juegos de los 80, 90 y 2000 que sus editores ya no venden, presentados con su historia por Abandonware France.',
+    retroBouton: 'Ir a Abandonware France',
+    retroNote: 'Sitio externo (en francés). Estos juegos suelen seguir protegidos por derechos de autor: infórmate antes de descargar.',
+  },
+};
+
+// Mêmes codes que scripts/plateformes.mjs
+const PLATEFORMES = ['pc', 'ps5', 'ps4', 'xboxseries', 'xboxone', 'switch2', 'switch', 'mobile', 'vr', 'navigateur'];
+const NOMS = { pc: 'PC', ps5: 'PS5', ps4: 'PS4', xboxseries: 'Xbox Series', xboxone: 'Xbox One', switch2: 'Switch 2', switch: 'Switch', vr: 'VR' };
+// Rétrocompatibilité : la PS5 lit les jeux PS4, la Xbox Series ceux de Xbox One, la Switch 2 ceux de Switch.
+const AUSSI = { ps5: 'ps4', xboxseries: 'xboxone', switch2: 'switch' };
+
+const memoire = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
+  set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+// Jeux suivis : retenus par leur nom, sur ce téléphone seulement (un jeu free-to-play peut revenir offert sous un autre id).
+// shortcut: pas de notification app fermée, à remplacer par le push par jeu (Cloudflare) après la mise en ligne.
+const lireListe = (k) => { try { return JSON.parse(memoire.get(k)) || []; } catch { return []; } };
+const suivis = new Set(lireListe('suivis').map(cleNom));
+// Un DLC ne compte que sous son nom exact : « Destiny 2: Pack X » offert ne veut pas dire que Destiny 2 l'est.
+const clesSuivi = (titre, type) => (type === 'dlc' ? [cleNom(titre)] : variantesNom(titre));
+const estSuivi = (g) => clesSuivi(g.titre, g.type).some((k) => suivis.has(k));
+// Offres déjà récupérées : grisées et rangées en bas de la liste.
+const recuperes = new Set(lireListe('recuperes'));
+const langueAuto = (navigator.language || 'fr').slice(0, 2);
+const etat = {
+  onglet: 'jeux', plateformes: new Set(), genre: '', tri: '', recherche: '', donnees: null, suivisSeuls: false, limite: 0,
+  langue: memoire.get('langue') || (T[langueAuto] ? langueAuto : 'en'),
+};
+const $ = (s) => document.querySelector(s);
+const t = (k, ...a) => { const v = T[etat.langue][k]; return typeof v === 'function' ? v(...a) : v; };
+const nomPlateforme = (p) => NOMS[p] || t(p);
+
+// Les données viennent d'API externes : on échappe tout ce qu'on insère.
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+// Adresses https, ou images hébergées avec l'app (jeux libres) ; tout le reste est neutralisé.
+const lienSur = (u) => (/^https:\/\//.test(u) || /^images\/[\w./-]+$/.test(u) ? u : '#');
+
+function finDans(date) {
+  if (!date) return null;
+  const ms = new Date(date) - Date.now();
+  if (ms < 0) return null;
+  return ms < 86400000 ? t('heures', Math.ceil(ms / 3600000)) : t('encore', Math.ceil(ms / 86400000));
+}
+
+// Onglets des offres temporaires (avec date de fin) ; les autres sont des listes de jeux gratuits permanents.
+const offresTemporaires = () => etat.onglet === 'jeux' || etat.onglet === 'dlc';
+const ONGLET_DU_TYPE = { jeu: 'jeux', bientot: 'jeux', dlc: 'dlc', inde: 'indes', demo: 'demos', libre: 'libres' };
+const LISTE_DE_L_ONGLET = { f2p: 'f2p', indes: 'indes', demos: 'demos', libres: 'libres' };
+
+function elements() {
+  const d = etat.donnees;
+  if (!offresTemporaires()) return d[LISTE_DE_L_ONGLET[etat.onglet]] ?? [];
+  const type = etat.onglet === 'jeux' ? 'jeu' : 'dlc';
+  return d.offerts.filter((g) => g.type === type && (!g.fin || new Date(g.fin) > Date.now()));
+}
+const aVenir = () => (etat.donnees.bientot ?? []).filter((g) => new Date(g.debut) > Date.now());
+
+const prix = (g) => parseFloat(String(g.valeur).replace(/[^0-9.]/g, '')) || 0;
+const TRIS = {
+  triFin: (a, b) => (a.fin ? new Date(a.fin) : Infinity) - (b.fin ? new Date(b.fin) : Infinity),
+  triRecent: (a, b) => new Date(b.publie) - new Date(a.publie),
+  triValeur: (a, b) => prix(b) - prix(a),
+  triPopulaire: null, // ordre déjà fourni par FreeToGame
+  triAZ: (a, b) => a.titre.localeCompare(b.titre, etat.langue),
+};
+const trisOnglet = () => (offresTemporaires() ? ['triFin', 'triRecent', 'triValeur', 'triAZ'] : ['triPopulaire', 'triAZ']);
+const options = (valeurs, choisi, libelle) => valeurs.map((v) =>
+  `<option value="${esc(v)}" ${v === choisi ? 'selected' : ''}>${esc(libelle(v))}</option>`).join('');
+
+function badgesDe(g, nbGenres) {
+  const futur = g.debut && new Date(g.debut) > Date.now(); // « Bientôt gratuit » : on annonce le début, pas la fin
+  const fin = !futur && finDans(g.fin);
+  const debut = futur && new Date(g.debut).toLocaleString(etat.langue, { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+  return [
+    futur && `<span class="badge fin">${t('gratuitDes', debut)}</span>`,
+    g.publie && Date.now() - new Date(g.publie) < 86400000 && `<span class="badge nouveau">${t('nouveau')}</span>`,
+    g.valeur && `<span class="badge prix"><s>${esc(g.valeur)}</s>${t('gratuit')}</span>`,
+    fin && `<span class="badge fin">${fin}</span>`,
+    ...(g.genres ?? []).slice(0, nbGenres).map((x) => `<span class="badge">${esc(x)}</span>`),
+  ].filter(Boolean).join('');
+}
+
+function carte(g) {
+  const badges = badgesDe(g, 3);
+  return `<article class="carte${recuperes.has(g.id) ? ' recupere' : ''}" id="${esc(g.id)}">
+    <a href="#${esc(g.id)}" class="ouvrir" tabindex="-1" aria-hidden="true">${g.image
+      ? `<img src="${esc(lienSur(g.image))}" alt="" loading="lazy">`
+      : `<div class="sans-image">${esc(g.titre)}</div>`}</a>
+    <div class="corps">
+      <h2><a href="#${esc(g.id)}" class="ouvrir">${esc(g.titre)}</a></h2>
+      <div class="meta">${esc(metaDe(g))}</div>
+      ${badges && `<div class="badges">${badges}</div>`}
+      <p class="desc">${esc(descriptionDe(g))}</p>
+      ${caseRecupere(g)}
+      ${actionsDe(g)}
+    </div>
+  </article>`;
+}
+
+const caseRecupere = (g) => (g.type === 'jeu' || g.type === 'dlc'
+  ? `<label class="case-recupere"><input type="checkbox" data-id="${esc(g.id)}" ${recuperes.has(g.id) ? 'checked' : ''}> ${t('recupere')}</label>` : '');
+const metaDe = (g) => (g.plateformesTexte || g.plateformes.map(nomPlateforme).join(', ')) + (g.editeur ? ' · ' + g.editeur : '');
+const descriptionDe = (g) => (etat.langue !== 'en' && g.trad?.[etat.langue]) || g.description;
+const actionsDe = (g) => `<div class="actions">
+    <a class="recuperer" href="${esc(lienSur(g.liens?.[etat.langue] ?? g.lien))}" target="_blank" rel="noopener">${t(
+      { jeu: 'recuperer', dlc: 'recuperer', bientot: 'voirEpic', demo: 'essayer' }[g.type] ?? 'jouer')}</a>
+    <button class="suivre" data-titre="${esc(g.titre)}" data-type="${esc(g.type)}" aria-pressed="${estSuivi(g)}" aria-label="${t('suivre')}" title="${t('suivre')}">★</button>
+    <button class="partager" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}">${t('partager')}</button>
+  </div>`;
+
+// ---------- Fiche d'un jeu (…/#ftg57) ----------
+async function ouvrirFiche(g) {
+  etat.fiche = { g, d: null };
+  rendreFiche();
+  $('#fiche').hidden = false;
+  document.body.classList.add('fiche-ouverte');
+  $('#fiche').scrollTop = 0;
+  $('#fiche .fermer').focus();
+  const d = await fetch(`data/jeux/${encodeURIComponent(g.id)}.json`).then((r) => r.json()).catch(() => ({}));
+  if (etat.fiche?.g === g) { etat.fiche.d = d; rendreFiche(); }
+}
+
+function rendreFiche() {
+  const { g, d } = etat.fiche;
+  const youtube = `https://www.youtube.com/results?search_query=${encodeURIComponent(g.titre + ' trailer')}`;
+  const infos = [['developpeur', d?.developpeur], ['editeur', g.editeur], ['sortie', d?.sortie]].filter(([, v]) => v);
+  const config = Object.entries(d?.config ?? {}).filter(([, v]) => v && !/not defined/i.test(v));
+  $('#fiche').innerHTML = `<div class="fiche-contenu">
+    <button class="fermer" aria-label="${t('fermer')}">✕</button>
+    ${g.image ? `<img class="fiche-image${g.type === 'libre' ? ' logo' : ''}" src="${esc(lienSur(g.image))}" alt="">` : ''}
+    <div class="corps">
+      <h2 id="fiche-titre">${esc(g.titre)}</h2>
+      <div class="meta">${esc(metaDe(g))}</div>
+      <div class="badges">${badgesDe(g, Infinity)}</div>
+      ${caseRecupere(g)}
+      ${actionsDe(g)}
+      ${d && !d.videos?.length ? `<a class="bande-annonce" href="${youtube}" target="_blank" rel="noopener">▶ ${t('bandeAnnonce')}</a>` : ''}
+      <p>${esc(descriptionDe(g))}</p>
+      ${!d ? `<p class="meta">${t('chargement')}</p>` : ''}
+      ${d?.videos?.length ? `<h3>${t('videos')}</h3><div class="captures">${d.videos.map((v) =>
+        `<button class="lire-video" ${v.youtube ? `data-youtube="${esc(v.youtube)}"` : `data-hls="${esc(lienSur(v.hls))}"`} aria-label="${t('lire')} : ${esc(v.nom)}">
+          <img src="${esc(lienSur(v.miniature))}" alt="" loading="lazy"><span aria-hidden="true">▶</span></button>`).join('')}</div>` : ''}
+      ${d?.instructions ? `<h3>${t('commentRecuperer')}</h3><p class="texte">${esc(d.instructions)}</p>` : ''}
+      ${d?.captures?.length ? `<h3>${t('captures')}</h3><div class="captures">${d.captures.map((c) =>
+        `<img src="${esc(lienSur(c))}" alt="" loading="lazy">`).join('')}</div>` : ''}
+      ${d?.source || d?.sourceVideo ? `<p class="meta">${t('sourcesMedias')} ${esc([d.source, d.sourceVideo].filter(Boolean).join(', '))}</p>` : ''}
+      ${g.credit ? `<p class="meta">${t('creditImage')} <a href="${esc(lienSur(g.creditLien))}" target="_blank" rel="noopener">${esc(g.credit)}</a></p>` : ''}
+      ${d?.descriptionLongue ? `<h3>${t('aPropos')} <span class="meta">${etat.langue === 'en' ? '' : t('enAnglais')}</span></h3>
+        <p class="texte">${esc(d.descriptionLongue)}</p>` : ''}
+      ${infos.length ? `<dl>${infos.map(([k, v]) => `<dt>${t(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : ''}
+      ${config.length ? `<h3>${t('configMin')}</h3><dl>${config.map(([k, v]) =>
+        `<dt>${t({ os: 'os', processor: 'processeur', memory: 'memoire', graphics: 'graphismes', storage: 'stockage' }[k] ?? 'os')}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : ''}
+    </div>
+  </div>`;
+}
+
+// Vidéos Steam (format HLS) : Safari les lit seul, les autres navigateurs via hls.js, chargé au premier clic.
+let hls;
+const chargerHls = () => hls ??= new Promise((ok, ko) => {
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js';
+  s.onload = ok;
+  s.onerror = ko;
+  document.head.append(s);
+});
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('.lire-video');
+  if (!b) return;
+  if (b.dataset.youtube) { // version sans cookies de YouTube, chargée seulement maintenant
+    const f = Object.assign(document.createElement('iframe'), {
+      className: 'video', title: b.getAttribute('aria-label'), allowFullscreen: true,
+      src: `https://www.youtube-nocookie.com/embed/${encodeURIComponent(b.dataset.youtube)}?autoplay=1`,
+    });
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    return b.replaceWith(f);
+  }
+  const v = Object.assign(document.createElement('video'), { controls: true, playsInline: true, className: 'video' });
+  v.poster = b.querySelector('img').src;
+  b.replaceWith(v);
+  if (v.canPlayType('application/vnd.apple.mpegurl')) v.src = b.dataset.hls;
+  else {
+    try { await chargerHls(); } catch { hls = null; return; }
+    const h = new Hls();
+    h.loadSource(b.dataset.hls);
+    h.attachMedia(v);
+  }
+  v.play().catch(() => {}); // si le navigateur bloque la lecture auto, les contrôles restent là
+});
+
+function fermerFiche() {
+  if (!etat.fiche) return;
+  const id = etat.fiche.g.id;
+  etat.fiche = null;
+  $('#fiche').hidden = true;
+  document.body.classList.remove('fiche-ouverte');
+  document.getElementById(id)?.scrollIntoView({ block: 'center' });
+}
+
+function carteRetro() {
+  return `<article class="carte retro">
+    <div class="corps">
+      <h2>${t('retroTitre')}</h2>
+      <p>${t('retroTexte')}</p>
+      <a class="recuperer" href="https://www.abandonware-france.org" target="_blank" rel="noopener">${t('retroBouton')}</a>
+      <p class="meta">${t('retroNote')}</p>
+    </div>
+  </article>`;
+}
+
+// L'adresse (…/#gp1234) dit quelle fiche est ouverte : clic sur un jeu, lien partagé, bouton retour.
+function suivreAdresse() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const d = etat.donnees;
+  const g = id && ['offerts', 'bientot', 'f2p', 'indes', 'demos', 'libres'].map((l) => d[l]?.find((x) => x.id === id)).find(Boolean);
+  if (!g) return fermerFiche(); // pas de fiche, jeu expiré ou lien inconnu : la liste
+  const onglet = ONGLET_DU_TYPE[g.type] ?? 'f2p';
+  if (onglet !== etat.onglet) { // arrivée par un lien partagé : la liste derrière montre le jeu, sans filtre
+    etat.onglet = onglet;
+    etat.plateformes.clear();
+    etat.genre = '';
+    etat.recherche = $('#recherche').value = '';
+    document.querySelectorAll('[data-onglet]').forEach((x) => x.setAttribute('aria-selected', x.dataset.onglet === onglet));
+    afficher();
+  }
+  document.querySelectorAll('.carte.cible').forEach((c) => c.classList.remove('cible'));
+  document.getElementById(id)?.classList.add('cible');
+  ouvrirFiche(g);
+}
+addEventListener('hashchange', suivreAdresse);
+
+let ficheDepuisListe = false; // ouverte en cliquant dans l'app (sinon : arrivée par un lien partagé)
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.ouvrir')) ficheDepuisListe = true;
+  if (!e.target.closest('#fiche .fermer')) return;
+  if (ficheDepuisListe) return history.back(); // revient à la liste, comme le bouton retour
+  history.replaceState(null, '', location.pathname + location.search);
+  fermerFiche();
+});
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && etat.fiche) $('#fiche .fermer').click(); });
+
+function afficher() {
+  if (!etat.donnees) return;
+  const actif = document.querySelector('.onglets [aria-selected="true"]'); // garde l'onglet choisi visible dans la barre
+  actif.parentElement.scrollLeft = actif.offsetLeft - (actif.parentElement.clientWidth - actif.offsetWidth) / 2;
+  const tous = elements();
+  // Toutes les plateformes, même vides ; « Navigateur » seulement pour les jeux permanents.
+  const filtres = PLATEFORMES.filter((p) => p !== 'navigateur' || !offresTemporaires());
+  etat.plateformes.forEach((p) => filtres.includes(p) || etat.plateformes.delete(p));
+  $('#plateformes').innerHTML = [null, ...filtres].map((p) =>
+    `<button data-plateforme="${p ?? ''}" aria-pressed="${p ? etat.plateformes.has(p) : !etat.plateformes.size}">${p ? nomPlateforme(p) : t('toutes')}</button>`
+  ).join('');
+
+  const genres = [...new Set(tous.flatMap((g) => g.genres ?? []))].sort();
+  if (!genres.includes(etat.genre)) etat.genre = '';
+  $('#genre').hidden = !genres.length;
+  $('#genre').setAttribute('aria-label', t('genre'));
+  $('#genre').innerHTML = options(['', ...genres], etat.genre, (v) => v || t('genres'));
+
+  if (!trisOnglet().includes(etat.tri)) etat.tri = trisOnglet()[0];
+  $('#tri').setAttribute('aria-label', t('tri'));
+  $('#tri').innerHTML = options(trisOnglet(), etat.tri, t);
+
+  const q = etat.recherche.toLowerCase();
+  const garde = (g) =>
+    (!etat.plateformes.size || [...etat.plateformes].some((p) => g.plateformes.includes(p) || g.plateformes.includes(AUSSI[p]))) &&
+    (!etat.genre || g.genres?.includes(etat.genre)) &&
+    (!q || g.titre.toLowerCase().includes(q)) &&
+    (!etat.suivisSeuls || estSuivi(g));
+  const liste = tous.filter(garde);
+  if (TRIS[etat.tri]) liste.sort(TRIS[etat.tri]);
+  liste.sort((a, b) => recuperes.has(a.id) - recuperes.has(b.id)); // tri stable : l'ordre choisi reste dans chaque groupe
+
+  // Par paquets de 40 (plus de 500 free-to-play) ; on repart de 40 dès que l'onglet ou un filtre change.
+  const reglages = JSON.stringify([etat.onglet, [...etat.plateformes], etat.genre, etat.tri, q, etat.suivisSeuls]);
+  if (reglages !== etat.reglages) { etat.reglages = reglages; etat.limite = PAQUET; }
+  const cible = liste.findIndex((g) => g.id === decodeURIComponent(location.hash.slice(1))); // lien partagé vers un jeu plus bas
+  if (cible >= etat.limite) etat.limite = Math.ceil((cible + 1) / PAQUET) * PAQUET;
+
+  const total = liste.reduce((somme, g) => somme + prix(g), 0);
+  const montant = new Intl.NumberFormat(etat.langue, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(total);
+  $('#resume').textContent = t(offresTemporaires() ? 'nbOffres' : etat.onglet === 'f2p' ? 'nbF2p' : 'nbJeux', liste.length)
+    + (total ? ' · ' + t('economie', montant) : '');
+
+  $('#suivis').setAttribute('aria-pressed', etat.suivisSeuls);
+  $('#suivis').textContent = '★ ' + t('mesSuivis');
+  afficherBandeau();
+
+  const bientot = etat.onglet === 'jeux' ? aVenir().filter(garde) : [];
+  $('#liste').innerHTML = (bientot.length
+    ? `<h2 class="section">${t('bientot')}</h2>${bientot.map(carte).join('')}<h2 class="section">${t('enCeMoment')}</h2>` : '')
+    + (liste.slice(0, etat.limite).map(carte).join('') || messageVide())
+    + (liste.length > etat.limite ? `<button class="voir-plus">${t('voirPlus', liste.length - etat.limite)}</button>` : '')
+    + (etat.onglet === 'libres' ? carteRetro() : '');
+}
+
+const PAQUET = 40;
+
+// Liste vide : dire pourquoi, et proposer d'effacer les filtres s'il y en a.
+function messageVide() {
+  const filtres = [...etat.plateformes].map(nomPlateforme);
+  if (etat.genre) filtres.push(etat.genre);
+  if (etat.recherche) filtres.push(`« ${etat.recherche} »`);
+  const effacer = `<button class="effacer">${t('effacer')}</button>`;
+  if (etat.suivisSeuls && !filtres.length) return `<div class="vide"><p>${t('aucunSuivi')}</p>${effacer}</div>`;
+  if (etat.suivisSeuls) filtres.push('★');
+  if (!filtres.length) return `<p class="vide">${esc(t('videOnglet', t(etat.onglet)))}</p>`;
+  return `<div class="vide"><p>${esc(t('videFiltres', t(etat.onglet), filtres.join(' · ')))}</p>${effacer}</div>`;
+}
+
+// Bandeau à l'ouverture : les jeux suivis qui sont offerts en ce moment ou bientôt (les free-to-play le sont toujours).
+function afficherBandeau() {
+  const date = (x) => new Date(x).toLocaleDateString(etat.langue, { day: 'numeric', month: 'long' });
+  const alertes = [...etat.donnees.offerts.filter((g) => !g.fin || new Date(g.fin) > Date.now()), ...aVenir()]
+    .filter((g) => estSuivi(g) && !recuperes.has(g.id))
+    .map((g) => `<a href="#${esc(g.id)}" class="ouvrir">🔔 ${esc(
+      g.debut && new Date(g.debut) > Date.now() ? t('alerteBientot', g.titre, date(g.debut))
+        : g.fin ? t('alerteJusqua', g.titre, date(g.fin)) : t('alerteMaintenant', g.titre))}</a>`);
+  $('#bandeau').innerHTML = alertes.join('');
+  $('#bandeau').hidden = !alertes.length;
+}
+
+function traduirePage() {
+  document.documentElement.lang = etat.langue;
+  $('#langue').value = etat.langue;
+  document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = t(el.dataset.t); });
+  document.querySelectorAll('[data-t-placeholder]').forEach((el) => {
+    el.placeholder = t(el.dataset.tPlaceholder);
+    el.setAttribute('aria-label', el.placeholder);
+  });
+  if (etat.donnees) {
+    $('#maj').textContent = `${t('maj')} ${new Date(etat.donnees.maj).toLocaleString(etat.langue, { dateStyle: 'long', timeStyle: 'short' })}`;
+  }
+  afficher();
+}
+
+document.querySelector('.onglets').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-onglet]');
+  if (!b) return;
+  document.querySelectorAll('[data-onglet]').forEach((x) => x.setAttribute('aria-selected', x === b));
+  etat.onglet = b.dataset.onglet;
+  afficher();
+  scrollTo({ top: 0 });
+});
+$('#plateformes').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-plateforme]');
+  if (!b) return;
+  const p = b.dataset.plateforme;
+  if (!p) etat.plateformes.clear();
+  else if (!etat.plateformes.delete(p)) etat.plateformes.add(p); // clic = cocher / décocher
+  afficher();
+});
+// Partage : menu natif du téléphone, sinon copie du lien
+document.addEventListener('click', async (e) => { // liste et fiche
+  const b = e.target.closest('.partager');
+  if (!b) return;
+  const texte = t('partageTexte', b.dataset.titre);
+  const url = `${location.origin}${location.pathname}#${b.dataset.id}`; // mène directement au jeu
+  if (navigator.share) return navigator.share({ title: document.title, text: texte, url }).catch(() => {});
+  try {
+    await navigator.clipboard.writeText(`${texte} ${url}`);
+    b.textContent = t('lienCopie');
+  } catch {}
+});
+document.addEventListener('click', (e) => { // ★ sur une carte ou dans la fiche
+  const b = e.target.closest('.suivre');
+  if (!b) return;
+  const cles = clesSuivi(b.dataset.titre, b.dataset.type);
+  if (cles.some((k) => suivis.has(k))) cles.forEach((k) => suivis.delete(k)); // ne plus suivre, sous tous ses noms
+  else suivis.add(cleNom(b.dataset.titre));
+  memoire.set('suivis', JSON.stringify([...suivis]));
+  document.querySelectorAll('.suivre').forEach((x) => x.setAttribute('aria-pressed', clesSuivi(x.dataset.titre, x.dataset.type).some((k) => suivis.has(k))));
+  afficherBandeau(); // pas afficher() : la carte ne doit pas disparaître sous le doigt avec le filtre actif
+});
+document.addEventListener('change', (e) => { // « Je l'ai récupéré », sur la carte ou dans la fiche
+  const c = e.target.closest('.case-recupere input');
+  if (!c) return;
+  if (c.checked) recuperes.add(c.dataset.id); else recuperes.delete(c.dataset.id);
+  memoire.set('recuperes', JSON.stringify([...recuperes]));
+  document.querySelectorAll(`.case-recupere input[data-id="${CSS.escape(c.dataset.id)}"]`).forEach((x) => { x.checked = c.checked; });
+  document.getElementById(c.dataset.id)?.classList.toggle('recupere', c.checked);
+  afficherBandeau(); // la carte reste en place ; elle descendra au prochain affichage
+});
+$('#liste').addEventListener('click', (e) => {
+  if (e.target.closest('.voir-plus')) { etat.limite += PAQUET; afficher(); }
+  if (e.target.closest('.effacer')) {
+    etat.plateformes.clear();
+    etat.genre = '';
+    etat.recherche = $('#recherche').value = '';
+    etat.suivisSeuls = false;
+    afficher();
+  }
+});
+$('#suivis').addEventListener('click', () => { etat.suivisSeuls = !etat.suivisSeuls; afficher(); });
+$('#genre').addEventListener('change', (e) => { etat.genre = e.target.value; afficher(); });
+$('#tri').addEventListener('change', (e) => { etat.tri = e.target.value; afficher(); });
+$('#recherche').addEventListener('input', (e) => { etat.recherche = e.target.value; afficher(); });
+$('#langue').addEventListener('change', (e) => { etat.langue = e.target.value; memoire.set('langue', etat.langue); traduirePage(); });
+
+// Bouton "Installer" (Android / Chrome / Edge)
+let invite;
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); invite = e; $('#installer').hidden = false; });
+$('#installer').addEventListener('click', () => { invite?.prompt(); $('#installer').hidden = true; });
+
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+
+traduirePage();
+fetch('data/jeux.json', { cache: 'no-cache' })
+  .then((r) => r.json())
+  .then((d) => { etat.donnees = d; traduirePage(); suivreAdresse(); })
+  .catch(() => { $('#liste').innerHTML = `<p class="vide">${t('erreur')}</p>`; });

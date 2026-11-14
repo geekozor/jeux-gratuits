@@ -1,0 +1,12 @@
+{
+  "name": "jeux-gratuits-geekozor",
+  "scripts": {
+    "maj": "node --env-file-if-exists=.env scripts/update.mjs",
+    "dev": "npx serve public"
+  },
+  "type": "module",
+  "private": "true",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0"
+  }
+}

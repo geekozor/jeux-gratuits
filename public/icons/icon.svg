@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#3ddc84"/>
+  <path d="M150 196h212a62 62 0 0 1 61 72l-17 98a40 40 0 0 1-68 21l-46-49h-72l-46 49a40 40 0 0 1-68-21l-17-98a62 62 0 0 1 61-72z" fill="#0f1115"/>
+  <rect x="166" y="244" width="22" height="70" rx="6" fill="#3ddc84"/>
+  <rect x="142" y="268" width="70" height="22" rx="6" fill="#3ddc84"/>
+  <circle cx="338" cy="256" r="15" fill="#3ddc84"/>
+  <circle cx="370" cy="290" r="15" fill="#3ddc84"/>
+  <text x="256" y="152" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="96" fill="#0f1115">0€</text>
+</svg>
