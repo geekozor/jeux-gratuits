@@ -72,9 +72,9 @@ python -m http.server 8765 --directory public
 - Le serveur Python donne l'aperçu sur http://localhost:8765.
 
 ## Prochaine étape : la mise en ligne
-1. Le propriétaire crée un compte GitHub. Ce n'est pas encore fait.
-2. Créer le dépôt, activer Pages (source : GitHub Actions) et ajouter le secret `ANTHROPIC_API_KEY` (facultatif, payant).
-3. Dans `public/index.html`, mettre `og:image` et `og:url` en adresses complètes.
+1. Fait le 14/11/2026 : compte `geekozor`, dépôt public https://github.com/geekozor/jeux-gratuits (branche main, poussé). Site prévu : https://geekozor.github.io/jeux-gratuits/
+2. Fait le 14/11/2026 : Pages activé, site en ligne et premier workflow réussi. Secret `ANTHROPIC_API_KEY` reporté : pas encore de crédits API, le site tourne sans traductions en attendant.
+3. Fait : `og:image` et `og:url` en adresses github.io complètes (à changer si nom de domaine).
 4. Vérifier que les e-mails d'échec GitHub Actions sont activés.
 5. Le chemin des traductions Claude n'a jamais tourné avec une vraie clé : à tester.
 
