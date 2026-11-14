@@ -1,5 +1,5 @@
 // Hors-ligne : l'app s'ouvre même sans réseau, avec la dernière liste connue.
-const CACHE = 'jeux-v4';
+const CACHE = 'jeux-v5';
 const COQUILLE = ['./', 'index.html', 'style.css', 'app.js', 'noms.js', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png'];
 
 // skipWaiting : la nouvelle version remplace l'ancienne tout de suite, sans attendre que l'app soit fermée.
