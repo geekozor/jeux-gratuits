@@ -142,6 +142,9 @@ const nomPlateforme = (p) => NOMS[p] || t(p);
 
 // Les données viennent d'API externes : on échappe tout ce qu'on insère.
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+// Statistiques GoatCounter. count.js arrive parfois après app.js (lien partagé vers une fiche) : on attend qu'il soit chargé.
+const stat = (o) => (window.goatcounter?.count ? goatcounter.count(o)
+  : document.querySelector('script[data-goatcounter]')?.addEventListener('load', () => window.goatcounter?.count?.(o), { once: true }));
 // Adresses https, ou images hébergées avec l'app (jeux libres) ; tout le reste est neutralisé.
 const lienSur = (u) => (/^https:\/\//.test(u) || /^images\/[\w./-]+$/.test(u) ? u : '#');
 
@@ -212,7 +215,7 @@ const caseRecupere = (g) => (g.type === 'jeu' || g.type === 'dlc'
 const metaDe = (g) => (g.plateformesTexte || g.plateformes.map(nomPlateforme).join(', ')) + (g.editeur ? ' · ' + g.editeur : '');
 const descriptionDe = (g) => (etat.langue !== 'en' && g.trad?.[etat.langue]) || g.description;
 const actionsDe = (g) => `<div class="actions">
-    <a class="recuperer" href="${esc(lienSur(g.liens?.[etat.langue] ?? g.lien))}" target="_blank" rel="noopener">${t(
+    <a class="recuperer" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}" href="${esc(lienSur(g.liens?.[etat.langue] ?? g.lien))}" target="_blank" rel="noopener">${t(
       { jeu: 'recuperer', dlc: 'recuperer', bientot: 'voirEpic', demo: 'essayer' }[g.type] ?? 'jouer')}</a>
     <button class="suivre" data-titre="${esc(g.titre)}" data-type="${esc(g.type)}" aria-pressed="${estSuivi(g)}" aria-label="${t('suivre')}" title="${t('suivre')}">★</button>
     <button class="partager" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}">${t('partager')}</button>
@@ -221,6 +224,7 @@ const actionsDe = (g) => `<div class="actions">
 // ---------- Fiche d'un jeu (…/#ftg57) ----------
 async function ouvrirFiche(g) {
   etat.fiche = { g, d: null };
+  stat({ path: `jeu/${g.id}`, title: g.titre });
   rendreFiche();
   $('#fiche').hidden = false;
   document.body.classList.add('fiche-ouverte');
@@ -448,6 +452,7 @@ document.querySelector('.onglets').addEventListener('click', (e) => {
   if (!b) return;
   document.querySelectorAll('[data-onglet]').forEach((x) => x.setAttribute('aria-selected', x === b));
   etat.onglet = b.dataset.onglet;
+  stat({ path: `onglet/${etat.onglet}`, title: b.textContent.trim() });
   afficher();
   scrollTo({ top: 0 });
 });
@@ -459,10 +464,16 @@ $('#plateformes').addEventListener('click', (e) => {
   else if (!etat.plateformes.delete(p)) etat.plateformes.add(p); // clic = cocher / décocher
   afficher();
 });
+// Clic vers la boutique (Steam, Epic…) : ce qui comptera pour les liens affiliés
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a.recuperer');
+  if (a) stat({ path: `clic/${a.dataset.id ?? 'abandonware'}`, title: `${a.dataset.titre ?? 'Abandonware France'} → ${new URL(a.href).hostname}`, event: true });
+});
 // Partage : menu natif du téléphone, sinon copie du lien
 document.addEventListener('click', async (e) => { // liste et fiche
   const b = e.target.closest('.partager');
   if (!b) return;
+  stat({ path: `partage/${b.dataset.id}`, title: b.dataset.titre, event: true });
   const texte = t('partageTexte', b.dataset.titre);
   const url = `${location.origin}${location.pathname}#${b.dataset.id}`; // mène directement au jeu
   if (navigator.share) return navigator.share({ title: document.title, text: texte, url }).catch(() => {});
