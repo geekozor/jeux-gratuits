@@ -37,8 +37,8 @@ h1 span { display: block; font-size: 13px; font-weight: 600; color: var(--accent
   padding: 7px 14px; font-weight: 700; cursor: pointer;
 }
 
-/* 6 onglets : ils défilent horizontalement sur téléphone */
-.onglets { display: flex; gap: 6px; margin: 12px 0 10px; overflow-x: auto; scrollbar-width: none; }
+/* 6 onglets : ils passent sur 2 lignes sur téléphone, tous visibles */
+.onglets { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 10px; }
 .onglets button {
   flex: 1 0 auto; white-space: nowrap; padding: 8px 12px; border-radius: 10px; font-size: 13px; line-height: 1.2;
   border: 1px solid var(--bord); background: var(--carte); color: var(--doux);
@@ -51,6 +51,10 @@ h1 span { display: block; font-size: 13px; font-weight: 600; color: var(--accent
   background: var(--carte); color: var(--texte); font: inherit;
 }
 .puces { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; scrollbar-width: none; }
+/* Téléphone : bord droit en fondu pour montrer qu'on peut faire défiler les plateformes */
+@media (max-width: 700px) {
+  .puces { -webkit-mask-image: linear-gradient(to right, #000 80%, transparent); mask-image: linear-gradient(to right, #000 80%, transparent); padding-right: 40px; }
+}
 .puces button {
   white-space: nowrap; padding: 5px 12px; border-radius: 99px; border: 1px solid var(--bord);
   background: transparent; color: var(--doux); font: inherit; font-size: 13px; cursor: pointer;

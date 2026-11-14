@@ -13,7 +13,7 @@ const T = {
     nouveau: 'Nouveau',
     genres: 'Tous les genres', genre: 'Genre', tri: 'Trier',
     triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
-    installer: 'Installer', jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
+    installerIos: "Pour installer : touche le bouton Partager (carré avec une flèche) puis « Sur l'écran d'accueil ».", installer: 'Installer', jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
     recherche: 'Rechercher un jeu…', toutes: 'Toutes', recuperer: 'Récupérer', jouer: 'Jouer gratuitement',
     gratuit: 'Gratuit', encore: (n) => `Encore ${n} j`,
     nbOffres: (n) => `${n} offres en cours`, nbF2p: (n) => `${n} jeux free-to-play`,
@@ -35,7 +35,7 @@ const T = {
     nouveau: 'New',
     genres: 'All genres', genre: 'Genre', tri: 'Sort',
     triFin: 'Ending soonest', triRecent: 'Newest', triValeur: 'Highest value', triPopulaire: 'Popular', triAZ: 'A to Z',
-    installer: 'Install', jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'To install: tap the Share button (square with an arrow), then “Add to Home Screen”.', installer: 'Install', jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Search a game…', toutes: 'All', recuperer: 'Claim', jouer: 'Play for free',
     gratuit: 'Free', encore: (n) => `${n} days left`,
     nbOffres: (n) => `${n} active offers`, nbF2p: (n) => `${n} free-to-play games`,
@@ -57,7 +57,7 @@ const T = {
     nouveau: 'Nuovo',
     genres: 'Tutti i generi', genre: 'Genere', tri: 'Ordina',
     triFin: 'In scadenza', triRecent: 'Più recenti', triValeur: 'Valore più alto', triPopulaire: 'Popolari', triAZ: 'Dalla A alla Z',
-    installer: 'Installa', jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
+    installerIos: 'Per installare: tocca il pulsante Condividi (quadrato con una freccia), poi « Aggiungi alla schermata Home ».', installer: 'Installa', jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
     recherche: 'Cerca un gioco…', toutes: 'Tutte', recuperer: 'Riscatta', jouer: 'Gioca gratis',
     gratuit: 'Gratis', encore: (n) => `Ancora ${n} g`,
     nbOffres: (n) => `${n} offerte attive`, nbF2p: (n) => `${n} giochi free-to-play`,
@@ -79,7 +79,7 @@ const T = {
     nouveau: 'Neu',
     genres: 'Alle Genres', genre: 'Genre', tri: 'Sortieren',
     triFin: 'Endet bald', triRecent: 'Neueste', triValeur: 'Höchster Wert', triPopulaire: 'Beliebt', triAZ: 'A bis Z',
-    installer: 'Installieren', jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'Zum Installieren: Tippe auf Teilen (Quadrat mit Pfeil) und dann auf „Zum Home-Bildschirm“.', installer: 'Installieren', jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Spiel suchen…', toutes: 'Alle', recuperer: 'Holen', jouer: 'Kostenlos spielen',
     gratuit: 'Gratis', encore: (n) => `Noch ${n} T.`,
     nbOffres: (n) => `${n} aktuelle Angebote`, nbF2p: (n) => `${n} Free-to-play-Spiele`,
@@ -101,7 +101,7 @@ const T = {
     nouveau: 'Nuevo',
     genres: 'Todos los géneros', genre: 'Género', tri: 'Ordenar',
     triFin: 'Terminan antes', triRecent: 'Más recientes', triValeur: 'Mayor valor', triPopulaire: 'Populares', triAZ: 'De la A a la Z',
-    installer: 'Instalar', jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'Para instalar: toca el botón Compartir (cuadrado con una flecha) y luego «Añadir a pantalla de inicio».', installer: 'Instalar', jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Buscar un juego…', toutes: 'Todas', recuperer: 'Conseguir', jouer: 'Jugar gratis',
     gratuit: 'Gratis', encore: (n) => `Quedan ${n} d`,
     nbOffres: (n) => `${n} ofertas activas`, nbF2p: (n) => `${n} juegos free-to-play`,
@@ -509,7 +509,13 @@ $('#langue').addEventListener('change', (e) => { etat.langue = e.target.value; m
 // Bouton "Installer" (Android / Chrome / Edge)
 let invite;
 addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); invite = e; $('#installer').hidden = false; });
-$('#installer').addEventListener('click', () => { invite?.prompt(); $('#installer').hidden = true; });
+// iPhone / iPad : pas d'invite d'installation, on explique le geste « Sur l'écran d'accueil ».
+const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if (ios && !navigator.standalone) $('#installer').hidden = false;
+$('#installer').addEventListener('click', () => {
+  if (!invite) return alert(t('installerIos'));
+  invite.prompt(); $('#installer').hidden = true;
+});
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
