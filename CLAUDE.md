@@ -86,7 +86,7 @@ python -m http.server 8765 --directory public
   - Sur iPhone, les notifications ne marchent que si l'app est installée sur l'écran d'accueil.
 - **Onglet « Bons plans »** : les promos de CheapShark, avec les liens affiliés du propriétaire. Pas les alertes e-mail de CheapShark.
 - **Monétisation** : pages légales, bandeau cookies, nom de domaine (AdSense refuse github.io), AdSense, emplacement de pub dans la fiche, liens affiliés.
-- **Pour attirer du monde** : chaîne Telegram ou Discord qui publie toute seule les nouveaux jeux offerts ; statistiques sans cookies (GoatCounter).
+- **Pour attirer du monde** : chaîne Telegram ou Discord qui publie toute seule les nouveaux jeux offerts ; statistiques sans cookies (GoatCounter : fait, compte `geekozor`, compte seulement l'ouverture du site, pas les fiches `#<id>`).
 - **Référencement** : filtres dans l'adresse (`#f2p/ps5/...`) et une page par jeu.
 - **Petites choses** :
   - Filtres par boutique Steam, Epic ou GOG.
