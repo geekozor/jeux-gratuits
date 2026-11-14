@@ -273,6 +273,9 @@ let hls;
 const chargerHls = () => hls ??= new Promise((ok, ko) => {
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js';
+  // Empreinte du fichier : si le CDN est piraté et le fichier modifié, le navigateur refuse de l'exécuter.
+  s.integrity = 'sha384-w6Gb3fXHb5e1LUYa/hYA5Q41bEDglN5ZPCG7Jvnoo8/X90oGnlPqBlBJCe38mEMm';
+  s.crossOrigin = 'anonymous';
   s.onload = ok;
   s.onerror = ko;
   document.head.append(s);

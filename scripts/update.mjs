@@ -492,6 +492,7 @@ await writeFile(OUT, JSON.stringify({ maj: new Date().toISOString(), offerts, bi
 await writeFile(CACHE, JSON.stringify(cache));
 await rm(DETAILS, { recursive: true, force: true });
 await mkdir(DETAILS, { recursive: true });
-await Promise.all([...details].map(([id, d]) => writeFile(new URL(`${id}.json`, DETAILS), JSON.stringify(d))));
+// Les id viennent en partie des sources : un id du genre « ../x » écrirait hors du dossier, donc on l'écarte.
+await Promise.all([...details].filter(([id]) => /^[\w-]+$/.test(id)).map(([id, d]) => writeFile(new URL(`${id}.json`, DETAILS), JSON.stringify(d))));
 console.log(`${offerts.length} offerts, ${bientot.length} bientôt, ${f2p.length} free-to-play, ${indes.length} indés, ${demos.length} démos, ${libres.length} libres, `
   + `${details.size} fiches, ${Object.keys(cache.trad).length} traductions en cache`);
