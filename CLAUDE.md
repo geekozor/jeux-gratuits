@@ -65,6 +65,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 - Messages clairs quand une liste est vide, et affichage par paquets de 40.
 - Jeux suivis ★, étape 1 : mémorisés sur le téléphone (localStorage `suivis`), avec un bandeau à l'ouverture et un filtre « Mes jeux suivis ».
 - Case « Je l'ai récupéré » (localStorage `recuperes`).
+- Historique « Déjà offerts » en bas de l'onglet Jeux offerts (15/11/2026) : `cache.offresVues` note les jeux offerts en cours, ceux qui disparaissent de GamerPower passent dans `cache.historique` (dates + valeur). Total sur tout l'historique, 200 derniers dans jeux.json. Commencé le 15/11/2026 : les sources ne donnent pas les offres passées.
 
 ## Tests et aperçu local
 ```

@@ -480,6 +480,30 @@ for (const d of details.values()) {
   if (ti) d.tradInstructions = ti;
 }
 
+// ---------- Historique des jeux offerts ----------
+// Les sources ne donnent que les offres en cours : on note chaque jeu offert pendant l'offre (cache.offresVues),
+// et quand il disparaît de GamerPower il passe dans cache.historique (le cache est commité par le workflow).
+cache.offresVues ??= {};
+cache.historique ??= [];
+cache.historiqueDepuis ??= new Date().toISOString();
+const offertsJeux = offerts.filter((g) => g.type === 'jeu');
+for (const g of offertsJeux) {
+  cache.offresVues[g.id] = {
+    id: g.id, titre: g.titre, valeur: g.valeur, plateformes: g.plateformes, plateformesTexte: g.plateformesTexte,
+    debut: cache.offresVues[g.id]?.debut ?? g.publie, fin: g.fin,
+  };
+}
+// Liste vide = sans doute un raté de GamerPower : on ne vide pas tout dans l'historique.
+if (offertsJeux.length) {
+  const actifs = new Set(offertsJeux.map((g) => g.id));
+  for (const [id, g] of Object.entries(cache.offresVues)) {
+    if (actifs.has(id)) continue;
+    // Retiré avant sa date de fin (ou sans date) : on note le moment où il a disparu.
+    cache.historique.unshift({ ...g, fin: g.fin && new Date(g.fin) < Date.now() ? g.fin : new Date().toISOString() });
+    delete cache.offresVues[id];
+  }
+}
+
 // ---------- Exclusions faites à la main (data/exclusions.json) ----------
 const exclus = new Set(JSON.parse(await readFile(new URL('../data/exclusions.json', import.meta.url), 'utf8')).titres.map(cle));
 for (const liste of [offerts, bientot, f2p, indes, demos, libres]) {
@@ -501,7 +525,14 @@ if (alertes.length) console.warn('ALERTES :\n' + alertes.join('\n'));
 // ---------- Écriture ----------
 await mkdir(new URL('.', OUT), { recursive: true });
 await mkdir(new URL('.', CACHE), { recursive: true });
-await writeFile(OUT, JSON.stringify({ maj: new Date().toISOString(), offerts, bientot, f2p, indes, demos, libres }));
+const historique = cache.historique.filter((g) => !exclus.has(cle(g.titre)));
+const valeurDe = (g) => parseFloat(String(g.valeur).replace(/[^0-9.]/g, '')) || 0;
+await writeFile(OUT, JSON.stringify({
+  maj: new Date().toISOString(), offerts, bientot, f2p, indes, demos, libres,
+  // shortcut: seuls les 200 derniers vont dans l'app (poids du fichier) ; le total compte tout l'historique.
+  historique: historique.slice(0, 200), historiqueNb: historique.length,
+  historiqueTotal: Math.round(historique.reduce((s, g) => s + valeurDe(g), 0)), historiqueDepuis: cache.historiqueDepuis,
+}));
 await writeFile(CACHE, JSON.stringify(cache));
 await rm(DETAILS, { recursive: true, force: true });
 await mkdir(DETAILS, { recursive: true });

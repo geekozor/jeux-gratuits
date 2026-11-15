@@ -281,3 +281,13 @@ body.fiche-ouverte { overflow: hidden; }
 }
 .visionneuse .prec { left: 10px; }
 .visionneuse .suiv { right: 10px; }
+
+/* Historique des jeux déjà offerts (fin de l'onglet Jeux offerts) */
+.historique-total { grid-column: 1 / -1; margin: 0; color: var(--doux); font-size: 14px; }
+.historique { grid-column: 1 / -1; list-style: none; margin: 0; padding: 0; border: 1px solid var(--bord); border-radius: 12px; }
+.historique li { display: flex; align-items: baseline; gap: 12px; padding: 10px 14px; font-size: 14px; }
+.historique li + li { border-top: 1px solid var(--bord); }
+.historique .dates { color: var(--doux); flex: none; min-width: 7.5em; font-variant-numeric: tabular-nums; }
+.historique .titre { flex: 1; min-width: 0; }
+.historique small { display: block; color: var(--doux); font-size: 12px; }
+.historique s { color: var(--doux); flex: none; }
