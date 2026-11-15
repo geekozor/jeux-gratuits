@@ -142,6 +142,16 @@ const nomPlateforme = (p) => NOMS[p] || t(p);
 
 // Les données viennent d'API externes : on échappe tout ce qu'on insère.
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+// Icônes dessinées, à la place de ★ ✕ ▶ 🔔 qui changent d'aspect d'un téléphone à l'autre.
+const ICONES = {
+  etoile: 'M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3-4.6-4.5 6.4-.9z',
+  partager: 'M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6',
+  coche: 'M5 12.5l4.5 4.5L19 7',
+  croix: 'M6 6l12 12M18 6L6 18',
+  lecture: 'M8 5v14l11-7z',
+  cloche: 'M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0',
+};
+const icone = (nom) => `<svg class="ic ic-${nom}" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONES[nom]}"/></svg>`;
 // Statistiques GoatCounter. count.js arrive parfois après app.js (lien partagé vers une fiche) : on attend qu'il soit chargé.
 const stat = (o) => (window.goatcounter?.count ? goatcounter.count(o)
   : document.querySelector('script[data-goatcounter]')?.addEventListener('load', () => window.goatcounter?.count?.(o), { once: true }));
@@ -158,11 +168,15 @@ document.querySelectorAll('.reseaux').forEach((el) => { el.innerHTML = reseauxHT
 // Adresses https, ou images hébergées avec l'app (jeux libres) ; tout le reste est neutralisé.
 const lienSur = (u) => (/^https:\/\//.test(u) || /^images\/[\w./-]+$/.test(u) ? u : '#');
 
-function finDans(date) {
-  if (!date) return null;
-  const ms = new Date(date) - Date.now();
+// Temps restant (ou date de début pour « Bientôt gratuit ») ; urgent = moins de 24 h.
+function tempsDe(g) {
+  if (g.debut && new Date(g.debut) > Date.now()) {
+    return { texte: t('gratuitDes', new Date(g.debut).toLocaleString(etat.langue, { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })) };
+  }
+  const ms = g.fin ? new Date(g.fin) - Date.now() : -1;
   if (ms < 0) return null;
-  return ms < 86400000 ? t('heures', Math.ceil(ms / 3600000)) : t('encore', Math.ceil(ms / 86400000));
+  const urgent = ms < 86400000;
+  return { texte: urgent ? t('heures', Math.ceil(ms / 3600000)) : t('encore', Math.ceil(ms / 86400000)), urgent };
 }
 
 // Onglets des offres temporaires (avec date de fin) ; les autres sont des listes de jeux gratuits permanents.
@@ -190,45 +204,46 @@ const trisOnglet = () => (offresTemporaires() ? ['triFin', 'triRecent', 'triVale
 const options = (valeurs, choisi, libelle) => valeurs.map((v) =>
   `<option value="${esc(v)}" ${v === choisi ? 'selected' : ''}>${esc(libelle(v))}</option>`).join('');
 
-function badgesDe(g, nbGenres) {
-  const futur = g.debut && new Date(g.debut) > Date.now(); // « Bientôt gratuit » : on annonce le début, pas la fin
-  const fin = !futur && finDans(g.fin);
-  const debut = futur && new Date(g.debut).toLocaleString(etat.langue, { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+// Sur les cartes, le temps restant est une pastille posée sur l'image (avecTemps = false) ; la fiche le garde en badge.
+function badgesDe(g, nbGenres, avecTemps = true) {
+  const temps = avecTemps && tempsDe(g);
   return [
-    futur && `<span class="badge fin">${t('gratuitDes', debut)}</span>`,
+    temps && `<span class="badge fin">${temps.texte}</span>`,
     g.publie && Date.now() - new Date(g.publie) < 86400000 && `<span class="badge nouveau">${t('nouveau')}</span>`,
     g.valeur && `<span class="badge prix"><s>${esc(g.valeur)}</s>${t('gratuit')}</span>`,
-    fin && `<span class="badge fin">${fin}</span>`,
-    ...(g.genres ?? []).slice(0, nbGenres).map((x) => `<span class="badge">${esc(x)}</span>`),
+    ...(g.genres ?? []).slice(0, nbGenres).map((x) => `<span class="badge genre">${esc(x)}</span>`),
   ].filter(Boolean).join('');
 }
 
 function carte(g) {
-  const badges = badgesDe(g, 3);
+  const badges = badgesDe(g, 3, false);
+  const temps = tempsDe(g);
   return `<article class="carte${recuperes.has(g.id) ? ' recupere' : ''}" id="${esc(g.id)}">
     <a href="#${esc(g.id)}" class="ouvrir" tabindex="-1" aria-hidden="true">${g.image
       ? `<img src="${esc(lienSur(g.image))}" alt="" loading="lazy">`
       : `<div class="sans-image">${esc(g.titre)}</div>`}</a>
+    ${temps ? `<span class="pastille${temps.urgent ? ' urgente' : ''}">${temps.texte}</span>` : ''}
+    ${caseRecupere(g)}
     <div class="corps">
       <h2><a href="#${esc(g.id)}" class="ouvrir">${esc(g.titre)}</a></h2>
       <div class="meta">${esc(metaDe(g))}</div>
       ${badges && `<div class="badges">${badges}</div>`}
       <p class="desc">${esc(descriptionDe(g))}</p>
-      ${caseRecupere(g)}
       ${actionsDe(g)}
     </div>
   </article>`;
 }
 
+// Sur une carte : rond ✓ posé sur l'image (le texte reste lu par les lecteurs d'écran) ; dans la fiche : case + texte.
 const caseRecupere = (g) => (g.type === 'jeu' || g.type === 'dlc'
-  ? `<label class="case-recupere"><input type="checkbox" data-id="${esc(g.id)}" ${recuperes.has(g.id) ? 'checked' : ''}> ${t('recupere')}</label>` : '');
+  ? `<label class="case-recupere" title="${t('recupere')}"><input type="checkbox" data-id="${esc(g.id)}" ${recuperes.has(g.id) ? 'checked' : ''}><span class="rond">${icone('coche')}</span><span class="txt">${t('recupere')}</span></label>` : '');
 const metaDe = (g) => (g.plateformesTexte || g.plateformes.map(nomPlateforme).join(', ')) + (g.editeur ? ' · ' + g.editeur : '');
 const descriptionDe = (g) => (etat.langue !== 'en' && g.trad?.[etat.langue]) || g.description;
 const actionsDe = (g) => `<div class="actions">
     <a class="recuperer" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}" href="${esc(lienSur(g.liens?.[etat.langue] ?? g.lien))}" target="_blank" rel="noopener">${t(
       { jeu: 'recuperer', dlc: 'recuperer', bientot: 'voirEpic', demo: 'essayer' }[g.type] ?? 'jouer')}</a>
-    <button class="suivre" data-titre="${esc(g.titre)}" data-type="${esc(g.type)}" aria-pressed="${estSuivi(g)}" aria-label="${t('suivre')}" title="${t('suivre')}">★</button>
-    <button class="partager" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}">${t('partager')}</button>
+    <button class="suivre" data-titre="${esc(g.titre)}" data-type="${esc(g.type)}" aria-pressed="${estSuivi(g)}" aria-label="${t('suivre')}" title="${t('suivre')}">${icone('etoile')}</button>
+    <button class="partager" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}" title="${t('partager')}">${icone('partager')}<span>${t('partager')}</span></button>
   </div>`;
 
 // ---------- Fiche d'un jeu (…/#ftg57) ----------
@@ -251,7 +266,7 @@ function rendreFiche() {
   const longueTraduite = etat.langue !== 'en' && d?.tradLongue?.[etat.langue];
   const config = Object.entries(d?.config ?? {}).filter(([, v]) => v && !/not defined/i.test(v));
   $('#fiche').innerHTML = `<div class="fiche-contenu">
-    <button class="fermer">✕ ${t('fermer')}</button>
+    <button class="fermer">${icone('croix')} ${t('fermer')}</button>
     ${g.image ? `<img class="fiche-image${g.type === 'libre' ? ' logo' : ''}" src="${esc(lienSur(g.image))}" alt="">` : ''}
     <div class="corps">
       <h2 id="fiche-titre">${esc(g.titre)}</h2>
@@ -259,13 +274,12 @@ function rendreFiche() {
       <div class="badges">${badgesDe(g, Infinity)}</div>
       ${caseRecupere(g)}
       ${actionsDe(g)}
-      <p class="suis-moi">${t('suisMoi')} <span class="reseaux">${reseauxHTML}</span></p>
-      ${d && !d.videos?.length ? `<a class="bande-annonce" href="${youtube}" target="_blank" rel="noopener">▶ ${t('bandeAnnonce')}</a>` : ''}
       <p>${esc(descriptionDe(g))}</p>
       ${!d ? `<p class="meta">${t('chargement')}</p>` : ''}
+      ${d && !d.videos?.length ? `<a class="bande-annonce" href="${youtube}" target="_blank" rel="noopener">${icone('lecture')} ${t('bandeAnnonce')}</a>` : ''}
       ${d?.videos?.length ? `<h3>${t('videos')}</h3><div class="captures">${d.videos.map((v) =>
         `<button class="lire-video" ${v.youtube ? `data-youtube="${esc(v.youtube)}"` : `data-hls="${esc(lienSur(v.hls))}"`} aria-label="${t('lire')} : ${esc(v.nom)}">
-          <img src="${esc(lienSur(v.miniature))}" alt="" loading="lazy"><span aria-hidden="true">▶</span></button>`).join('')}</div>` : ''}
+          <img src="${esc(lienSur(v.miniature))}" alt="" loading="lazy"><span aria-hidden="true">${icone('lecture')}</span></button>`).join('')}</div>` : ''}
       ${d?.instructions ? `<h3>${t('commentRecuperer')}</h3><p class="texte">${esc((etat.langue !== 'en' && d.tradInstructions?.[etat.langue]) || d.instructions)}</p>` : ''}
       ${d?.captures?.length ? `<h3>${t('captures')}</h3><div class="captures">${d.captures.map((c) =>
         `<img src="${esc(lienSur(c))}" alt="" loading="lazy">`).join('')}</div>` : ''}
@@ -276,6 +290,7 @@ function rendreFiche() {
       ${infos.length ? `<dl>${infos.map(([k, v]) => `<dt>${t(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : ''}
       ${config.length ? `<h3>${t('configMin')}</h3><dl>${config.map(([k, v]) =>
         `<dt>${t({ os: 'os', processor: 'processeur', memory: 'memoire', graphics: 'graphismes', storage: 'stockage' }[k] ?? 'os')}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : ''}
+      <p class="suis-moi">${t('suisMoi')} <span class="reseaux">${reseauxHTML}</span></p>
     </div>
   </div>`;
 }
@@ -406,12 +421,13 @@ function afficher() {
   if (cible >= etat.limite) etat.limite = Math.ceil((cible + 1) / PAQUET) * PAQUET;
 
   const total = liste.reduce((somme, g) => somme + prix(g), 0);
-  const montant = new Intl.NumberFormat(etat.langue, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(total);
+  // narrowSymbol : « 573 $ » plutôt que « 573 $US » (les valeurs viennent surtout de GamerPower, en dollars)
+  const montant = new Intl.NumberFormat(etat.langue, { style: 'currency', currency: 'USD', currencyDisplay: 'narrowSymbol', maximumFractionDigits: 0 }).format(total);
   $('#resume').textContent = t(offresTemporaires() ? 'nbOffres' : etat.onglet === 'f2p' ? 'nbF2p' : 'nbJeux', liste.length)
     + (total ? ' · ' + t('economie', montant) : '');
 
   $('#suivis').setAttribute('aria-pressed', etat.suivisSeuls);
-  $('#suivis').textContent = '★ ' + t('mesSuivis');
+  $('#suivis').innerHTML = `${icone('etoile')} ${esc(t('mesSuivis'))}`;
   afficherBandeau();
 
   const bientot = etat.onglet === 'jeux' ? aVenir().filter(garde) : [];
@@ -441,7 +457,7 @@ function afficherBandeau() {
   const date = (x) => new Date(x).toLocaleDateString(etat.langue, { day: 'numeric', month: 'long' });
   const alertes = [...etat.donnees.offerts.filter((g) => !g.fin || new Date(g.fin) > Date.now()), ...aVenir()]
     .filter((g) => estSuivi(g) && !recuperes.has(g.id))
-    .map((g) => `<a href="#${esc(g.id)}" class="ouvrir">🔔 ${esc(
+    .map((g) => `<a href="#${esc(g.id)}" class="ouvrir">${icone('cloche')} ${esc(
       g.debut && new Date(g.debut) > Date.now() ? t('alerteBientot', g.titre, date(g.debut))
         : g.fin ? t('alerteJusqua', g.titre, date(g.fin)) : t('alerteMaintenant', g.titre))}</a>`);
   $('#bandeau').innerHTML = alertes.join('');
@@ -499,7 +515,8 @@ document.addEventListener('click', async (e) => { // liste et fiche
   if (navigator.share) return navigator.share({ title: document.title, text: texte, url }).catch(() => {});
   try {
     await navigator.clipboard.writeText(`${texte} ${url}`);
-    b.textContent = t('lienCopie');
+    b.querySelector('span').textContent = t('lienCopie');
+    b.classList.add('copie'); // sur une carte, le texte caché apparaît le temps de confirmer
   } catch {}
 });
 document.addEventListener('click', (e) => { // ★ sur une carte ou dans la fiche

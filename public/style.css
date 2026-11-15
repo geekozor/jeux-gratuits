@@ -18,21 +18,26 @@ body {
 }
 a { color: var(--accent); }
 
-header {
-  position: sticky; top: 0; z-index: 2;
-  background: color-mix(in srgb, var(--fond) 92%, transparent);
-  backdrop-filter: blur(8px);
-  padding: calc(env(safe-area-inset-top) + 12px) 16px 10px;
-  border-bottom: 1px solid var(--bord);
+/* Police des titres, hébergée avec le site (pas d'appel à Google). Licence SIL OFL. */
+@font-face {
+  font-family: "Space Grotesk"; src: url(fonts/space-grotesk.woff2) format("woff2");
+  font-weight: 300 700; font-display: swap;
 }
+h1, h2, h3, .onglets button { font-family: "Space Grotesk", system-ui, sans-serif; letter-spacing: -.01em; }
+
+header { padding: calc(env(safe-area-inset-top) + 12px) max(16px, calc((100% - 1100px) / 2 + 16px)) 0; }
+/* iPhone installé : bande opaque sous l'heure et la batterie, pour que la liste ne passe pas dessous */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top); background: var(--fond); z-index: 3; }
 .titre { display: flex; align-items: center; gap: 10px; }
 .nom { flex: 1; min-width: 0; }
-h1 { font-size: 18px; line-height: 1.15; margin: 0; }
+h1 { font-size: 20px; line-height: 1.15; margin: 0; }
 .sous-titre { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; white-space: nowrap; font-size: 13px; font-weight: 600; color: var(--accent); }
 /* Réseaux de Geekozor : petites pastilles aux couleurs de chaque réseau */
-.reseaux { display: inline-flex; gap: 5px; vertical-align: middle; }
-.reseaux a { display: grid; place-items: center; width: 21px; height: 21px; border-radius: 50%; color: #fff; }
-.reseaux svg { width: 13px; height: 13px; fill: currentColor; }
+.reseaux { display: inline-flex; gap: 8px; vertical-align: middle; }
+.reseaux a { position: relative; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; }
+/* Zone de toucher agrandie sans changer le dessin (40 px de haut, sans chevaucher la voisine) */
+.reseaux a::after { content: ""; position: absolute; inset: -8px -4px; }
+.reseaux svg { width: 14px; height: 14px; fill: currentColor; }
 .reseaux .tiktok { background: #000; box-shadow: inset 0 0 0 1px #333; }
 .reseaux .instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
 .reseaux .youtube { background: #f00; }
@@ -48,14 +53,24 @@ h1 { font-size: 18px; line-height: 1.15; margin: 0; }
   padding: 7px 12px; font-weight: 700; cursor: pointer;
 }
 
-/* 6 onglets : ils passent sur 2 lignes sur téléphone, tous visibles */
-.onglets { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 10px; }
+/* Onglets : une seule ligne, collée en haut ; sur téléphone elle défile à l'horizontale (app.js centre l'onglet actif) */
+.onglets {
+  position: sticky; z-index: 2;
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  top: env(safe-area-inset-top); margin-top: 4px;
+  padding: 8px max(16px, calc((100% - 1100px) / 2 + 16px)); /* aligné sur la liste en dessous */
+  background: color-mix(in srgb, var(--fond) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--bord);
+}
+.onglets::-webkit-scrollbar { display: none; }
 .onglets button {
-  flex: 1 0 auto; white-space: nowrap; padding: 8px 12px; border-radius: 10px; font-size: 13px; line-height: 1.2;
+  flex: 1 0 auto; white-space: nowrap; padding: 8px 14px; border-radius: 10px; font-size: 14px; line-height: 1.2;
   border: 1px solid var(--bord); background: var(--carte); color: var(--doux);
-  font: inherit; font-weight: 600; cursor: pointer;
+  font-weight: 600; cursor: pointer;
 }
 .onglets button[aria-selected="true"] { background: var(--accent); color: #062b16; border-color: var(--accent); }
+.filtres { padding: 10px 16px 0; max-width: 1100px; margin: 0 auto; }
 
 #recherche {
   width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--bord);
@@ -65,15 +80,17 @@ h1 { font-size: 18px; line-height: 1.15; margin: 0; }
 /* Téléphone : bord droit en fondu pour montrer qu'on peut faire défiler les plateformes */
 @media (max-width: 700px) {
   .puces { -webkit-mask-image: linear-gradient(to right, #000 80%, transparent); mask-image: linear-gradient(to right, #000 80%, transparent); padding-right: 40px; }
+  .onglets { -webkit-mask-image: linear-gradient(to right, #000 85%, transparent); mask-image: linear-gradient(to right, #000 85%, transparent); padding-right: 48px; }
 }
 .puces button {
   white-space: nowrap; padding: 5px 12px; border-radius: 99px; border: 1px solid var(--bord);
   background: transparent; color: var(--doux); font: inherit; font-size: 13px; cursor: pointer;
 }
 .puces button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
-.selects { display: flex; gap: 8px; margin-top: 8px; }
+/* Sur téléphone, « Mes jeux suivis » passe à la ligne plutôt que de couper « Tous les genres » */
+.selects { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .selects select {
-  flex: 1; min-width: 0; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--bord);
+  flex: 1 1 140px; min-width: 0; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--bord);
   background: var(--carte); color: var(--texte); font: inherit; font-size: 13px;
 }
 
@@ -82,9 +99,18 @@ main { padding: 12px 16px; max-width: 1100px; margin: 0 auto; }
 .grille { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 
 .carte {
+  position: relative;
   background: var(--carte); border: 1px solid var(--bord); border-radius: 14px;
   overflow: hidden; display: flex; flex-direction: column;
+  transition: border-color .15s, transform .15s;
 }
+/* Temps restant posé sur l'image : orange, rouge sous 24 h */
+.pastille {
+  position: absolute; top: 10px; left: 10px; max-width: calc(100% - 70px);
+  padding: 4px 10px; border-radius: 99px; font-size: 12.5px; font-weight: 700;
+  background: var(--alerte); color: #241800; box-shadow: 0 2px 8px rgba(0, 0, 0, .45); pointer-events: none;
+}
+.pastille.urgente { background: #d92d20; color: #fff; }
 .carte img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--bord); display: block; }
 .corps { padding: 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .carte h2 { font-size: 16px; margin: 0; }
@@ -99,13 +125,21 @@ main { padding: 12px 16px; max-width: 1100px; margin: 0 auto; }
 .badge.prix { color: var(--accent); }
 .badge.fin { color: var(--alerte); }
 .badge.nouveau { background: var(--accent); color: #062b16; }
+/* Genres : simple texte gris, séparé par des points, pour laisser ressortir prix et temps */
+.badge.genre { background: none; color: var(--doux); font-weight: 500; padding: 2px 0; }
+.badge.genre + .badge.genre::before { content: "· "; }
 .carte.retro { max-width: 560px; }
 .carte.retro p { margin: 0; }
 .actions { margin-top: auto; display: flex; gap: 8px; }
 .actions .recuperer { flex: 1; }
 .partager {
+  display: inline-flex; align-items: center; gap: 6px;
   background: transparent; color: var(--texte); border: 1px solid var(--bord); border-radius: 10px;
   padding: 10px 12px; font: inherit; font-weight: 600; cursor: pointer;
+}
+/* Carte : Partager en icône seule (le mot reste pour les lecteurs d'écran, et réapparaît après « Lien copié ») */
+.carte .partager:not(.copie) span, .carte .case-recupere .txt, .carte .case-recupere input {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
 .recuperer {
   margin-top: auto; display: block; text-align: center; text-decoration: none;
@@ -151,7 +185,15 @@ body.fiche-ouverte { overflow: hidden; }
 .lire-video img { width: 100%; }
 .lire-video span {
   position: absolute; inset: 0; margin: auto; width: 56px; height: 56px; border-radius: 50%;
-  display: grid; place-items: center; background: rgba(0, 0, 0, .65); color: #fff; font-size: 22px;
+  display: grid; place-items: center; background: rgba(0, 0, 0, .65); color: #fff; font-size: 24px;
+}
+.fermer, .bande-annonce { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+/* Ordinateur : le bouton Récupérer reste en haut de la fiche pendant qu'on lit (à partir de 1000 px, il ne touche pas « Fermer ») */
+@media (min-width: 1000px) {
+  .fiche .actions {
+    position: sticky; top: 0; z-index: 1; margin: 0 -16px; padding: 10px 16px;
+    background: color-mix(in srgb, var(--fond) 94%, transparent); backdrop-filter: blur(8px);
+  }
 }
 .video { width: 85%; max-width: 420px; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; background: #000; flex: none; }
 
@@ -170,21 +212,49 @@ body.fiche-ouverte { overflow: hidden; }
   padding: 10px 12px; font: inherit; font-size: 16px; line-height: 1; cursor: pointer;
 }
 .suivre[aria-pressed="true"], #suivis[aria-pressed="true"] { color: #ffc940; border-color: #ffc940; }
+/* Étoile vide = pas suivi, pleine = suivi */
+[aria-pressed="true"] > .ic-etoile { fill: currentColor; }
 #suivis {
-  flex: none; white-space: nowrap; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--bord);
+  flex: 1 0 auto; white-space: nowrap; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--bord);
   background: var(--carte); color: var(--texte); font: inherit; font-size: 13px; cursor: pointer;
 }
 .bandeau { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
 .bandeau a {
-  display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; font-weight: 600;
+  display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; text-decoration: none; font-weight: 600;
   background: #3a2f0b; color: #ffe08a; border: 1px solid #ffc940;
 }
 
-/* Déjà récupéré */
+/* Déjà récupéré : case + texte dans la fiche */
 .case-recupere { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--doux); cursor: pointer; }
 .case-recupere input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
+.case-recupere .rond { display: none; }
+/* … et rond ✓ en haut à droite de l'image sur une carte */
+.carte .case-recupere { position: absolute; top: 6px; right: 6px; padding: 4px; }
+.carte .case-recupere .rond {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(0, 0, 0, .6); color: #fff; border: 2px solid rgba(255, 255, 255, .7); font-size: 17px;
+}
+.carte .case-recupere:has(input:checked) .rond { background: var(--accent); border-color: var(--accent); color: #062b16; }
+.carte .case-recupere:has(input:focus-visible) .rond { outline: 2px solid var(--accent); outline-offset: 2px; }
 .carte.recupere { opacity: .55; }
 .carte.recupere img { filter: grayscale(1); }
+
+/* Icônes */
+.ic { width: 1.1em; height: 1.1em; flex: none; vertical-align: -.18em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ic-lecture { fill: currentColor; stroke: none; }
+
+/* Clavier : contour bien visible */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Souris : petits retours au survol (pas sur téléphone, où le survol reste « collé ») */
+@media (hover: hover) {
+  .carte:hover { border-color: #3a4050; transform: translateY(-2px); }
+  .recuperer:hover { filter: brightness(1.08); }
+  .onglets button:hover, .puces button:hover, .partager:hover, .suivre:hover, #suivis:hover, .bande-annonce:hover { border-color: var(--doux); color: var(--texte); }
+  .onglets button[aria-selected="true"]:hover { color: #062b16; border-color: var(--accent); }
+  .effacer:hover, .voir-plus:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .carte { transition: none; } .carte:hover { transform: none; } }
 
 /* Liste vide, voir plus */
 .vide p { margin: 0 0 12px; }

@@ -23,6 +23,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Geekozor">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preload" href="fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -42,15 +43,17 @@
       </select>
       <button id="installer" hidden data-t="installer"></button>
     </div>
-    <nav class="onglets" role="tablist">
+  </header>
+  <!-- Seuls les onglets restent collés en haut : sur téléphone, l'en-tête complet prenait 37 % de l'écran -->
+  <nav class="onglets" role="tablist">
       <button role="tab" data-onglet="jeux" aria-selected="true" data-t="jeux"></button>
       <button role="tab" data-onglet="dlc" data-t="dlc"></button>
       <button role="tab" data-onglet="f2p" data-t="f2p"></button>
       <button role="tab" data-onglet="indes" data-t="indes"></button>
       <button role="tab" data-onglet="demos" data-t="demos"></button>
       <button role="tab" data-onglet="libres" data-t="libres"></button>
-    </nav>
-    <div class="filtres">
+  </nav>
+  <div class="filtres">
       <input id="recherche" type="search" data-t-placeholder="recherche">
       <div id="plateformes" class="puces"></div>
       <div class="selects">
@@ -58,8 +61,7 @@
         <select id="tri"></select>
         <button id="suivis" aria-pressed="false"></button>
       </div>
-    </div>
-  </header>
+  </div>
 
   <main>
     <div id="bandeau" class="bandeau" role="status" hidden></div>
