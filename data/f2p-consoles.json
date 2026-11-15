@@ -1,5 +1,5 @@
 {
-  "_lisez-moi": "Free-to-play sur consoles, liste faite à la main (vérifiée le 14/11/2026 : boutique Xbox + recherche web). Codes : pc, ps5, ps4, xboxseries, xboxone, switch2, switch, mobile, vr. Inutile de mettre ps5 / xboxseries / switch2 pour un jeu seulement PS4 / Xbox One / Switch : le filtre les inclut déjà (rétrocompatibilité). Si le jeu existe déjà dans l'app (même nom), on lui ajoute seulement ces consoles ; sinon il faut aussi description (en anglais), lien et genres. Pour retirer un jeu fermé : supprimer sa ligne.",
+  "_lisez-moi": "Free-to-play sur consoles, liste faite à la main (vérifiée le 14/11/2026 : boutique Xbox + recherche web). Codes : pc, ps5, ps4, xboxseries, xboxone, switch2, switch, mobile, vr. Inutile de mettre ps5 / xboxseries / switch2 pour un jeu seulement PS4 / Xbox One / Switch : le filtre les inclut déjà (rétrocompatibilité). Si le jeu existe déjà dans l'app (même nom), on lui ajoute seulement ces consoles ; sinon il faut aussi description (en anglais), lien et genres, et si possible image et captures (adresses d'images officielles). Pour retirer un jeu fermé : supprimer sa ligne.",
   "jeux": [
     { "titre": "Fortnite", "plateformes": ["ps5", "ps4", "xboxseries", "xboxone", "switch2", "switch", "mobile"] },
     { "titre": "Call of Duty: Warzone", "plateformes": ["ps5", "xboxseries"] },
@@ -44,6 +44,16 @@
     { "titre": "Yu-Gi-Oh! Master Duel", "plateformes": ["pc", "ps5", "ps4", "xboxseries", "xboxone", "switch", "mobile"], "genres": ["Card Game", "Strategy"], "lien": "https://www.konami.com/yugioh/masterduel/", "description": "The official Yu-Gi-Oh! card game online, with over 10,000 cards and cross-platform ranked duels." },
     { "titre": "Pokémon UNITE", "plateformes": ["switch", "mobile"], "genres": ["MOBA"], "lien": "https://unite.pokemon.com/", "description": "A 5-versus-5 team battle game with Pokémon: score points in the opposing goals and evolve during the match." },
     { "titre": "Hearthstone: Heroes of Warcraft", "plateformes": ["mobile"] },
-    { "titre": "OGame", "plateformes": ["navigateur"], "genres": ["Strategy", "MMO"], "lien": "https://ogame.org/", "description": "Gameforge's classic browser space strategy game: build your planets, research technologies and command fleets against thousands of players." }
+    { "titre": "OGame", "plateformes": ["navigateur"], "genres": ["Strategy", "MMO"], "lien": "https://ogame.org/",
+      "image": "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/d7898c65-2a98-45f9-af8b-b983e5dd0f592026-07-21_OG_Main_Asset_Season_of_Exploration_800x450.jpg",
+      "captures": [
+        "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/832b746e-b36b-49df-b97c-75ea910b67faResources.png.jpg",
+        "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/8694820b-31bd-4b9b-9d87-25c56ad66cb9Facilities.png.jpg",
+        "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/f60e5c59-1c79-4f4b-98e8-75d51fdd6c17Research.png.jpg",
+        "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/64c65126-6b1b-45d2-9439-d007796a7237Shipyard.png.jpg",
+        "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/57c75d3f-a62a-4a3d-b9ec-b9eeac032559Defence.png.jpg",
+        "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/a5e6f752-b194-4f07-990d-b204e87022b6Lifeform_Buildings.jpg"
+      ],
+      "description": "Gameforge's classic browser space strategy game: build your planets, research technologies and command fleets against thousands of players." }
   ]
 }

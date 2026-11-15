@@ -316,7 +316,11 @@ const f2pParCle = new Map(f2p.map((g) => [cle(g.titre), g]));
 for (const c of consoles) {
   const existant = f2pParCle.get(cle(c.titre));
   if (existant) existant.plateformes = [...new Set([...existant.plateformes, ...c.plateformes])];
-  else if (c.description && c.lien) f2p.push({ ...c, id: 'console' + cle(c.titre) });
+  else if (c.description && c.lien) {
+    const { captures, ...jeu } = c; // captures : seulement dans la fiche, pas dans jeux.json
+    f2p.push({ ...jeu, id: 'console' + cle(c.titre) });
+    if (captures) details.set('console' + cle(c.titre), { captures });
+  }
   else alertes.push(`f2p-consoles.json : « ${c.titre} » n'existe plus dans FreeToGame, ajouter description et lien`);
 }
 
