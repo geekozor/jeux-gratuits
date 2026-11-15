@@ -42,6 +42,8 @@
     { "titre": "Infinity Nikki", "plateformes": ["pc", "ps5", "mobile"], "genres": ["Adventure", "Open World"], "lien": "https://infinitynikki.infoldgames.com/", "description": "A cozy open-world adventure where outfits give Nikki new abilities, with exploration, puzzles and platforming." },
     { "titre": "Pinball FX", "plateformes": ["pc", "ps5", "ps4", "xboxseries", "xboxone", "switch"], "genres": ["Arcade", "Simulation"], "lien": "https://www.pinballfx.com/", "description": "Digital pinball tables with online leaderboards; the base game is free and includes free tables to play." },
     { "titre": "Yu-Gi-Oh! Master Duel", "plateformes": ["pc", "ps5", "ps4", "xboxseries", "xboxone", "switch", "mobile"], "genres": ["Card Game", "Strategy"], "lien": "https://www.konami.com/yugioh/masterduel/", "description": "The official Yu-Gi-Oh! card game online, with over 10,000 cards and cross-platform ranked duels." },
-    { "titre": "Pokémon UNITE", "plateformes": ["switch", "mobile"], "genres": ["MOBA"], "lien": "https://unite.pokemon.com/", "description": "A 5-versus-5 team battle game with Pokémon: score points in the opposing goals and evolve during the match." }
+    { "titre": "Pokémon UNITE", "plateformes": ["switch", "mobile"], "genres": ["MOBA"], "lien": "https://unite.pokemon.com/", "description": "A 5-versus-5 team battle game with Pokémon: score points in the opposing goals and evolve during the match." },
+    { "titre": "Hearthstone: Heroes of Warcraft", "plateformes": ["mobile"] },
+    { "titre": "OGame", "plateformes": ["navigateur"], "genres": ["Strategy", "MMO"], "lien": "https://ogame.org/", "description": "Gameforge's classic browser space strategy game: build your planets, research technologies and command fleets against thousands of players." }
   ]
 }

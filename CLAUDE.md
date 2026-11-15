@@ -33,7 +33,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 - Les images des jeux libres viennent de Wikimedia, avec leur crédit.
 
 ### Listes faites à la main dans `data/`
-- `f2p-consoles.json` : 41 jeux, vérifiés le 14/11/2026.
+- `f2p-consoles.json` : 43 jeux, vérifiés le 14/11/2026. Sert aussi aux free-to-play PC / navigateur absents de FreeToGame (ex. OGame, ajouté le 15/11/2026).
 - `bandes-annonces.json`
 - `jeux-libres.json`
 - `exclusions.json` : jeux à masquer.
