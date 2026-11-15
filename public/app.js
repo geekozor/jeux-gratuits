@@ -8,7 +8,7 @@ const T = {
     creditImage: 'Image :',
     indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro', bientot: 'Bientôt gratuit', enCeMoment: 'Gratuits en ce moment', gratuitDes: (d) => `Gratuit dès ${d}`, voirEpic: 'Voir sur Epic', essayer: 'Essayer la démo', nbJeux: (n) => `${n} jeux`,
     videos: 'Vidéos', lire: 'Lire', sourcesMedias: 'Vidéos et captures :',
-    fermer: 'Fermer', bandeAnnonce: 'Bande-annonce', commentRecuperer: 'Comment le récupérer', captures: "Captures d'écran", aPropos: 'À propos', enAnglais: '(en anglais)', configMin: 'Configuration minimale', developpeur: 'Développeur', editeur: 'Éditeur', sortie: 'Sortie', os: 'Système', processeur: 'Processeur', memoire: 'Mémoire', graphismes: 'Carte graphique', stockage: 'Stockage', chargement: 'Chargement…',
+    fermer: 'Fermer', precedente: 'Capture précédente', suivante: 'Capture suivante', agrandir: 'Agrandir la capture', bandeAnnonce: 'Bande-annonce', commentRecuperer: 'Comment le récupérer', captures: "Captures d'écran", aPropos: 'À propos', enAnglais: '(en anglais)', configMin: 'Configuration minimale', developpeur: 'Développeur', editeur: 'Éditeur', sortie: 'Sortie', os: 'Système', processeur: 'Processeur', memoire: 'Mémoire', graphismes: 'Carte graphique', stockage: 'Stockage', chargement: 'Chargement…',
     economie: (m) => `${m} de jeux offerts`, partager: 'Partager', lienCopie: 'Lien copié', partageTexte: (x) => `${x} est gratuit en ce moment !`,
     nouveau: 'Nouveau',
     genres: 'Tous les genres', genre: 'Genre', tri: 'Trier',
@@ -30,7 +30,7 @@ const T = {
     creditImage: 'Image:',
     indes: 'Indie', demos: 'Demos', libres: 'Open source & retro', bientot: 'Free soon', enCeMoment: 'Free right now', gratuitDes: (d) => `Free from ${d}`, voirEpic: 'View on Epic', essayer: 'Try the demo', nbJeux: (n) => `${n} games`,
     videos: 'Videos', lire: 'Play', sourcesMedias: 'Videos and screenshots:',
-    fermer: 'Close', bandeAnnonce: 'Trailer', commentRecuperer: 'How to claim', captures: 'Screenshots', aPropos: 'About', enAnglais: '', configMin: 'Minimum requirements', developpeur: 'Developer', editeur: 'Publisher', sortie: 'Release', os: 'OS', processeur: 'Processor', memoire: 'Memory', graphismes: 'Graphics', stockage: 'Storage', chargement: 'Loading…',
+    fermer: 'Close', precedente: 'Previous screenshot', suivante: 'Next screenshot', agrandir: 'Enlarge screenshot', bandeAnnonce: 'Trailer', commentRecuperer: 'How to claim', captures: 'Screenshots', aPropos: 'About', enAnglais: '', configMin: 'Minimum requirements', developpeur: 'Developer', editeur: 'Publisher', sortie: 'Release', os: 'OS', processeur: 'Processor', memoire: 'Memory', graphismes: 'Graphics', stockage: 'Storage', chargement: 'Loading…',
     economie: (m) => `${m} worth of free games`, partager: 'Share', lienCopie: 'Link copied', partageTexte: (x) => `${x} is free right now!`,
     nouveau: 'New',
     genres: 'All genres', genre: 'Genre', tri: 'Sort',
@@ -52,7 +52,7 @@ const T = {
     creditImage: 'Immagine:',
     indes: 'Indie', demos: 'Demo', libres: 'Liberi e retrò', bientot: 'Presto gratis', enCeMoment: 'Gratis adesso', gratuitDes: (d) => `Gratis da ${d}`, voirEpic: 'Vedi su Epic', essayer: 'Prova la demo', nbJeux: (n) => `${n} giochi`,
     videos: 'Video', lire: 'Riproduci', sourcesMedias: 'Video e screenshot:',
-    fermer: 'Chiudi', bandeAnnonce: 'Trailer', commentRecuperer: 'Come riscattarlo', captures: 'Screenshot', aPropos: 'Informazioni', enAnglais: '(in inglese)', configMin: 'Requisiti minimi', developpeur: 'Sviluppatore', editeur: 'Editore', sortie: 'Uscita', os: 'Sistema', processeur: 'Processore', memoire: 'Memoria', graphismes: 'Scheda video', stockage: 'Archiviazione', chargement: 'Caricamento…',
+    fermer: 'Chiudi', precedente: 'Screenshot precedente', suivante: 'Screenshot successivo', agrandir: 'Ingrandisci lo screenshot', bandeAnnonce: 'Trailer', commentRecuperer: 'Come riscattarlo', captures: 'Screenshot', aPropos: 'Informazioni', enAnglais: '(in inglese)', configMin: 'Requisiti minimi', developpeur: 'Sviluppatore', editeur: 'Editore', sortie: 'Uscita', os: 'Sistema', processeur: 'Processore', memoire: 'Memoria', graphismes: 'Scheda video', stockage: 'Archiviazione', chargement: 'Caricamento…',
     economie: (m) => `${m} di giochi in regalo`, partager: 'Condividi', lienCopie: 'Link copiato', partageTexte: (x) => `${x} è gratis in questo momento!`,
     nouveau: 'Nuovo',
     genres: 'Tutti i generi', genre: 'Genere', tri: 'Ordina',
@@ -74,7 +74,7 @@ const T = {
     creditImage: 'Bild:',
     indes: 'Indie', demos: 'Demos', libres: 'Open Source & Retro', bientot: 'Bald gratis', enCeMoment: 'Jetzt gratis', gratuitDes: (d) => `Gratis ab ${d}`, voirEpic: 'Bei Epic ansehen', essayer: 'Demo testen', nbJeux: (n) => `${n} Spiele`,
     videos: 'Videos', lire: 'Abspielen', sourcesMedias: 'Videos und Screenshots:',
-    fermer: 'Schließen', bandeAnnonce: 'Trailer', commentRecuperer: 'So holst du es dir', captures: 'Screenshots', aPropos: 'Über das Spiel', enAnglais: '(auf Englisch)', configMin: 'Mindestanforderungen', developpeur: 'Entwickler', editeur: 'Publisher', sortie: 'Erscheinung', os: 'System', processeur: 'Prozessor', memoire: 'Arbeitsspeicher', graphismes: 'Grafik', stockage: 'Speicher', chargement: 'Wird geladen…',
+    fermer: 'Schließen', precedente: 'Vorheriger Screenshot', suivante: 'Nächster Screenshot', agrandir: 'Screenshot vergrößern', bandeAnnonce: 'Trailer', commentRecuperer: 'So holst du es dir', captures: 'Screenshots', aPropos: 'Über das Spiel', enAnglais: '(auf Englisch)', configMin: 'Mindestanforderungen', developpeur: 'Entwickler', editeur: 'Publisher', sortie: 'Erscheinung', os: 'System', processeur: 'Prozessor', memoire: 'Arbeitsspeicher', graphismes: 'Grafik', stockage: 'Speicher', chargement: 'Wird geladen…',
     economie: (m) => `Spiele im Wert von ${m} gratis`, partager: 'Teilen', lienCopie: 'Link kopiert', partageTexte: (x) => `${x} ist gerade gratis!`,
     nouveau: 'Neu',
     genres: 'Alle Genres', genre: 'Genre', tri: 'Sortieren',
@@ -96,7 +96,7 @@ const T = {
     creditImage: 'Imagen:',
     indes: 'Indie', demos: 'Demos', libres: 'Libres y retro', bientot: 'Pronto gratis', enCeMoment: 'Gratis ahora', gratuitDes: (d) => `Gratis desde ${d}`, voirEpic: 'Ver en Epic', essayer: 'Probar la demo', nbJeux: (n) => `${n} juegos`,
     videos: 'Vídeos', lire: 'Reproducir', sourcesMedias: 'Vídeos y capturas:',
-    fermer: 'Cerrar', bandeAnnonce: 'Tráiler', commentRecuperer: 'Cómo conseguirlo', captures: 'Capturas', aPropos: 'Acerca de', enAnglais: '(en inglés)', configMin: 'Requisitos mínimos', developpeur: 'Desarrollador', editeur: 'Editor', sortie: 'Lanzamiento', os: 'Sistema', processeur: 'Procesador', memoire: 'Memoria', graphismes: 'Gráficos', stockage: 'Almacenamiento', chargement: 'Cargando…',
+    fermer: 'Cerrar', precedente: 'Captura anterior', suivante: 'Captura siguiente', agrandir: 'Ampliar la captura', bandeAnnonce: 'Tráiler', commentRecuperer: 'Cómo conseguirlo', captures: 'Capturas', aPropos: 'Acerca de', enAnglais: '(en inglés)', configMin: 'Requisitos mínimos', developpeur: 'Desarrollador', editeur: 'Editor', sortie: 'Lanzamiento', os: 'Sistema', processeur: 'Procesador', memoire: 'Memoria', graphismes: 'Gráficos', stockage: 'Almacenamiento', chargement: 'Cargando…',
     economie: (m) => `${m} en juegos regalados`, partager: 'Compartir', lienCopie: 'Enlace copiado', partageTexte: (x) => `¡${x} está gratis ahora mismo!`,
     nouveau: 'Nuevo',
     genres: 'Todos los géneros', genre: 'Género', tri: 'Ordenar',
@@ -282,7 +282,7 @@ function rendreFiche() {
           <img src="${esc(lienSur(v.miniature))}" alt="" loading="lazy"><span aria-hidden="true">${icone('lecture')}</span></button>`).join('')}</div>` : ''}
       ${d?.instructions ? `<h3>${t('commentRecuperer')}</h3><p class="texte">${esc((etat.langue !== 'en' && d.tradInstructions?.[etat.langue]) || d.instructions)}</p>` : ''}
       ${d?.captures?.length ? `<h3>${t('captures')}</h3><div class="captures">${d.captures.map((c) =>
-        `<img src="${esc(lienSur(c))}" alt="" loading="lazy">`).join('')}</div>` : ''}
+        `<button class="agrandir" aria-label="${t('agrandir')}"><img src="${esc(lienSur(c))}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
       ${d?.source || d?.sourceVideo ? `<p class="meta">${t('sourcesMedias')} ${esc([d.source, d.sourceVideo].filter(Boolean).join(', '))}</p>` : ''}
       ${g.credit ? `<p class="meta">${t('creditImage')} <a href="${esc(lienSur(g.creditLien))}" target="_blank" rel="noopener">${esc(g.credit)}</a></p>` : ''}
       ${d?.descriptionLongue ? `<h3>${t('aPropos')} <span class="meta">${etat.langue === 'en' || longueTraduite ? '' : t('enAnglais')}</span></h3>
@@ -329,6 +329,39 @@ document.addEventListener('click', async (e) => {
     h.attachMedia(v);
   }
   v.play().catch(() => {}); // si le navigateur bloque la lecture auto, les contrôles restent là
+});
+
+// Une seule vidéo à la fois : lancer une bande-annonce met les autres en pause.
+document.addEventListener('play', (e) => document.querySelectorAll('video').forEach((v) => v !== e.target && v.pause()), true);
+
+// Captures en grand : on glisse (téléphone), ou flèches du clavier / boutons ‹ ›, et ça reboucle à la fin.
+const visionneuse = Object.assign(document.createElement('dialog'), { className: 'visionneuse' });
+document.body.append(visionneuse);
+const defiler = (sens) => {
+  const d = visionneuse.querySelector('.defile');
+  const n = d.children.length;
+  d.scrollTo({ left: ((Math.round(d.scrollLeft / d.clientWidth) + sens + n) % n) * d.clientWidth, behavior: 'smooth' });
+};
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('.agrandir');
+  if (b) {
+    const imgs = [...b.parentElement.querySelectorAll('img')];
+    visionneuse.innerHTML = `<div class="defile">${imgs.map((i) => `<img src="${esc(i.src)}" alt="">`).join('')}</div>
+      <button class="prec" aria-label="${t('precedente')}">‹</button><button class="suiv" aria-label="${t('suivante')}">›</button>
+      <button class="fermer">${icone('croix')} ${t('fermer')}</button>`;
+    visionneuse.showModal();
+    const d = visionneuse.querySelector('.defile');
+    d.scrollLeft = imgs.indexOf(b.querySelector('img')) * d.clientWidth;
+    return;
+  }
+  if (!visionneuse.open) return;
+  if (e.target.closest('.prec')) defiler(-1);
+  else if (e.target.closest('.suiv')) defiler(1);
+  else if (e.target.closest('.fermer') || !e.target.closest('img')) visionneuse.close(); // clic à côté de l'image = fermer
+});
+visionneuse.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') defiler(-1);
+  if (e.key === 'ArrowRight') defiler(1);
 });
 
 function fermerFiche() {
@@ -380,7 +413,7 @@ document.addEventListener('click', (e) => {
   history.replaceState(null, '', location.pathname + location.search);
   fermerFiche();
 });
-addEventListener('keydown', (e) => { if (e.key === 'Escape' && etat.fiche) $('#fiche .fermer').click(); });
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && etat.fiche && !visionneuse.open) $('#fiche .fermer').click(); });
 
 function afficher() {
   if (!etat.donnees) return;
