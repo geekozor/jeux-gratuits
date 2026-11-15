@@ -266,7 +266,7 @@ function rendreFiche() {
       ${d?.videos?.length ? `<h3>${t('videos')}</h3><div class="captures">${d.videos.map((v) =>
         `<button class="lire-video" ${v.youtube ? `data-youtube="${esc(v.youtube)}"` : `data-hls="${esc(lienSur(v.hls))}"`} aria-label="${t('lire')} : ${esc(v.nom)}">
           <img src="${esc(lienSur(v.miniature))}" alt="" loading="lazy"><span aria-hidden="true">▶</span></button>`).join('')}</div>` : ''}
-      ${d?.instructions ? `<h3>${t('commentRecuperer')}</h3><p class="texte">${esc(d.instructions)}</p>` : ''}
+      ${d?.instructions ? `<h3>${t('commentRecuperer')}</h3><p class="texte">${esc((etat.langue !== 'en' && d.tradInstructions?.[etat.langue]) || d.instructions)}</p>` : ''}
       ${d?.captures?.length ? `<h3>${t('captures')}</h3><div class="captures">${d.captures.map((c) =>
         `<img src="${esc(lienSur(c))}" alt="" loading="lazy">`).join('')}</div>` : ''}
       ${d?.source || d?.sourceVideo ? `<p class="meta">${t('sourcesMedias')} ${esc([d.source, d.sourceVideo].filter(Boolean).join(', '))}</p>` : ''}

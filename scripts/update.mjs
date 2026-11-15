@@ -476,6 +476,8 @@ for (const g of [...offerts, ...bientot, ...f2p, ...indes, ...demos, ...libres])
 for (const d of details.values()) {
   const t = d.descriptionLongue && !d.tradLongue && cache.trad[hash(d.descriptionLongue)];
   if (t) d.tradLongue = t;
+  const ti = d.instructions && cache.trad[hash(d.instructions)];
+  if (ti) d.tradInstructions = ti;
 }
 
 // ---------- Exclusions faites à la main (data/exclusions.json) ----------

@@ -55,7 +55,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 - Les 756 descriptions courtes présentes le 15/11/2026 ont été traduites à la main par Claude dans la conversation, sans API, et rangées dans `cache.trad` (clé = hash de la description).
 - Les nouveaux jeux arrivent en anglais. Claude (`claude-opus-5-5`) les traduit tout seul seulement si `ANTHROPIC_API_KEY` est présente. Sinon, on peut refaire une traduction à la main de temps en temps dans une conversation.
 - Descriptions longues (15/11/2026) : les 416 de FreeToGame traduites à la main par Claude, dans `cache.trad` (clé = hash du texte), copiées dans la fiche en `tradLongue`. Nintendo donne les siennes en fr/de/it/es. Les nouvelles fiches FreeToGame arrivent en anglais (l'API ne traduit que les courtes).
-- Les instructions « Comment le récupérer » restent en anglais.
+- Instructions « Comment le récupérer » (15/11/2026) : les 60 textes différents traduits à la main par Claude, dans `cache.trad` (clé = hash du texte), copiés dans la fiche en `tradInstructions`. Les nouvelles arrivent en anglais (l'API ne les traduit pas) : à refaire à la main de temps en temps.
 
 ## Déjà fait
 - Filtres multiples : plateformes, genre, tri, recherche.
