@@ -18,7 +18,7 @@ const DETAILS = new URL('../public/data/jeux/', import.meta.url); // un petit fi
 const MAX_DETAILS_PAR_EXECUTION = 150; // fiches FreeToGame récupérées par passage (le cache garde les autres)
 const CACHE = new URL('../data/cache.json', import.meta.url);
 const { ANTHROPIC_API_KEY } = process.env;
-const LANGUES = ['fr', 'it', 'de', 'es'];
+const LANGUES = ['fr']; // choix du propriétaire : les autres langues gardent l'anglais
 const MAX_TRAD_PAR_EXECUTION = 300; // plafond de coût par exécution
 
 const cache = await readFile(CACHE, 'utf8').then(JSON.parse).catch(() => ({}));
@@ -448,8 +448,8 @@ if (ANTHROPIC_API_KEY) {
         betas: ['server-side-fallback-2026-07-01'],
         fallbacks: 'default',
         system: 'Tu traduis des descriptions courtes de jeux vidéo pour une app grand public. '
-          + 'Pour chaque texte anglais, donne une traduction naturelle en français (fr), italien (it), '
-          + 'allemand (de) et espagnol (es). Garde les noms de jeux, de boutiques et de plateformes tels quels. '
+          + 'Pour chaque texte anglais, donne une traduction naturelle en français (fr). '
+          + 'Garde les noms de jeux, de boutiques et de plateformes tels quels. '
           + 'Renvoie le même id.',
         messages: [{ role: 'user', content: JSON.stringify(lot) }],
       });
