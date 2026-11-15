@@ -204,12 +204,14 @@ await facultatif('Nintendo', async () => {
   for (const [langue, pays] of [['fr', 'fr'], ['de', 'de'], ['it', 'it'], ['es', 'es']]) {
     await facultatif(`Nintendo (${langue})`, async () => {
       const ids = encodeURIComponent(`fs_id:(${nin.map((g) => g.id.slice(3)).join(' OR ')})`);
-      const docs = (await getJson(`https://searching.nintendo-europe.com/${pays}/select?q=*&fq=${ids}&rows=${nin.length}&wt=json&fl=fs_id,url,excerpt`)).response.docs;
+      const docs = (await getJson(`https://searching.nintendo-europe.com/${pays}/select?q=*&fq=${ids}&rows=${nin.length}&wt=json&fl=fs_id,url,excerpt,product_catalog_description_s`)).response.docs;
       for (const d of docs) {
         const g = nin.find((x) => x.id === 'nin' + d.fs_id);
         if (!g) continue;
         (g.liens ??= {})[langue] = 'https://www.nintendo.com' + d.url;
         if (d.excerpt) (g.trad ??= {})[langue] = d.excerpt;
+        const f = details.get(g.id);
+        if (f && d.product_catalog_description_s) (f.tradLongue ??= {})[langue] = d.product_catalog_description_s;
       }
     });
   }
@@ -469,6 +471,11 @@ if (ANTHROPIC_API_KEY) {
 for (const g of [...offerts, ...bientot, ...f2p, ...indes, ...demos, ...libres]) {
   const t = g.description && cache.trad[hash(g.description)];
   if (t) g.trad = t;
+}
+// Descriptions longues : traduites à la main dans une conversation (pas par l'API), rangées dans le même cache.
+for (const d of details.values()) {
+  const t = d.descriptionLongue && !d.tradLongue && cache.trad[hash(d.descriptionLongue)];
+  if (t) d.tradLongue = t;
 }
 
 // ---------- Exclusions faites à la main (data/exclusions.json) ----------

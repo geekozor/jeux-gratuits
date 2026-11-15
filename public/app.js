@@ -248,6 +248,7 @@ function rendreFiche() {
   const { g, d } = etat.fiche;
   const youtube = `https://www.youtube.com/results?search_query=${encodeURIComponent(g.titre + ' trailer')}`;
   const infos = [['developpeur', d?.developpeur], ['editeur', g.editeur], ['sortie', d?.sortie]].filter(([, v]) => v);
+  const longueTraduite = etat.langue !== 'en' && d?.tradLongue?.[etat.langue];
   const config = Object.entries(d?.config ?? {}).filter(([, v]) => v && !/not defined/i.test(v));
   $('#fiche').innerHTML = `<div class="fiche-contenu">
     <button class="fermer">✕ ${t('fermer')}</button>
@@ -270,8 +271,8 @@ function rendreFiche() {
         `<img src="${esc(lienSur(c))}" alt="" loading="lazy">`).join('')}</div>` : ''}
       ${d?.source || d?.sourceVideo ? `<p class="meta">${t('sourcesMedias')} ${esc([d.source, d.sourceVideo].filter(Boolean).join(', '))}</p>` : ''}
       ${g.credit ? `<p class="meta">${t('creditImage')} <a href="${esc(lienSur(g.creditLien))}" target="_blank" rel="noopener">${esc(g.credit)}</a></p>` : ''}
-      ${d?.descriptionLongue ? `<h3>${t('aPropos')} <span class="meta">${etat.langue === 'en' ? '' : t('enAnglais')}</span></h3>
-        <p class="texte">${esc(d.descriptionLongue)}</p>` : ''}
+      ${d?.descriptionLongue ? `<h3>${t('aPropos')} <span class="meta">${etat.langue === 'en' || longueTraduite ? '' : t('enAnglais')}</span></h3>
+        <p class="texte">${esc(longueTraduite || d.descriptionLongue)}</p>` : ''}
       ${infos.length ? `<dl>${infos.map(([k, v]) => `<dt>${t(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : ''}
       ${config.length ? `<h3>${t('configMin')}</h3><dl>${config.map(([k, v]) =>
         `<dt>${t({ os: 'os', processor: 'processeur', memory: 'memoire', graphics: 'graphismes', storage: 'stockage' }[k] ?? 'os')}</dt><dd>${esc(v)}</dd>`).join('')}</dl>` : ''}

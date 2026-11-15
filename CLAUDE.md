@@ -54,7 +54,8 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 - Choix du propriétaire (15/11/2026) : français seulement. L'italien, l'allemand et l'espagnol affichent l'anglais (`LANGUES = ['fr']` dans update.mjs).
 - Les 756 descriptions courtes présentes le 15/11/2026 ont été traduites à la main par Claude dans la conversation, sans API, et rangées dans `cache.trad` (clé = hash de la description).
 - Les nouveaux jeux arrivent en anglais. Claude (`claude-opus-5-5`) les traduit tout seul seulement si `ANTHROPIC_API_KEY` est présente. Sinon, on peut refaire une traduction à la main de temps en temps dans une conversation.
-- Les descriptions longues et les instructions restent en anglais.
+- Descriptions longues (15/11/2026) : les 416 de FreeToGame traduites à la main par Claude, dans `cache.trad` (clé = hash du texte), copiées dans la fiche en `tradLongue`. Nintendo donne les siennes en fr/de/it/es. Les nouvelles fiches FreeToGame arrivent en anglais (l'API ne traduit que les courtes).
+- Les instructions « Comment le récupérer » restent en anglais.
 
 ## Déjà fait
 - Filtres multiples : plateformes, genre, tri, recherche.
@@ -94,7 +95,6 @@ python -m http.server 8765 --directory public
 - **Petites choses** :
   - Filtres par boutique Steam, Epic ou GOG.
   - Regrouper les genres rares (RPG, MMO…).
-  - Traduire aussi les descriptions longues.
 
 ## À surveiller dans la liste consoles
 - Non confirmés : Sky sur PS5 ; Pokémon UNITE, Fall Guys et Disney Speedstorm encore actifs ?
