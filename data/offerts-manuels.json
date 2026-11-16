@@ -1,0 +1,15 @@
+{
+  "_lisez-moi": "Jeux offerts (gratuits à garder) que GamerPower ne trouve pas, ajoutés à la main. Champs : titre, description (anglais), lien, plateformes, plateformesTexte, publie (date d'ajout), fin (date et heure UTC de fin, obligatoire), instructions (anglais). Facultatif : valeur (« $9.99 »), image (sinon prise sur Steam). Traduction française : à ranger dans cache.trad (clé = hash du texte). Le jeu disparaît tout seul après sa date de fin.",
+  "jeux": [
+    {
+      "titre": "Radiant Exodus",
+      "description": "An action-horror adventure: as strange lights fall on Gleam City, play as Sarah, an ex-soldier searching for her missing father.",
+      "lien": "https://store.steampowered.com/app/2920120/Radiant_Exodus/",
+      "plateformes": ["pc"],
+      "plateformesTexte": "PC, Steam",
+      "publie": "2026-11-16T20:00:00Z",
+      "fin": "2026-11-17T17:00:00Z",
+      "instructions": "Free on Steam until it becomes a paid game on November 17. Open the Steam page and click \"Play Game\" to add it to your library: it stays yours after that date."
+    }
+  ]
+}

@@ -70,6 +70,16 @@ const offerts = (await getJson('https://www.gamerpower.com/api/giveaways'))
   }));
 for (const g of offerts) { details.set(g.id, { instructions: g._instructions }); delete g._instructions; }
 
+// Jeux offerts que GamerPower rate (souvent des jeux Steam gratuits avant de devenir payants) : data/offerts-manuels.json.
+// Une fois la date de fin passée, le jeu sort de la liste (et passe dans l'historique) même s'il reste dans le fichier.
+for (const m of JSON.parse(await readFile(new URL('../data/offerts-manuels.json', import.meta.url), 'utf8')).jeux) {
+  if (new Date(m.fin) <= Date.now() || offerts.some((g) => memeJeu(g.titre, m.titre))) continue;
+  const { instructions, ...g } = m;
+  const id = 'main' + cle(m.titre);
+  offerts.push({ id, type: 'jeu', valeur: null, ...g });
+  details.set(id, { instructions });
+}
+
 // ---------- 1 bis. Epic en direct : heure de fin exacte + jeux gratuits de la semaine prochaine ----------
 // Adresse publique non documentée, utilisée par la page « Jeux gratuits » d'Epic.
 const bientot = [];

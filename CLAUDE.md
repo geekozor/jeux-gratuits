@@ -35,6 +35,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 ### Listes faites à la main dans `data/`
 - `f2p-consoles.json` : 43 jeux, vérifiés le 14/11/2026. Sert aussi aux free-to-play PC / navigateur absents de FreeToGame (ex. OGame, ajouté le 15/11/2026). Pour un jeu absent de Steam et de la boutique Xbox, on met à la main `image` et `captures` (liste d'adresses, qui vont seulement dans la fiche) : images officielles de l'éditeur, appelées directement chez lui (si l'éditeur les change, elles disparaissent).
   - OGame : images de `secure-asset-delivery.gameforge.com` (page https://gameforge.com/en-US/play/ogame). L'autre serveur d'images de cette page, `rgw-txx01.gfsrv.net`, ne répond pas depuis l'extérieur.
+- `offerts-manuels.json` (16/11/2026) : jeux offerts que GamerPower rate (jeux Steam gratuits avant de devenir payants…). `fin` obligatoire : le jeu sort tout seul de la liste après. Image, vidéos et captures viennent de Steam ; traductions à la main dans `cache.trad`. Pistes pour en trouver : SteamDB « Free to keep » (bloque les robots, à regarder à la main), GamingHQ, Nerdzap.
 - `bandes-annonces.json` (ex. OGame : « OGame Cinematic Trailer », chaîne officielle)
 - `jeux-libres.json`
 - `exclusions.json` : jeux à masquer.
