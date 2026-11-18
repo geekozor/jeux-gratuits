@@ -1,18 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { nettoyerTitre, memeJeu, estUnMod, etiquettesInterdites } from './titres.mjs';
+import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites } from './titres.mjs';
 import { variantesNom } from '../public/noms.js';
 
 test('mods GOG qui demandent le jeu payant', () => {
-  assert.ok(estUnMod('FOLON® Fallout London is a total conversion mod made by Team FOLON® for Fallout 4 GOTY and requires you to own the base game on either GOG or Steam'));
-  assert.ok(estUnMod('Developed by Merry Pencil Studios, awarded Best Overall in NVIDIA\'s 2025 RTX Remix Mod Contest'.replace('Mod Contest', 'Remix mod')));
-  assert.ok(estUnMod('<p>You need to own the original game to play.</p>'));
+  assert.ok(pasVraimentGratuit('FOLON® Fallout London is a total conversion mod made by Team FOLON® for Fallout 4 GOTY and requires you to own the base game on either GOG or Steam'));
+  assert.ok(pasVraimentGratuit('Developed by Merry Pencil Studios, awarded Best Overall in NVIDIA\'s 2025 RTX Remix Mod Contest'.replace('Mod Contest', 'Remix mod')));
+  assert.ok(pasVraimentGratuit('<p>You need to own the original game to play.</p>'));
 });
 
 test('vrais jeux gratuits GOG', () => {
-  assert.ok(!estUnMod('No manual modding required, just install, survive, and adapt'));
-  assert.ok(!estUnMod('GAMMA integrates over 400 hand-picked mods into a single, finely balanced package'));
-  assert.ok(!estUnMod('A free platformer about exploring a strange world.'));
+  assert.ok(!pasVraimentGratuit('No manual modding required, just install, survive, and adapt'));
+  assert.ok(!pasVraimentGratuit('GAMMA integrates over 400 hand-picked mods into a single, finely balanced package'));
+  assert.ok(!pasVraimentGratuit('A free platformer about exploring a strange world.'));
 });
 
 test('étiquettes itch.io', () => {
@@ -55,4 +55,11 @@ test('jeux suivis reconnus sous un nom plus long', () => {
   assert.ok(variantesNom('Control Ultimate Edition').includes(variantesNom('Control')[0]));
   assert.ok(variantesNom('EverQuest II™').includes(variantesNom('Everquest 2')[0]));
   assert.ok(!variantesNom('ArcheAge Chronicles').includes(variantesNom('ArcheAge')[0]));
+});
+
+test('offres sous conditions (GamerPower)', () => {
+  assert.ok(pasVraimentGratuit('Please note this Steam Key giveaway requires 10 ARP (Arena Reward Points) to claim a key.'));
+  assert.ok(pasVraimentGratuit('Grab Sharknado VR (Rift S, Rift) for free via Meta.'));
+  assert.ok(!pasVraimentGratuit('Score Knightica for free via Epic Games Store!'));
+  assert.ok(!pasVraimentGratuit('Rift Apart is a free platformer with a rift in time.'));
 });

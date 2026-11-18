@@ -61,7 +61,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 ## Déjà fait
 - Filtres multiples : plateformes, genre, tri, recherche.
 - Fiche de jeu à l'adresse `#<id>` : un lien partagé l'ouvre directement, le bouton retour la ferme.
-- Bouton Partager et compteur d'économies.
+- Bouton Partager. Compteur « X $ de jeux offerts » retiré le 19/11/2026 : même sans les lots, les prix IndieGala gonflés (29,99 $ le petit jeu) en faisaient plus de la moitié. Prix affichés en euros (`public/prix.js`, taux fixe).
 - Badges « Nouveau » et « Plus que N h ».
 - Messages clairs quand une liste est vide, et affichage par paquets de 40.
 - Jeux suivis ★, étape 1 : mémorisés sur le téléphone (localStorage `suivis`), avec un bandeau à l'ouverture et un filtre « Mes jeux suivis ».
@@ -70,7 +70,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 
 ## Tests et aperçu local
 ```
-node --test scripts/titres.test.mjs scripts/plateformes.test.mjs
+node --test scripts/titres.test.mjs scripts/plateformes.test.mjs scripts/prix.test.mjs
 npm run maj
 python -m http.server 8765 --directory public
 ```

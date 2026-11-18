@@ -11,7 +11,8 @@
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { plateformes as tags } from './plateformes.mjs';
-import { nettoyerTitre, memeJeu, estUnMod, etiquettesInterdites } from './titres.mjs';
+import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites } from './titres.mjs';
+import { euros, estUnLot } from '../public/prix.js';
 
 const OUT = new URL('../public/data/jeux.json', import.meta.url);
 const DETAILS = new URL('../public/data/jeux/', import.meta.url); // un petit fichier par jeu, chargé à l'ouverture de sa fiche
@@ -49,8 +50,10 @@ const hash = (s) => createHash('sha1').update(s).digest('hex').slice(0, 16);
 // ---------- 1. Jeux offerts (GamerPower) ----------
 // shortcut: GamerPower et la liste FreeToGame restent bloquantes (sans elles l'app serait vide) ;
 // en cas de panne le site garde sa version précédente. À revoir si ces pannes deviennent fréquentes.
+const sousConditions = new Set(); // id écartés : à oublier, pas à ranger dans l'historique
 const offerts = (await getJson('https://www.gamerpower.com/api/giveaways'))
-  .filter((g) => g.status === 'Active')
+  // Jeu « offert » contre des points ou pour un vieux casque : écarté (Dwarven Realms, Sharknado VR).
+  .filter((g) => g.status === 'Active' && !(g.type === 'Game' && pasVraimentGratuit(g.description) && sousConditions.add('gp' + g.id)))
   .map((g) => ({
     id: 'gp' + g.id,
     titre: nettoyerTitre(g.title),
@@ -93,12 +96,14 @@ await facultatif('Epic', async () => {
     if (actuelle && e.price?.totalPrice?.discountPrice === 0) { // offert en ce moment : on prend son heure de fin réelle
       for (const g of offerts) if (/epic/i.test(g.plateformesTexte) && memeJeu(g.titre, e.title)) g.fin = actuelle.endDate;
     }
-    if (prochaine?.discountSetting?.discountPercentage === 0) { // 0 = prix final nul (sinon c'est une simple promo)
+    const valeur = e.price?.totalPrice?.fmtPrice?.originalPrice ?? null;
+    // discountPercentage 0 = prix final nul (sinon c'est une simple promo) ; prix d'origine « 0 » = déjà free-to-play (Firestone).
+    if (prochaine?.discountSetting?.discountPercentage === 0 && euros(valeur) !== 0) {
       const slug = e.catalogNs?.mappings?.[0]?.pageSlug ?? e.productSlug;
       const image = e.keyImages?.find((k) => k.type === 'OfferImageWide') ?? e.keyImages?.[0];
       bientot.push({
         id: 'epic' + e.id, type: 'bientot', titre: e.title, description: e.description,
-        valeur: e.price?.totalPrice?.fmtPrice?.originalPrice ?? null,
+        valeur,
         image: image?.url, lien: `https://store.epicgames.com/p/${slug}`,
         plateformes: ['pc'], plateformesTexte: 'PC, Epic Games Store',
         debut: prochaine.startDate, fin: prochaine.endDate,
@@ -111,7 +116,7 @@ await facultatif('Epic', async () => {
 cache.bientot ??= {};
 for (const g of bientot) cache.bientot[g.id] = g;
 for (const [id, g] of Object.entries(cache.bientot)) {
-  if (new Date(g.debut) <= Date.now()) delete cache.bientot[id];
+  if (new Date(g.debut) <= Date.now() || euros(g.valeur) === 0) delete cache.bientot[id];
   else if (!bientot.some((b) => b.id === id)) bientot.push(g);
 }
 
@@ -187,7 +192,7 @@ await facultatif('GOG', async () => {
       });
       if (!demo && !(p.id in cache.gogMod)) {
         await facultatif(`Fiche GOG ${p.title}`, async () => {
-          cache.gogMod[p.id] = estUnMod((await getJson(`https://api.gog.com/v2/games/${p.id}?locale=en-US`)).description ?? '');
+          cache.gogMod[p.id] = pasVraimentGratuit((await getJson(`https://api.gog.com/v2/games/${p.id}?locale=en-US`)).description ?? '');
         });
       }
       if (!demo && cache.gogMod[p.id] !== false) continue; // mod, ou pas encore vérifié : on attend
@@ -503,6 +508,7 @@ for (const d of details.values()) {
 // Les sources ne donnent que les offres en cours : on note chaque jeu offert pendant l'offre (cache.offresVues),
 // et quand il disparaît de GamerPower il passe dans cache.historique (le cache est commité par le workflow).
 cache.offresVues ??= {};
+for (const id of sousConditions) delete cache.offresVues[id];
 cache.historique ??= [];
 cache.historiqueDepuis ??= new Date().toISOString();
 const offertsJeux = offerts.filter((g) => g.type === 'jeu');
@@ -545,12 +551,12 @@ if (alertes.length) console.warn('ALERTES :\n' + alertes.join('\n'));
 await mkdir(new URL('.', OUT), { recursive: true });
 await mkdir(new URL('.', CACHE), { recursive: true });
 const historique = cache.historique.filter((g) => !exclus.has(cle(g.titre)));
-const valeurDe = (g) => parseFloat(String(g.valeur).replace(/[^0-9.]/g, '')) || 0;
 await writeFile(OUT, JSON.stringify({
   maj: new Date().toISOString(), offerts, bientot, f2p, indes, demos, libres,
   // shortcut: seuls les 200 derniers vont dans l'app (poids du fichier) ; le total compte tout l'historique.
   historique: historique.slice(0, 200), historiqueNb: historique.length,
-  historiqueTotal: Math.round(historique.reduce((s, g) => s + valeurDe(g), 0)), historiqueDepuis: cache.historiqueDepuis,
+  // Total en euros, sans les lots (« Free itch.io Games Bundle » : 116 jeux pour 384 $).
+  historiqueTotal: Math.round(historique.reduce((s, g) => s + (estUnLot(g) ? 0 : euros(g.valeur) ?? 0), 0)), historiqueDepuis: cache.historiqueDepuis,
 }));
 await writeFile(CACHE, JSON.stringify(cache));
 await rm(DETAILS, { recursive: true, force: true });

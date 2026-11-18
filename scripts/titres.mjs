@@ -10,10 +10,11 @@ export function memeJeu(titre, nomSteam) {
   return [nomSteam, nomSteam.split(/:| - /)[0], nomSteam.replace(/\s+remastered$/i, '')].some((n) => cleNom(n) === a);
 }
 
-// Description GOG d'un « jeu gratuit » qui est en fait un mod demandant le jeu payant d'origine.
-// "No manual modding required" (modpack autonome) ne doit pas compter.
-const MOD = /\brequires? (you to own|ownership|the (base|original|full) game|a (legal |legitimate )?copy)|\b(need|have) to own\b|\bmust own\b|\bownership of\b|\btotal conversion mod\b|\bremix mod\b|\bmod for\b/i;
-export const estUnMod = (description) => MOD.test(description.replace(/<[^>]+>/g, ' '));
+// Description d'un « jeu gratuit » qui ne l'est pas vraiment : mod demandant le jeu payant d'origine (GOG),
+// clé contre des points de récompense (« requires 10 ARP (Arena Reward Points) »), ou jeu réservé aux anciens
+// casques Oculus Rift (« Sharknado VR (Rift S, Rift) »). "No manual modding required" (modpack autonome) ne compte pas.
+const PAS_GRATUIT = /\breward points\b|\(rift\b|\brequires? (you to own|ownership|the (base|original|full) game|a (legal |legitimate )?copy)|\b(need|have) to own\b|\bmust own\b|\bownership of\b|\btotal conversion mod\b|\bremix mod\b|\bmod for\b/i;
+export const pasVraimentGratuit = (description) => PAS_GRATUIT.test(description.replace(/<[^>]+>/g, ' '));
 
 // Étiquettes itch.io qui excluent un jeu : contenu adulte, ou jeu de fan sur une licence d'autrui.
 const ETIQUETTES_EXCLUES = new Set(['fangame', 'fan-game', 'nsfw', 'adult', 'adults-only', 'erotic', 'sexual-content',
