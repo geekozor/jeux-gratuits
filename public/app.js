@@ -9,7 +9,7 @@ const T = {
     indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro', bientot: 'Bientôt gratuit', enCeMoment: 'Gratuits en ce moment', gratuitDes: (d) => `Gratuit dès ${d}`, voirEpic: 'Voir sur Epic', essayer: 'Essayer la démo', nbJeux: (n) => `${n} jeux`,
     videos: 'Vidéos', lire: 'Lire', sourcesMedias: 'Vidéos et captures :',
     fermer: 'Fermer', precedente: 'Capture précédente', suivante: 'Capture suivante', agrandir: 'Agrandir la capture', bandeAnnonce: 'Bande-annonce', commentRecuperer: 'Comment le récupérer', captures: "Captures d'écran", aPropos: 'À propos', enAnglais: '(en anglais)', configMin: 'Configuration minimale', developpeur: 'Développeur', editeur: 'Éditeur', sortie: 'Sortie', os: 'Système', processeur: 'Processeur', memoire: 'Mémoire', graphismes: 'Carte graphique', stockage: 'Stockage', chargement: 'Chargement…',
-    economie: (m) => `${m} de jeux offerts`, dejaOfferts: 'Déjà offerts', totalOffert: (n, m, d) => `${n} jeux offerts depuis le ${d}, pour ${m} au total`, partager: 'Partager', lienCopie: 'Lien copié', partageTexte: (x) => `${x} est gratuit en ce moment !`,
+    economie: (m) => `${m} de jeux offerts`, dejaOfferts: 'Déjà offerts', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'jeux offerts' : 'jeu offert'} depuis le ${d}${m ? `, pour ${m} au total` : ''}`, partager: 'Partager', lienCopie: 'Lien copié', partageTexte: (x) => `${x} est gratuit en ce moment !`,
     nouveau: 'Nouveau',
     genres: 'Tous les genres', genre: 'Genre', tri: 'Trier',
     triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
@@ -31,7 +31,7 @@ const T = {
     indes: 'Indie', demos: 'Demos', libres: 'Open source & retro', bientot: 'Free soon', enCeMoment: 'Free right now', gratuitDes: (d) => `Free from ${d}`, voirEpic: 'View on Epic', essayer: 'Try the demo', nbJeux: (n) => `${n} games`,
     videos: 'Videos', lire: 'Play', sourcesMedias: 'Videos and screenshots:',
     fermer: 'Close', precedente: 'Previous screenshot', suivante: 'Next screenshot', agrandir: 'Enlarge screenshot', bandeAnnonce: 'Trailer', commentRecuperer: 'How to claim', captures: 'Screenshots', aPropos: 'About', enAnglais: '', configMin: 'Minimum requirements', developpeur: 'Developer', editeur: 'Publisher', sortie: 'Release', os: 'OS', processeur: 'Processor', memoire: 'Memory', graphismes: 'Graphics', stockage: 'Storage', chargement: 'Loading…',
-    economie: (m) => `${m} worth of free games`, dejaOfferts: 'Previously free', totalOffert: (n, m, d) => `${n} games given away since ${d}, worth ${m} in total`, partager: 'Share', lienCopie: 'Link copied', partageTexte: (x) => `${x} is free right now!`,
+    economie: (m) => `${m} worth of free games`, dejaOfferts: 'Previously free', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'games' : 'game'} given away since ${d}${m ? `, worth ${m} in total` : ''}`, partager: 'Share', lienCopie: 'Link copied', partageTexte: (x) => `${x} is free right now!`,
     nouveau: 'New',
     genres: 'All genres', genre: 'Genre', tri: 'Sort',
     triFin: 'Ending soonest', triRecent: 'Newest', triValeur: 'Highest value', triPopulaire: 'Popular', triAZ: 'A to Z',
@@ -53,7 +53,7 @@ const T = {
     indes: 'Indie', demos: 'Demo', libres: 'Liberi e retrò', bientot: 'Presto gratis', enCeMoment: 'Gratis adesso', gratuitDes: (d) => `Gratis da ${d}`, voirEpic: 'Vedi su Epic', essayer: 'Prova la demo', nbJeux: (n) => `${n} giochi`,
     videos: 'Video', lire: 'Riproduci', sourcesMedias: 'Video e screenshot:',
     fermer: 'Chiudi', precedente: 'Screenshot precedente', suivante: 'Screenshot successivo', agrandir: 'Ingrandisci lo screenshot', bandeAnnonce: 'Trailer', commentRecuperer: 'Come riscattarlo', captures: 'Screenshot', aPropos: 'Informazioni', enAnglais: '(in inglese)', configMin: 'Requisiti minimi', developpeur: 'Sviluppatore', editeur: 'Editore', sortie: 'Uscita', os: 'Sistema', processeur: 'Processore', memoire: 'Memoria', graphismes: 'Scheda video', stockage: 'Archiviazione', chargement: 'Caricamento…',
-    economie: (m) => `${m} di giochi in regalo`, dejaOfferts: 'Già regalati', totalOffert: (n, m, d) => `${n} giochi regalati dal ${d}, per un valore di ${m}`, partager: 'Condividi', lienCopie: 'Link copiato', partageTexte: (x) => `${x} è gratis in questo momento!`,
+    economie: (m) => `${m} di giochi in regalo`, dejaOfferts: 'Già regalati', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'giochi regalati' : 'gioco regalato'} dal ${d}${m ? `, per un valore di ${m}` : ''}`, partager: 'Condividi', lienCopie: 'Link copiato', partageTexte: (x) => `${x} è gratis in questo momento!`,
     nouveau: 'Nuovo',
     genres: 'Tutti i generi', genre: 'Genere', tri: 'Ordina',
     triFin: 'In scadenza', triRecent: 'Più recenti', triValeur: 'Valore più alto', triPopulaire: 'Popolari', triAZ: 'Dalla A alla Z',
@@ -75,7 +75,7 @@ const T = {
     indes: 'Indie', demos: 'Demos', libres: 'Open Source & Retro', bientot: 'Bald gratis', enCeMoment: 'Jetzt gratis', gratuitDes: (d) => `Gratis ab ${d}`, voirEpic: 'Bei Epic ansehen', essayer: 'Demo testen', nbJeux: (n) => `${n} Spiele`,
     videos: 'Videos', lire: 'Abspielen', sourcesMedias: 'Videos und Screenshots:',
     fermer: 'Schließen', precedente: 'Vorheriger Screenshot', suivante: 'Nächster Screenshot', agrandir: 'Screenshot vergrößern', bandeAnnonce: 'Trailer', commentRecuperer: 'So holst du es dir', captures: 'Screenshots', aPropos: 'Über das Spiel', enAnglais: '(auf Englisch)', configMin: 'Mindestanforderungen', developpeur: 'Entwickler', editeur: 'Publisher', sortie: 'Erscheinung', os: 'System', processeur: 'Prozessor', memoire: 'Arbeitsspeicher', graphismes: 'Grafik', stockage: 'Speicher', chargement: 'Wird geladen…',
-    economie: (m) => `Spiele im Wert von ${m} gratis`, dejaOfferts: 'Bereits verschenkt', totalOffert: (n, m, d) => `${n} Spiele seit dem ${d} verschenkt, im Wert von ${m}`, partager: 'Teilen', lienCopie: 'Link kopiert', partageTexte: (x) => `${x} ist gerade gratis!`,
+    economie: (m) => `Spiele im Wert von ${m} gratis`, dejaOfferts: 'Bereits verschenkt', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'Spiele' : 'Spiel'} seit dem ${d} verschenkt${m ? `, im Wert von ${m}` : ''}`, partager: 'Teilen', lienCopie: 'Link kopiert', partageTexte: (x) => `${x} ist gerade gratis!`,
     nouveau: 'Neu',
     genres: 'Alle Genres', genre: 'Genre', tri: 'Sortieren',
     triFin: 'Endet bald', triRecent: 'Neueste', triValeur: 'Höchster Wert', triPopulaire: 'Beliebt', triAZ: 'A bis Z',
@@ -97,7 +97,7 @@ const T = {
     indes: 'Indie', demos: 'Demos', libres: 'Libres y retro', bientot: 'Pronto gratis', enCeMoment: 'Gratis ahora', gratuitDes: (d) => `Gratis desde ${d}`, voirEpic: 'Ver en Epic', essayer: 'Probar la demo', nbJeux: (n) => `${n} juegos`,
     videos: 'Vídeos', lire: 'Reproducir', sourcesMedias: 'Vídeos y capturas:',
     fermer: 'Cerrar', precedente: 'Captura anterior', suivante: 'Captura siguiente', agrandir: 'Ampliar la captura', bandeAnnonce: 'Tráiler', commentRecuperer: 'Cómo conseguirlo', captures: 'Capturas', aPropos: 'Acerca de', enAnglais: '(en inglés)', configMin: 'Requisitos mínimos', developpeur: 'Desarrollador', editeur: 'Editor', sortie: 'Lanzamiento', os: 'Sistema', processeur: 'Procesador', memoire: 'Memoria', graphismes: 'Gráficos', stockage: 'Almacenamiento', chargement: 'Cargando…',
-    economie: (m) => `${m} en juegos regalados`, dejaOfferts: 'Ya regalados', totalOffert: (n, m, d) => `${n} juegos regalados desde el ${d}, por un valor de ${m}`, partager: 'Compartir', lienCopie: 'Enlace copiado', partageTexte: (x) => `¡${x} está gratis ahora mismo!`,
+    economie: (m) => `${m} en juegos regalados`, dejaOfferts: 'Ya regalados', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'juegos regalados' : 'juego regalado'} desde el ${d}${m ? `, por un valor de ${m}` : ''}`, partager: 'Compartir', lienCopie: 'Enlace copiado', partageTexte: (x) => `¡${x} está gratis ahora mismo!`,
     nouveau: 'Nuevo',
     genres: 'Todos los géneros', genre: 'Género', tri: 'Ordenar',
     triFin: 'Terminan antes', triRecent: 'Más recientes', triValeur: 'Mayor valor', triPopulaire: 'Populares', triAZ: 'De la A a la Z',
@@ -482,7 +482,7 @@ function historiqueHTML(garde) {
   const date = (s) => new Date(s).toLocaleDateString(etat.langue, { day: 'numeric', month: 'short' });
   const depuis = new Date(d.historiqueDepuis).toLocaleDateString(etat.langue, { day: 'numeric', month: 'long', year: 'numeric' });
   return `<h2 class="section">${t('dejaOfferts')}</h2>
-    <p class="historique-total">${esc(t('totalOffert', d.historiqueNb, dollars(d.historiqueTotal), depuis))}</p>
+    <p class="historique-total">${esc(t('totalOffert', d.historiqueNb, d.historiqueTotal ? dollars(d.historiqueTotal) : '', depuis))}</p>
     <ul class="historique">${h.map((g) => `<li><span class="dates">${date(g.debut)} – ${date(g.fin)}</span>
       <span class="titre">${esc(g.titre)}<small>${esc(g.plateformesTexte)}</small></span>${g.valeur ? `<s>${esc(g.valeur)}</s>` : ''}</li>`).join('')}</ul>`;
 }
