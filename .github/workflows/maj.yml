@@ -18,11 +18,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publier:
+  # Deux jobs : publier dans le même job que l'envoi du site échouait (« No artifacts named github-pages »,
+  # actions/deploy-pages#451) ; un job à part ne cherche le site qu'une fois l'envoi bien enregistré.
+  construire:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploiement.outputs.page_url }}
+    outputs:
+      alertes: ${{ steps.sante.outputs.alertes }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -39,18 +40,28 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/cache.json
           git diff --cached --quiet || (git commit -m "Mise à jour du cache [skip ci]" && git push)
+      - id: sante
+        name: Noter les sources en panne
+        run: |
+          if [ -s data/alertes.txt ]; then cat data/alertes.txt; echo "alertes=1" >> "$GITHUB_OUTPUT"; fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
+
+  publier:
+    needs: construire
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
       - id: deploiement
         uses: actions/deploy-pages@v4
       # Après la publication : si une source a cassé, l'automatisation est marquée en échec
       # et GitHub t'envoie un e-mail (le site, lui, est déjà à jour avec les autres sources).
       - name: Vérifier la santé des sources
+        if: needs.construire.outputs.alertes == '1'
         run: |
-          if [ -s data/alertes.txt ]; then
-            echo "::error::Une ou plusieurs sources de jeux ne répondent plus :"
-            cat data/alertes.txt
-            exit 1
-          fi
+          echo "::error::Une ou plusieurs sources de jeux ne répondent plus (détail dans le job « construire », étape « Noter les sources en panne »)."
+          exit 1
