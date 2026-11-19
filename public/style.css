@@ -32,6 +32,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nom { flex: 1; min-width: 0; }
 h1 { font-size: 20px; line-height: 1.15; margin: 0; }
 .sous-titre { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; white-space: nowrap; font-size: 13px; font-weight: 600; color: var(--accent); }
+.sous-titre > span:first-child { white-space: normal; } /* petit écran : passe à la ligne au lieu de glisser sous le bouton */
 /* Réseaux de Geekozor : petites pastilles aux couleurs de chaque réseau */
 .reseaux { display: inline-flex; gap: 8px; vertical-align: middle; }
 .reseaux a { position: relative; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; }
@@ -53,6 +54,11 @@ h1 { font-size: 20px; line-height: 1.15; margin: 0; }
   padding: 6px 11px; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap;
 }
 #alertes[aria-pressed="true"] { color: #ffc940; border-color: #ffc940; }
+/* Téléphone : juste la cloche (le texte reste lu par les lecteurs d'écran), sinon il recouvre le sous-titre */
+@media (max-width: 500px) {
+  #alertes { padding: 6px 9px; font-size: 16px; }
+  .alertes-texte { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 #installer {
   background: var(--accent); color: #062b16; border: 0; border-radius: 99px;
   padding: 7px 12px; font-weight: 700; cursor: pointer;
