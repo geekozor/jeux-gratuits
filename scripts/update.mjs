@@ -93,21 +93,23 @@ await facultatif('Epic', async () => {
   for (const e of jeux) {
     const actuelle = e.promotions?.promotionalOffers?.[0]?.promotionalOffers?.[0];
     const prochaine = e.promotions?.upcomingPromotionalOffers?.[0]?.promotionalOffers?.[0];
-    if (actuelle && e.price?.totalPrice?.discountPrice === 0) { // offert en ce moment : on prend son heure de fin réelle
-      for (const g of offerts) if (/epic/i.test(g.plateformesTexte) && memeJeu(g.titre, e.title)) g.fin = actuelle.endDate;
-    }
     const valeur = e.price?.totalPrice?.fmtPrice?.originalPrice ?? null;
+    const slug = e.catalogNs?.mappings?.[0]?.pageSlug ?? e.productSlug;
+    const image = e.keyImages?.find((k) => k.type === 'OfferImageWide') ?? e.keyImages?.[0];
+    const fiche = {
+      id: 'epic' + e.id, titre: e.title, description: e.description, valeur,
+      image: image?.url, lien: `https://store.epicgames.com/p/${slug}`,
+      plateformes: ['pc'], plateformesTexte: 'PC, Epic Games Store',
+    };
+    if (actuelle && e.price?.totalPrice?.discountPrice === 0) { // offert en ce moment : on prend son heure de fin réelle
+      const deja = offerts.filter((g) => /epic/i.test(g.plateformesTexte) && memeJeu(g.titre, e.title));
+      for (const g of deja) g.fin = actuelle.endDate;
+      // GamerPower met parfois des heures à lister le jeu du jeudi (Mark of the Deep, 19/11/2026) : en attendant, on le prend chez Epic.
+      if (!deja.length && euros(valeur) !== 0) offerts.push({ ...fiche, type: 'jeu', publie: actuelle.startDate, fin: actuelle.endDate });
+    }
     // discountPercentage 0 = prix final nul (sinon c'est une simple promo) ; prix d'origine « 0 » = déjà free-to-play (Firestone).
     if (prochaine?.discountSetting?.discountPercentage === 0 && euros(valeur) !== 0) {
-      const slug = e.catalogNs?.mappings?.[0]?.pageSlug ?? e.productSlug;
-      const image = e.keyImages?.find((k) => k.type === 'OfferImageWide') ?? e.keyImages?.[0];
-      bientot.push({
-        id: 'epic' + e.id, type: 'bientot', titre: e.title, description: e.description,
-        valeur,
-        image: image?.url, lien: `https://store.epicgames.com/p/${slug}`,
-        plateformes: ['pc'], plateformesTexte: 'PC, Epic Games Store',
-        debut: prochaine.startDate, fin: prochaine.endDate,
-      });
+      bientot.push({ ...fiche, type: 'bientot', debut: prochaine.startDate, fin: prochaine.endDate });
     }
   }
 });
@@ -523,6 +525,8 @@ if (offertsJeux.length) {
   const actifs = new Set(offertsJeux.map((g) => g.id));
   for (const [id, g] of Object.entries(cache.offresVues)) {
     if (actifs.has(id)) continue;
+    // Même jeu toujours offert sous un autre id (pris chez Epic, puis listé par GamerPower) : pas une fin d'offre.
+    if (offertsJeux.some((o) => memeJeu(o.titre, g.titre))) { delete cache.offresVues[id]; continue; }
     // Retiré avant sa date de fin (ou sans date) : on note le moment où il a disparu.
     cache.historique.unshift({ ...g, fin: g.fin && new Date(g.fin) < Date.now() ? g.fin : new Date().toISOString() });
     delete cache.offresVues[id];
