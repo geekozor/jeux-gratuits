@@ -92,6 +92,8 @@ python -m http.server 8765 --directory public
   - On ne stocke ni nom ni e-mail ; une mention est à ajouter à la page de confidentialité.
   - Choisi plutôt que OneSignal, parce qu'il faut des préférences par utilisateur. (Les alertes générales, elles, passent par OneSignal depuis le 19/11/2026.)
   - Sur iPhone, les notifications ne marchent que si l'app est installée sur l'écran d'accueil.
+- **Moins dépendre de GamerPower** (noté le 19/11/2026) : ajouter Steam (recherche boutique, jeux à -100 % « à garder »), GOG (catalogue, prix 0) et itch.io (promos à -100 %) en direct, comme Epic, en gardant GamerPower (il reste seul pour Bonus & DLC : clés des sites partenaires). But : la liste survit à une panne de GamerPower, et moins de jeux à ajouter à la main dans `offerts-manuels.json`. Steam d'abord. À tester, et conditions d'utilisation à lire.
+- **Choix des plateformes pour les notifications** (OneSignal, 6 étiquettes max en gratuit, en regroupant les plateformes).
 - **Onglet « Bons plans »** : les promos de CheapShark, avec les liens affiliés du propriétaire. Pas les alertes e-mail de CheapShark.
 - **Monétisation** : pages légales, bandeau cookies, nom de domaine (AdSense refuse github.io), AdSense, emplacement de pub dans la fiche, liens affiliés.
 - **Pour attirer du monde** : chaîne Telegram ou Discord qui publie toute seule les nouveaux jeux offerts ; statistiques sans cookies (GoatCounter : fait, compte `geekozor`. `stat()` dans app.js compte les pages `onglet/<onglet>` et `jeu/<id>`, et les événements `clic/<id>` (bouton vers la boutique, titre « Jeu → domaine ») et `partage/<id>`).
