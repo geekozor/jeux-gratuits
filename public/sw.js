@@ -1,6 +1,6 @@
 // Hors-ligne : l'app s'ouvre même sans réseau, avec la dernière liste connue.
-const CACHE = 'jeux-v10';
-const COQUILLE = ['./', 'index.html', 'style.css', 'app.js', 'noms.js', 'prix.js', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png', 'fonts/space-grotesk.woff2'];
+const CACHE = 'jeux-v11';
+const COQUILLE = ['./', 'index.html', 'style.css', 'app.js', 'noms.js', 'prix.js', 'manifest.webmanifest', 'icons/symbole-couleur.svg', 'icons/icon-192.png', 'fonts/space-grotesk.woff2'];
 
 // skipWaiting : la nouvelle version remplace l'ancienne tout de suite, sans attendre que l'app soit fermée.
 self.addEventListener('install', (e) => e.waitUntil(caches.open(CACHE).then((c) => c.addAll(COQUILLE)).then(() => self.skipWaiting())));

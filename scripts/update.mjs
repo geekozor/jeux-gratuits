@@ -355,7 +355,7 @@ let steamFaits = 0;
 // Nom à chercher sur Steam / Xbox : « Pikmin 4 – Nintendo Switch 2 Edition + Dandori Academy » -> « Pikmin 4 ».
 const nomRecherche = (g) => (g.id.startsWith('nin')
   ? g.titre.replace(/[™®]/g, '').replace(/\s*[–-]?\s*(nintendo switch( 2)?|complete|definitive|deluxe|ultimate) edition.*$/i, '').trim()
-  : g.titre);
+  : g.titre.replace(/\s*\(mobile\)$/i, '')); // offres mobiles d'Epic : « Lonesome Village (Mobile) »
 const demosNintendo = demos.filter((g) => g.id.startsWith('nin'));
 // Les jeux libres d'abord : peu nombreux, et sans image tant que Steam ne leur en a pas donné.
 for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu'), ...f2p, ...demosNintendo]) {

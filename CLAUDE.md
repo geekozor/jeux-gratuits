@@ -39,6 +39,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 - `bandes-annonces.json` (ex. OGame : « OGame Cinematic Trailer », chaîne officielle)
 - `jeux-libres.json`
 - `exclusions.json` : jeux à masquer.
+- `public/choix-du-roi.json` (19/11/2026) : 1 à 3 « Choix du Roi » (`jeu` = id ou titre exact, `verdict`). Carte remontée en tête de sa liste, badge doré, verdict à la place de la description. Lu par le navigateur, pas par update.mjs.
 
 ### Décisions déjà prises
 - Pas de notes de jeux.

@@ -18,7 +18,9 @@
   <meta property="og:url" content="https://geekozor.github.io/jeux-gratuits/">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <!-- Onglet du navigateur : icône sans couronne (illisible à 16-32 px) -->
+  <link rel="icon" href="icons/icon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="icons/icon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Geekozor">
@@ -29,10 +31,10 @@
 <body>
   <header>
     <div class="titre">
-      <img src="icons/icon.svg" alt="" width="32" height="32">
+      <img src="icons/symbole-couleur.svg" alt="" width="56" height="56">
       <div class="nom">
         <h1>Les jeux gratuits</h1>
-        <div class="sous-titre">de Geekozor <span class="reseaux"></span></div>
+        <div class="sous-titre"><span>de Geekozor, le Roi du Gaming 👑</span> <span class="reseaux"></span></div>
       </div>
       <select id="langue" aria-label="Langue">
         <option value="fr">FR</option>

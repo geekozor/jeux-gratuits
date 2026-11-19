@@ -119,6 +119,11 @@ main { padding: 12px 16px; max-width: 1100px; margin: 0 auto; }
   color: var(--doux); font-size: 13px; margin: 0;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
+/* Choix du Roi : bordure et badge dorés, verdict à la place de la description (même hauteur) */
+.carte.roi { border: 2px solid #e6b84a; box-shadow: 0 0 14px rgba(245, 196, 81, .3); }
+.badge.roi { background: linear-gradient(#ffe58a, #e6a92a); color: #2a1c00; font-style: normal; padding: 1px 7px; }
+.desc.verdict { color: #f3e2b0; font-style: italic; }
+.desc.verdict .signe { font-style: normal; font-weight: 600; color: #e6b84a; white-space: nowrap; }
 .badges { display: flex; gap: 6px; flex-wrap: wrap; }
 .badge { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--bord); }
 .badge.prix s { color: var(--doux); font-weight: 400; margin-right: 4px; }

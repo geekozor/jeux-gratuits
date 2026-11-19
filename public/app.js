@@ -219,7 +219,8 @@ function badgesDe(g, nbGenres, avecTemps = true) {
 function carte(g) {
   const badges = badgesDe(g, 3, false);
   const temps = tempsDe(g);
-  return `<article class="carte${recuperes.has(g.id) ? ' recupere' : ''}" id="${esc(g.id)}">
+  const verdict = verdictDe(g);
+  return `<article class="carte${recuperes.has(g.id) ? ' recupere' : ''}${verdict ? ' roi' : ''}" id="${esc(g.id)}">
     <a href="#${esc(g.id)}" class="ouvrir" tabindex="-1" aria-hidden="true">${g.image
       ? `<img src="${esc(lienSur(g.image))}" alt="" loading="lazy">`
       : `<div class="sans-image">${esc(g.titre)}</div>`}</a>
@@ -229,7 +230,9 @@ function carte(g) {
       <h2><a href="#${esc(g.id)}" class="ouvrir">${esc(g.titre)}</a></h2>
       <div class="meta">${esc(metaDe(g))}</div>
       ${badges && `<div class="badges">${badges}</div>`}
-      <p class="desc">${esc(descriptionDe(g))}</p>
+      ${verdict
+        ? `<p class="desc verdict"><span class="badge roi">👑 Choix du Roi</span> « ${esc(verdict)} » <span class="signe">— Le Roi</span></p>`
+        : `<p class="desc">${esc(descriptionDe(g))}</p>`}
       ${actionsDe(g)}
     </div>
   </article>`;
@@ -239,6 +242,12 @@ function carte(g) {
 const caseRecupere = (g) => (g.type === 'jeu' || g.type === 'dlc'
   ? `<label class="case-recupere" title="${t('recupere')}"><input type="checkbox" data-id="${esc(g.id)}" ${recuperes.has(g.id) ? 'checked' : ''}><span class="rond">${icone('coche')}</span><span class="txt">${t('recupere')}</span></label>` : '');
 const metaDe = (g) => (g.plateformesTexte || g.plateformes.map(nomPlateforme).join(', ')) + (g.editeur ? ' · ' + g.editeur : '');
+// Choix du Roi : choix-du-roi.json, jeu repéré par son id ou son titre (sans tenir compte des majuscules).
+let roi = new Map();
+fetch('choix-du-roi.json', { cache: 'no-cache' }).then((r) => r.json())
+  .then((l) => { roi = new Map(l.map((c) => [String(c.jeu).toLowerCase(), c.verdict])); afficher(); }).catch(() => {});
+const verdictDe = (g) => roi.get(g.id.toLowerCase()) ?? roi.get(g.titre.toLowerCase());
+const roiDabord = (a, b) => !verdictDe(a) - !verdictDe(b);
 const descriptionDe = (g) => (etat.langue !== 'en' && g.trad?.[etat.langue]) || g.description;
 const actionsDe = (g) => `<div class="actions">
     <a class="recuperer" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}" href="${esc(lienSur(g.liens?.[etat.langue] ?? g.lien))}" target="_blank" rel="noopener">${t(
@@ -447,6 +456,7 @@ function afficher() {
   const liste = tous.filter(garde);
   if (TRIS[etat.tri]) liste.sort(TRIS[etat.tri]);
   liste.sort((a, b) => recuperes.has(a.id) - recuperes.has(b.id)); // tri stable : l'ordre choisi reste dans chaque groupe
+  liste.sort(roiDabord);
 
   // Par paquets de 40 (plus de 500 free-to-play) ; on repart de 40 dès que l'onglet ou un filtre change.
   const reglages = JSON.stringify([etat.onglet, [...etat.plateformes], etat.genre, etat.tri, q, etat.suivisSeuls]);
@@ -461,7 +471,7 @@ function afficher() {
   $('#suivis').innerHTML = `${icone('etoile')} ${esc(t('mesSuivis'))}`;
   afficherBandeau();
 
-  const bientot = etat.onglet === 'jeux' ? aVenir().filter(garde) : [];
+  const bientot = etat.onglet === 'jeux' ? aVenir().filter(garde).sort(roiDabord) : [];
   // Ce qui est gratuit maintenant d'abord, « Bientôt gratuit » ensuite.
   $('#liste').innerHTML = (bientot.length ? `<h2 class="section">${t('enCeMoment')}</h2>` : '')
     + (liste.slice(0, etat.limite).map(carte).join('') || messageVide())
