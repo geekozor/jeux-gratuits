@@ -293,10 +293,12 @@ await facultatif('Steam (démos)', async () => {
 cache.itchEtiquettes ??= {};
 const ADULTE = /(^|\W)18\+|\b(nsfw|adults?|hentai|porn|sexy?|sexual|erotic|nud(e|ity)|lewd|fetish)\b/i;
 const indes = [];
+let indesOk = false;
 await facultatif('itch.io', async () => {
   const texte = (x, balise) => x.match(new RegExp(`<${balise}>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?</${balise}>`))?.[1]?.trim() ?? '';
   for (let page = 1; page <= 3; page++) {
     const res = await fetch(`https://itch.io/games/top-rated/free.xml?page=${page}`, { headers: { 'User-Agent': 'jeux-gratuits-geekozor/1.0' } });
+    if (!res.ok && indes.length) { console.warn(`itch.io page ${page} -> HTTP ${res.status} : liste partielle`); break; }
     if (!res.ok) throw new Error(`itch.io -> HTTP ${res.status}`);
     for (const item of (await res.text()).split('<item>').slice(1)) {
       const titreComplet = entites(texte(item, 'title'));
@@ -327,7 +329,13 @@ await facultatif('itch.io', async () => {
   }
   // Jeu non vérifié (page injoignable) : écarté jusqu'au prochain passage.
   indes.splice(0, indes.length, ...indes.filter((g) => cache.itchEtiquettes[g.lien] && !etiquettesInterdites(cache.itchEtiquettes[g.lien])));
+  indesOk = indes.length > 0;
 });
+// itch.io (Cloudflare) répond parfois HTTP 429 : on garde la dernière liste valide plutôt qu'un onglet vide.
+// L'alerte e-mail part quand même (facultatif), pour savoir que la liste n'est plus fraîche.
+cache.indes ??= [];
+if (indesOk) cache.indes = indes;
+else indes.splice(0, indes.length, ...cache.indes);
 
 // ---------- 2 quater. Jeux libres (open source) : liste faite à la main, data/jeux-libres.json ----------
 const libres = JSON.parse(await readFile(new URL('../data/jeux-libres.json', import.meta.url), 'utf8'))
