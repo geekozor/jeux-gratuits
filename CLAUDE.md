@@ -67,11 +67,12 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 - Messages clairs quand une liste est vide, et affichage par paquets de 40.
 - Jeux suivis ★, étape 1 : mémorisés sur le téléphone (localStorage `suivis`), avec un bandeau à l'ouverture et un filtre « Mes jeux suivis ».
 - Case « Je l'ai récupéré » (localStorage `recuperes`).
+- Notifications push OneSignal (19/11/2026, compte du propriétaire, offre gratuite, App ID dans `scripts/notifications.mjs` et `app.js`, clé dans le secret `ONESIGNAL_API_KEY`) : bouton « 🔔 Me prévenir » dans l'en-tête (iPhone hors appli installée : explication), service worker à part dans `public/push/`. Le script horaire envoie « nouveau jeu » et « moins de 24 h » (jeux seulement, pas les DLC, groupés par passage, mémoire `cache.notifies`, premier passage silencieux). Le SDK ne marche que sur https://geekozor.github.io (pas en local). Pas encore de choix des plateformes (6 étiquettes max en gratuit).
 - Historique « Déjà offerts » en bas de l'onglet Jeux offerts (15/11/2026) : `cache.offresVues` note les jeux offerts en cours, ceux qui disparaissent de GamerPower passent dans `cache.historique` (dates + valeur). Total sur tout l'historique, 200 derniers dans jeux.json. Commencé le 15/11/2026 : les sources ne donnent pas les offres passées.
 
 ## Tests et aperçu local
 ```
-node --test scripts/titres.test.mjs scripts/plateformes.test.mjs scripts/prix.test.mjs
+node --test scripts/titres.test.mjs scripts/plateformes.test.mjs scripts/prix.test.mjs scripts/notifications.test.mjs
 npm run maj
 python -m http.server 8765 --directory public
 ```
@@ -89,7 +90,7 @@ python -m http.server 8765 --directory public
 - **Notifications par jeu (étape 2 des jeux suivis)**, après la mise en ligne :
   - Un Cloudflare Worker avec un stockage KV et des notifications web-push, environ 250 lignes. Le propriétaire crée le compte Cloudflare.
   - On ne stocke ni nom ni e-mail ; une mention est à ajouter à la page de confidentialité.
-  - Choisi plutôt que OneSignal, parce qu'il faut des préférences par utilisateur.
+  - Choisi plutôt que OneSignal, parce qu'il faut des préférences par utilisateur. (Les alertes générales, elles, passent par OneSignal depuis le 19/11/2026.)
   - Sur iPhone, les notifications ne marchent que si l'app est installée sur l'écran d'accueil.
 - **Onglet « Bons plans »** : les promos de CheapShark, avec les liens affiliés du propriétaire. Pas les alertes e-mail de CheapShark.
 - **Monétisation** : pages légales, bandeau cookies, nom de domaine (AdSense refuse github.io), AdSense, emplacement de pub dans la fiche, liens affiliés.

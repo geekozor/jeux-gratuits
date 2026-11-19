@@ -13,12 +13,13 @@ import { createHash } from 'node:crypto';
 import { plateformes as tags } from './plateformes.mjs';
 import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais } from './titres.mjs';
 import { euros, estUnLot } from '../public/prix.js';
+import { aNotifier, messages, envoyer } from './notifications.mjs';
 
 const OUT = new URL('../public/data/jeux.json', import.meta.url);
 const DETAILS = new URL('../public/data/jeux/', import.meta.url); // un petit fichier par jeu, chargé à l'ouverture de sa fiche
 const MAX_DETAILS_PAR_EXECUTION = 150; // fiches FreeToGame récupérées par passage (le cache garde les autres)
 const CACHE = new URL('../data/cache.json', import.meta.url);
-const { ANTHROPIC_API_KEY } = process.env;
+const { ANTHROPIC_API_KEY, ONESIGNAL_API_KEY } = process.env;
 const LANGUES = ['fr']; // choix du propriétaire : les autres langues gardent l'anglais
 const MAX_TRAD_PAR_EXECUTION = 300; // plafond de coût par exécution
 
@@ -543,6 +544,17 @@ if (offertsJeux.length) {
 const exclus = new Set(JSON.parse(await readFile(new URL('../data/exclusions.json', import.meta.url), 'utf8')).titres.map(cle));
 for (const liste of [offerts, bientot, f2p, indes, demos, libres]) {
   liste.splice(0, liste.length, ...liste.filter((g) => !exclus.has(cle(g.titre))));
+}
+
+// ---------- Notifications push (OneSignal), seulement avec la clé (pas depuis le PC) ----------
+// Premier passage : on retient les jeux déjà là sans rien envoyer (sinon 30 notifications d'un coup).
+// shortcut: si le 2e envoi échoue, le 1er repart au passage suivant ; à revoir si OneSignal tombe souvent.
+if (ONESIGNAL_API_KEY) {
+  const { nouveaux, finissants, vus } = aNotifier(offerts, cache.notifies ?? {});
+  try {
+    if (cache.notifies) for (const m of messages(nouveaux, finissants)) await envoyer(ONESIGNAL_API_KEY, m);
+    cache.notifies = vus;
+  } catch (e) { alertes.push(`OneSignal : ${e.message}`); }
 }
 
 // ---------- Santé des sources : si l'une casse ou ne renvoie plus rien, l'automatisation GitHub échoue

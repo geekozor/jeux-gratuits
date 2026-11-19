@@ -34,6 +34,7 @@ jobs:
       - run: node scripts/update.mjs
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
       - name: Enregistrer le cache
         run: |
           git config user.name "github-actions[bot]"

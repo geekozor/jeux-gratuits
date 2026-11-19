@@ -48,6 +48,11 @@ h1 { font-size: 20px; line-height: 1.15; margin: 0; }
   background: var(--carte); color: var(--texte); border: 1px solid var(--bord);
   border-radius: 8px; padding: 6px 4px; font: inherit; font-size: 13px;
 }
+#alertes {
+  background: var(--carte); color: var(--texte); border: 1px solid var(--bord); border-radius: 99px;
+  padding: 6px 11px; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap;
+}
+#alertes[aria-pressed="true"] { color: #ffc940; border-color: #ffc940; }
 #installer {
   background: var(--accent); color: #062b16; border: 0; border-radius: 99px;
   padding: 7px 12px; font-weight: 700; cursor: pointer;

@@ -14,7 +14,7 @@ const T = {
     nouveau: 'Nouveau',
     genres: 'Tous les genres', genre: 'Genre', tri: 'Trier',
     triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
-    installerIos: "Pour installer : touche le bouton Partager (carré avec une flèche) puis « Sur l'écran d'accueil ».", suisMoi: 'Tu aimes ces bons plans ? Suis Geekozor :', installer: 'Installer', jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
+    installerIos: "Pour installer : touche le bouton Partager (carré avec une flèche) puis « Sur l'écran d'accueil ».", suisMoi: 'Tu aimes ces bons plans ? Suis Geekozor :', installer: 'Installer', alertesActiver: "🔔 Me prévenir", alertesActives: "🔔 Alertes activées", alertesIos: "Sur iPhone, les alertes marchent seulement avec l'appli installée : touche Partager puis « Sur l'écran d'accueil », puis ouvre l'appli depuis l'écran d'accueil.", alertesBloquees: "Les notifications sont bloquées pour ce site : autorise-les dans les réglages du navigateur.", jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
     recherche: 'Rechercher un jeu…', toutes: 'Toutes', recuperer: 'Récupérer', jouer: 'Jouer gratuitement',
     gratuit: 'Gratuit', vf: 'VF', vfTitre: 'Voix et textes en français', st: 'Sous-titres FR', stTitre: 'Textes en français, voix dans une autre langue', encore: (n) => `Encore ${n} j`,
     nbOffres: (n) => `${n} offres en cours`, nbF2p: (n) => `${n} jeux free-to-play`,
@@ -36,7 +36,7 @@ const T = {
     nouveau: 'New',
     genres: 'All genres', genre: 'Genre', tri: 'Sort',
     triFin: 'Ending soonest', triRecent: 'Newest', triValeur: 'Highest value', triPopulaire: 'Popular', triAZ: 'A to Z',
-    installerIos: 'To install: tap the Share button (square with an arrow), then “Add to Home Screen”.', suisMoi: 'Like these deals? Follow Geekozor:', installer: 'Install', jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'To install: tap the Share button (square with an arrow), then “Add to Home Screen”.', suisMoi: 'Like these deals? Follow Geekozor:', installer: 'Install', alertesActiver: "🔔 Notify me", alertesActives: "🔔 Alerts on", alertesIos: "On iPhone, alerts only work with the app installed: tap Share, then “Add to Home Screen”, then open the app from your Home Screen.", alertesBloquees: "Notifications are blocked for this site: allow them in your browser settings.", jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Search a game…', toutes: 'All', recuperer: 'Claim', jouer: 'Play for free',
     gratuit: 'Free', encore: (n) => `${n} days left`,
     nbOffres: (n) => `${n} active offers`, nbF2p: (n) => `${n} free-to-play games`,
@@ -58,7 +58,7 @@ const T = {
     nouveau: 'Nuovo',
     genres: 'Tutti i generi', genre: 'Genere', tri: 'Ordina',
     triFin: 'In scadenza', triRecent: 'Più recenti', triValeur: 'Valore più alto', triPopulaire: 'Popolari', triAZ: 'Dalla A alla Z',
-    installerIos: 'Per installare: tocca il pulsante Condividi (quadrato con una freccia), poi « Aggiungi alla schermata Home ».', suisMoi: 'Ti piacciono queste offerte? Segui Geekozor:', installer: 'Installa', jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
+    installerIos: 'Per installare: tocca il pulsante Condividi (quadrato con una freccia), poi « Aggiungi alla schermata Home ».', suisMoi: 'Ti piacciono queste offerte? Segui Geekozor:', installer: 'Installa', alertesActiver: "🔔 Avvisami", alertesActives: "🔔 Avvisi attivi", alertesIos: "Su iPhone gli avvisi funzionano solo con l'app installata: tocca Condividi, poi « Aggiungi alla schermata Home », poi apri l'app dalla schermata Home.", alertesBloquees: "Le notifiche sono bloccate per questo sito: consentile nelle impostazioni del browser.", jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
     recherche: 'Cerca un gioco…', toutes: 'Tutte', recuperer: 'Riscatta', jouer: 'Gioca gratis',
     gratuit: 'Gratis', encore: (n) => `Ancora ${n} g`,
     nbOffres: (n) => `${n} offerte attive`, nbF2p: (n) => `${n} giochi free-to-play`,
@@ -80,7 +80,7 @@ const T = {
     nouveau: 'Neu',
     genres: 'Alle Genres', genre: 'Genre', tri: 'Sortieren',
     triFin: 'Endet bald', triRecent: 'Neueste', triValeur: 'Höchster Wert', triPopulaire: 'Beliebt', triAZ: 'A bis Z',
-    installerIos: 'Zum Installieren: Tippe auf Teilen (Quadrat mit Pfeil) und dann auf „Zum Home-Bildschirm“.', suisMoi: 'Gefallen dir diese Angebote? Folge Geekozor:', installer: 'Installieren', jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'Zum Installieren: Tippe auf Teilen (Quadrat mit Pfeil) und dann auf „Zum Home-Bildschirm“.', suisMoi: 'Gefallen dir diese Angebote? Folge Geekozor:', installer: 'Installieren', alertesActiver: "🔔 Benachrichtigen", alertesActives: "🔔 Alarme an", alertesIos: "Auf dem iPhone gehen Alarme nur mit installierter App: Tippe auf Teilen, dann „Zum Home-Bildschirm“, und öffne die App vom Home-Bildschirm.", alertesBloquees: "Benachrichtigungen sind für diese Seite blockiert: Erlaube sie in den Browser-Einstellungen.", jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Spiel suchen…', toutes: 'Alle', recuperer: 'Holen', jouer: 'Kostenlos spielen',
     gratuit: 'Gratis', encore: (n) => `Noch ${n} T.`,
     nbOffres: (n) => `${n} aktuelle Angebote`, nbF2p: (n) => `${n} Free-to-play-Spiele`,
@@ -102,7 +102,7 @@ const T = {
     nouveau: 'Nuevo',
     genres: 'Todos los géneros', genre: 'Género', tri: 'Ordenar',
     triFin: 'Terminan antes', triRecent: 'Más recientes', triValeur: 'Mayor valor', triPopulaire: 'Populares', triAZ: 'De la A a la Z',
-    installerIos: 'Para instalar: toca el botón Compartir (cuadrado con una flecha) y luego «Añadir a pantalla de inicio».', suisMoi: '¿Te gustan estas ofertas? Sigue a Geekozor:', installer: 'Instalar', jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
+    installerIos: 'Para instalar: toca el botón Compartir (cuadrado con una flecha) y luego «Añadir a pantalla de inicio».', suisMoi: '¿Te gustan estas ofertas? Sigue a Geekozor:', installer: 'Instalar', alertesActiver: "🔔 Avísame", alertesActives: "🔔 Alertas activadas", alertesIos: "En iPhone, las alertas solo funcionan con la app instalada: toca Compartir, luego «Añadir a pantalla de inicio» y abre la app desde la pantalla de inicio.", alertesBloquees: "Las notificaciones están bloqueadas para este sitio: permítelas en los ajustes del navegador.", jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Buscar un juego…', toutes: 'Todas', recuperer: 'Conseguir', jouer: 'Jugar gratis',
     gratuit: 'Gratis', encore: (n) => `Quedan ${n} d`,
     nbOffres: (n) => `${n} ofertas activas`, nbF2p: (n) => `${n} juegos free-to-play`,
@@ -631,6 +631,36 @@ $('#installer').addEventListener('click', () => {
 });
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+
+// Notifications push (OneSignal) : nouveaux jeux offerts et rappel < 24 h, envoyés par scripts/notifications.mjs.
+// iPhone : uniquement depuis l'appli installée (règle d'Apple), sinon on explique comment l'installer.
+const boutonAlertes = $('#alertes');
+const majAlertes = (actif) => {
+  boutonAlertes.dataset.t = actif ? 'alertesActives' : 'alertesActiver';
+  boutonAlertes.textContent = t(boutonAlertes.dataset.t);
+  boutonAlertes.setAttribute('aria-pressed', actif);
+};
+if (ios && !navigator.standalone) {
+  majAlertes(false); boutonAlertes.hidden = false;
+  boutonAlertes.addEventListener('click', () => alert(t('alertesIos')));
+} else {
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async (OneSignal) => {
+    // Service worker à part dans /push/ pour ne pas toucher au hors-ligne de sw.js. Hors de github.io (aperçu local), init échoue : pas de bouton.
+    await OneSignal.init({ appId: '6d958804-4c16-40fc-97be-496a98418a29', serviceWorkerPath: 'jeux-gratuits/push/OneSignalSDKWorker.js', serviceWorkerParam: { scope: '/jeux-gratuits/push/' } });
+    if (!OneSignal.Notifications.isPushSupported()) return;
+    const abonnement = OneSignal.User.PushSubscription;
+    majAlertes(abonnement.optedIn); boutonAlertes.hidden = false;
+    abonnement.addEventListener('change', (e) => majAlertes(e.current.optedIn));
+    boutonAlertes.addEventListener('click', () => {
+      if (abonnement.optedIn) return abonnement.optOut();
+      if (Notification.permission === 'denied') return alert(t('alertesBloquees'));
+      stat({ path: 'alertes/activer', event: true });
+      abonnement.optIn();
+    });
+  });
+  document.head.append(Object.assign(document.createElement('script'), { src: 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js', defer: true }));
+}
 
 traduirePage();
 fetch('data/jeux.json', { cache: 'no-cache' })
