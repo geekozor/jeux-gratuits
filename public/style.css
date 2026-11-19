@@ -54,12 +54,10 @@ h1 { font-size: 20px; line-height: 1.15; margin: 0; }
   padding: 6px 11px; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap;
 }
 #alertes[aria-pressed="true"] { color: #ffc940; border-color: #ffc940; }
-/* Téléphone : juste la cloche (le texte reste lu par les lecteurs d'écran), sinon il recouvre le sous-titre */
+/* Téléphone : la cloche et son texte passent dans la rangée des réseaux (app.js), en petite pastille de leur hauteur */
 @media (max-width: 500px) {
-  #alertes { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; font-size: 13px; line-height: 1; }
-  #alertes[hidden] { display: none; }
-  #alertes { position: relative; } #alertes::after { content: ""; position: absolute; inset: -8px -4px; } /* doigt : 40 px de haut */
-  .alertes-texte { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  #alertes { position: relative; height: 24px; padding: 0 9px; font-size: 12px; line-height: 1; }
+  #alertes::after { content: ""; position: absolute; inset: -8px -4px; } /* doigt : 40 px de haut */
 }
 #installer {
   background: var(--accent); color: #062b16; border: 0; border-radius: 99px;
