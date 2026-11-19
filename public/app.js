@@ -16,7 +16,7 @@ const T = {
     triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
     installerIos: "Pour installer : touche le bouton Partager (carré avec une flèche) puis « Sur l'écran d'accueil ».", suisMoi: 'Tu aimes ces bons plans ? Suis Geekozor :', installer: 'Installer', jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
     recherche: 'Rechercher un jeu…', toutes: 'Toutes', recuperer: 'Récupérer', jouer: 'Jouer gratuitement',
-    gratuit: 'Gratuit', encore: (n) => `Encore ${n} j`,
+    gratuit: 'Gratuit', vf: 'VF', vfTitre: 'Voix et textes en français', st: 'Sous-titres FR', stTitre: 'Textes en français, voix dans une autre langue', encore: (n) => `Encore ${n} j`,
     nbOffres: (n) => `${n} offres en cours`, nbF2p: (n) => `${n} jeux free-to-play`,
     erreur: 'Impossible de charger la liste. Vérifie ta connexion.',
     sources: 'Données :', maj: 'Mis à jour le', navigateur: 'Navigateur', mobile: 'Mobile',
@@ -211,6 +211,7 @@ function badgesDe(g, nbGenres, avecTemps = true) {
   return [
     temps && `<span class="badge fin">${temps.texte}</span>`,
     g.publie && Date.now() - new Date(g.publie) < 86400000 && `<span class="badge nouveau">${t('nouveau')}</span>`,
+    etat.langue === 'fr' && g.fr && `<span class="badge fr" title="${t(g.fr + 'Titre')}">${t(g.fr)}</span>`, // langues Steam, utile surtout en français
     prix(g) > 0 && `<span class="badge prix"><s>${esc(formatEuros(prix(g), etat.langue))}</s>${t('gratuit')}</span>`,
     ...(g.genres ?? []).slice(0, nbGenres).map((x) => `<span class="badge genre">${esc(x)}</span>`),
   ].filter(Boolean).join('');

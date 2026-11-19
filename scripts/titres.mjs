@@ -21,6 +21,12 @@ const ETIQUETTES_EXCLUES = new Set(['fangame', 'fan-game', 'nsfw', 'adult', 'adu
   'hentai', 'nudity', 'porn', 'lewd', '18', '18-plus', 'mature', 'eroge']);
 export const etiquettesInterdites = (etiquettes) => etiquettes.some((e) => ETIQUETTES_EXCLUES.has(e));
 
+// Langues Steam ("English<strong>*</strong>, French<strong>*</strong>, German", * = voix) -> 'vf', 'st' ou null.
+export function francais(langues) {
+  const m = (langues ?? '').match(/\bFrench\b(<strong>\*<\/strong>)?/);
+  return !m ? null : m[1] ? 'vf' : 'st';
+}
+
 export function nettoyerTitre(titre) {
   let t = titre.trim();
   for (let avant = ''; avant !== t;) { avant = t; t = t.replace(SUFFIXE, '').trim(); }

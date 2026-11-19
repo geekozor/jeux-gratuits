@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites } from './titres.mjs';
+import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais } from './titres.mjs';
 import { variantesNom } from '../public/noms.js';
 
 test('mods GOG qui demandent le jeu payant', () => {
@@ -62,4 +62,11 @@ test('offres sous conditions (GamerPower)', () => {
   assert.ok(pasVraimentGratuit('Grab Sharknado VR (Rift S, Rift) for free via Meta.'));
   assert.ok(!pasVraimentGratuit('Score Knightica for free via Epic Games Store!'));
   assert.ok(!pasVraimentGratuit('Rift Apart is a free platformer with a rift in time.'));
+});
+
+test('jouable en français (langues Steam)', () => {
+  assert.equal(francais('English<strong>*</strong>, French<strong>*</strong>, German<br><strong>*</strong>languages with full audio support'), 'vf');
+  assert.equal(francais('English<strong>*</strong>, French, German<br><strong>*</strong>languages with full audio support'), 'st');
+  assert.equal(francais('English, Spanish - Spain'), null);
+  assert.equal(francais(undefined), null);
 });

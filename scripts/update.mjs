@@ -11,7 +11,7 @@
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { plateformes as tags } from './plateformes.mjs';
-import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites } from './titres.mjs';
+import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais } from './titres.mjs';
 import { euros, estUnLot } from '../public/prix.js';
 
 const OUT = new URL('../public/data/jeux.json', import.meta.url);
@@ -250,13 +250,14 @@ await facultatif('Steam (démos)', async () => {
       const titre = entites(bloc.match(/<span class="title">([^<]+)/)?.[1] ?? '').trim();
       if (!titre || deja.has(cle(titre))) continue;
       deja.add(cle(titre));
-      if (!('langueOk' in (cache.steamDemo[id] ?? {})) && fiches++ < 60) {
+      if (!('fr' in (cache.steamDemo[id] ?? {})) && fiches++ < 60) {
         await facultatif(`Fiche démo Steam ${titre}`, async () => {
           const d = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${id}&cc=us&l=english`))[id]?.data;
           if (!d) throw new Error('fiche vide');
           cache.steamDemo[id] = {
             adulte: (d.content_descriptors?.ids ?? []).some((x) => x === 3 || x === 4), // contenu sexuel, nudité
             langueOk: /English|French/.test(d.supported_languages ?? ''), // sinon injouable pour nos lecteurs
+            fr: francais(d.supported_languages),
             image: d.header_image, description: entites(d.short_description ?? ''),
             genres: (d.genres ?? []).map((x) => x.description).slice(0, 3), developpeur: d.developers?.[0],
             videos: (d.movies ?? []).filter((m) => m.hls_h264).slice(0, 3).map((m) => ({ nom: m.name, hls: m.hls_h264, miniature: m.thumbnail })),
@@ -271,6 +272,7 @@ await facultatif('Steam (démos)', async () => {
         image: f?.image ?? bloc.match(/<img src="([^"]+)"/)?.[1], description: f?.description ?? '',
         genres: f?.genres ?? [], plateformes: ['pc'], plateformesTexte: 'PC, Steam',
       };
+      if (f?.fr) g.fr = f.fr;
       if (f) details.set(g.id, { videos: f.videos, captures: f.captures, developpeur: f.developpeur, source: f.videos.length ? 'Steam' : undefined });
       demos.push(g);
     }
@@ -361,7 +363,8 @@ const demosNintendo = demos.filter((g) => g.id.startsWith('nin'));
 for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu'), ...f2p, ...demosNintendo]) {
   const nom = nomRecherche(g);
   const k = cle(nom);
-  if (!(k in cache.steam)) {
+  // Fiches lues avant le badge français (sans « fr ») : relues peu à peu, dans le même plafond.
+  if (!(k in cache.steam) || (cache.steam[k] && !('fr' in cache.steam[k]))) {
     if (steamFaits++ >= MAX_STEAM_PAR_EXECUTION) continue;
     await facultatif(`Steam ${nom}`, async () => {
       const r = await getJson(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(nom)}&cc=FR&l=english`);
@@ -370,7 +373,7 @@ for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu
       const d = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${app.id}&l=english`))[app.id]?.data;
       if (d?.type !== 'game') { cache.steam[k] = null; return; } // un DLC ou un pack du même nom
       cache.steam[k] = {
-        image: d.header_image,
+        image: d.header_image, fr: francais(d.supported_languages),
         videos: (d?.movies ?? []).filter((m) => m.hls_h264).slice(0, 3).map((m) => ({ nom: m.name, hls: m.hls_h264, miniature: m.thumbnail })),
         captures: (d?.screenshots ?? []).slice(0, 8).map((c) => c.path_full),
       };
@@ -379,6 +382,7 @@ for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu
   const s = cache.steam[k];
   if (!s) continue;
   g.image ??= s.image;
+  if (s.fr) g.fr = s.fr; // badge « VF » / « Sous-titres FR »
   const d = details.get(g.id) ?? {};
   details.set(g.id, { ...d, videos: s.videos, captures: s.captures.length ? s.captures : d.captures });
 }
