@@ -635,6 +635,10 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
 // Notifications push (OneSignal) : nouveaux jeux offerts et rappel < 24 h, envoyés par scripts/notifications.mjs.
 // iPhone : uniquement depuis l'appli installée (règle d'Apple), sinon on explique comment l'installer.
 const boutonAlertes = $('#alertes');
+// Téléphone : la cloche rejoint les icônes des réseaux, sous le titre (en haut à droite, elle écrasait le sous-titre).
+const petitEcran = matchMedia('(max-width: 500px)');
+const placerAlertes = () => (petitEcran.matches ? $('.sous-titre .reseaux') : $('.titre')).append(boutonAlertes);
+placerAlertes(); petitEcran.addEventListener('change', placerAlertes);
 const majAlertes = (actif) => {
   const texte = boutonAlertes.querySelector('[data-t]'); // retraduit par traduirePage
   texte.dataset.t = actif ? 'alertesActives' : 'alertesActiver';

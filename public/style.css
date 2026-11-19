@@ -56,7 +56,9 @@ h1 { font-size: 20px; line-height: 1.15; margin: 0; }
 #alertes[aria-pressed="true"] { color: #ffc940; border-color: #ffc940; }
 /* Téléphone : juste la cloche (le texte reste lu par les lecteurs d'écran), sinon il recouvre le sous-titre */
 @media (max-width: 500px) {
-  #alertes { padding: 6px 9px; font-size: 16px; }
+  #alertes { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; font-size: 13px; line-height: 1; }
+  #alertes[hidden] { display: none; }
+  #alertes { position: relative; } #alertes::after { content: ""; position: absolute; inset: -8px -4px; } /* doigt : 40 px de haut */
   .alertes-texte { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
 #installer {
