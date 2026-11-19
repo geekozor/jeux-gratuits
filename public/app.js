@@ -7,7 +7,7 @@ const T = {
     recupere: "Je l'ai récupéré", heures: (n) => `Plus que ${n} h`, videOnglet: (o) => `Rien dans « ${o} » en ce moment. La liste est mise à jour toutes les heures.`, videFiltres: (o, f) => `Rien dans « ${o} » pour ${f} en ce moment.`, effacer: 'Effacer les filtres', voirPlus: (n) => `Voir plus (${n} restants)`,
     suivre: 'Suivre ce jeu', mesSuivis: 'Mes jeux suivis', alerteJusqua: (x, d) => `${x}, que tu suis, est gratuit jusqu'au ${d} !`, alerteMaintenant: (x) => `${x}, que tu suis, est gratuit en ce moment !`, alerteBientot: (x, d) => `${x}, que tu suis, sera gratuit le ${d} !`, aucunSuivi: 'Aucun jeu suivi ici. Touche ★ sur un jeu pour être prévenu quand il devient gratuit.',
     creditImage: 'Image :',
-    indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro', bientot: 'Bientôt gratuit', enCeMoment: 'Gratuits en ce moment', gratuitDes: (d) => `Gratuit dès ${d}`, voirEpic: 'Voir sur Epic', essayer: 'Essayer la démo', nbJeux: (n) => `${n} jeux`,
+    indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro', bientot: 'Bientôt gratuit', enCeMoment: 'Gratuits en ce moment', gratuitDes: (d) => `Gratuit dès ${d}`, voirEpic: 'Voir sur Epic', essayer: 'Essayer la démo', nbJeux: (n) => `${n} jeux`, visites: (n) => `${n} visites`,
     videos: 'Vidéos', lire: 'Lire', sourcesMedias: 'Vidéos et captures :',
     fermer: 'Fermer', precedente: 'Capture précédente', suivante: 'Capture suivante', agrandir: 'Agrandir la capture', bandeAnnonce: 'Bande-annonce', commentRecuperer: 'Comment le récupérer', captures: "Captures d'écran", aPropos: 'À propos', enAnglais: '(en anglais)', configMin: 'Configuration minimale', developpeur: 'Développeur', editeur: 'Éditeur', sortie: 'Sortie', os: 'Système', processeur: 'Processeur', memoire: 'Mémoire', graphismes: 'Carte graphique', stockage: 'Stockage', chargement: 'Chargement…',
     dejaOfferts: 'Déjà offerts', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'jeux offerts' : 'jeu offert'} depuis le ${d}${m ? `, pour ${m} au total` : ''}`, partager: 'Partager', lienCopie: 'Lien copié', partageTexte: (x) => `${x} est gratuit en ce moment !`,
@@ -29,7 +29,7 @@ const T = {
     recupere: 'I got it', heures: (n) => `Only ${n} h left`, videOnglet: (o) => `Nothing in “${o}” right now. The list is updated every hour.`, videFiltres: (o, f) => `Nothing in “${o}” for ${f} right now.`, effacer: 'Clear filters', voirPlus: (n) => `Show more (${n} left)`,
     suivre: 'Follow this game', mesSuivis: 'My followed games', alerteJusqua: (x, d) => `${x}, which you follow, is free until ${d}!`, alerteMaintenant: (x) => `${x}, which you follow, is free right now!`, alerteBientot: (x, d) => `${x}, which you follow, will be free on ${d}!`, aucunSuivi: 'No followed game here. Tap ★ on a game to be told when it goes free.',
     creditImage: 'Image:',
-    indes: 'Indie', demos: 'Demos', libres: 'Open source & retro', bientot: 'Free soon', enCeMoment: 'Free right now', gratuitDes: (d) => `Free from ${d}`, voirEpic: 'View on Epic', essayer: 'Try the demo', nbJeux: (n) => `${n} games`,
+    indes: 'Indie', demos: 'Demos', libres: 'Open source & retro', bientot: 'Free soon', enCeMoment: 'Free right now', gratuitDes: (d) => `Free from ${d}`, voirEpic: 'View on Epic', essayer: 'Try the demo', nbJeux: (n) => `${n} games`, visites: (n) => `${n} visits`,
     videos: 'Videos', lire: 'Play', sourcesMedias: 'Videos and screenshots:',
     fermer: 'Close', precedente: 'Previous screenshot', suivante: 'Next screenshot', agrandir: 'Enlarge screenshot', bandeAnnonce: 'Trailer', commentRecuperer: 'How to claim', captures: 'Screenshots', aPropos: 'About', enAnglais: '', configMin: 'Minimum requirements', developpeur: 'Developer', editeur: 'Publisher', sortie: 'Release', os: 'OS', processeur: 'Processor', memoire: 'Memory', graphismes: 'Graphics', stockage: 'Storage', chargement: 'Loading…',
     dejaOfferts: 'Previously free', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'games' : 'game'} given away since ${d}${m ? `, worth ${m} in total` : ''}`, partager: 'Share', lienCopie: 'Link copied', partageTexte: (x) => `${x} is free right now!`,
@@ -51,7 +51,7 @@ const T = {
     recupere: "L'ho riscattato", heures: (n) => `Solo più ${n} h`, videOnglet: (o) => `Niente in «${o}» al momento. La lista si aggiorna ogni ora.`, videFiltres: (o, f) => `Niente in «${o}» per ${f} al momento.`, effacer: 'Cancella i filtri', voirPlus: (n) => `Mostra altri (${n} rimanenti)`,
     suivre: 'Segui questo gioco', mesSuivis: 'I miei giochi seguiti', alerteJusqua: (x, d) => `${x}, che segui, è gratis fino al ${d}!`, alerteMaintenant: (x) => `${x}, che segui, è gratis adesso!`, alerteBientot: (x, d) => `${x}, che segui, sarà gratis il ${d}!`, aucunSuivi: 'Nessun gioco seguito qui. Tocca ★ su un gioco per sapere quando diventa gratis.',
     creditImage: 'Immagine:',
-    indes: 'Indie', demos: 'Demo', libres: 'Liberi e retrò', bientot: 'Presto gratis', enCeMoment: 'Gratis adesso', gratuitDes: (d) => `Gratis da ${d}`, voirEpic: 'Vedi su Epic', essayer: 'Prova la demo', nbJeux: (n) => `${n} giochi`,
+    indes: 'Indie', demos: 'Demo', libres: 'Liberi e retrò', bientot: 'Presto gratis', enCeMoment: 'Gratis adesso', gratuitDes: (d) => `Gratis da ${d}`, voirEpic: 'Vedi su Epic', essayer: 'Prova la demo', nbJeux: (n) => `${n} giochi`, visites: (n) => `${n} visite`,
     videos: 'Video', lire: 'Riproduci', sourcesMedias: 'Video e screenshot:',
     fermer: 'Chiudi', precedente: 'Screenshot precedente', suivante: 'Screenshot successivo', agrandir: 'Ingrandisci lo screenshot', bandeAnnonce: 'Trailer', commentRecuperer: 'Come riscattarlo', captures: 'Screenshot', aPropos: 'Informazioni', enAnglais: '(in inglese)', configMin: 'Requisiti minimi', developpeur: 'Sviluppatore', editeur: 'Editore', sortie: 'Uscita', os: 'Sistema', processeur: 'Processore', memoire: 'Memoria', graphismes: 'Scheda video', stockage: 'Archiviazione', chargement: 'Caricamento…',
     dejaOfferts: 'Già regalati', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'giochi regalati' : 'gioco regalato'} dal ${d}${m ? `, per un valore di ${m}` : ''}`, partager: 'Condividi', lienCopie: 'Link copiato', partageTexte: (x) => `${x} è gratis in questo momento!`,
@@ -73,7 +73,7 @@ const T = {
     recupere: 'Hab ich schon', heures: (n) => `Nur noch ${n} Std.`, videOnglet: (o) => `Gerade nichts in „${o}“. Die Liste wird stündlich aktualisiert.`, videFiltres: (o, f) => `Gerade nichts in „${o}“ für ${f}.`, effacer: 'Filter löschen', voirPlus: (n) => `Mehr anzeigen (noch ${n})`,
     suivre: 'Diesem Spiel folgen', mesSuivis: 'Meine gefolgten Spiele', alerteJusqua: (x, d) => `${x}, dem du folgst, ist gratis bis ${d}!`, alerteMaintenant: (x) => `${x}, dem du folgst, ist gerade gratis!`, alerteBientot: (x, d) => `${x}, dem du folgst, ist gratis ab ${d}!`, aucunSuivi: 'Hier folgst du keinem Spiel. Tippe auf ★, um zu erfahren, wann ein Spiel gratis wird.',
     creditImage: 'Bild:',
-    indes: 'Indie', demos: 'Demos', libres: 'Open Source & Retro', bientot: 'Bald gratis', enCeMoment: 'Jetzt gratis', gratuitDes: (d) => `Gratis ab ${d}`, voirEpic: 'Bei Epic ansehen', essayer: 'Demo testen', nbJeux: (n) => `${n} Spiele`,
+    indes: 'Indie', demos: 'Demos', libres: 'Open Source & Retro', bientot: 'Bald gratis', enCeMoment: 'Jetzt gratis', gratuitDes: (d) => `Gratis ab ${d}`, voirEpic: 'Bei Epic ansehen', essayer: 'Demo testen', nbJeux: (n) => `${n} Spiele`, visites: (n) => `${n} Besuche`,
     videos: 'Videos', lire: 'Abspielen', sourcesMedias: 'Videos und Screenshots:',
     fermer: 'Schließen', precedente: 'Vorheriger Screenshot', suivante: 'Nächster Screenshot', agrandir: 'Screenshot vergrößern', bandeAnnonce: 'Trailer', commentRecuperer: 'So holst du es dir', captures: 'Screenshots', aPropos: 'Über das Spiel', enAnglais: '(auf Englisch)', configMin: 'Mindestanforderungen', developpeur: 'Entwickler', editeur: 'Publisher', sortie: 'Erscheinung', os: 'System', processeur: 'Prozessor', memoire: 'Arbeitsspeicher', graphismes: 'Grafik', stockage: 'Speicher', chargement: 'Wird geladen…',
     dejaOfferts: 'Bereits verschenkt', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'Spiele' : 'Spiel'} seit dem ${d} verschenkt${m ? `, im Wert von ${m}` : ''}`, partager: 'Teilen', lienCopie: 'Link kopiert', partageTexte: (x) => `${x} ist gerade gratis!`,
@@ -95,7 +95,7 @@ const T = {
     recupere: 'Ya lo tengo', heures: (n) => `Solo quedan ${n} h`, videOnglet: (o) => `Nada en «${o}» por ahora. La lista se actualiza cada hora.`, videFiltres: (o, f) => `Nada en «${o}» para ${f} por ahora.`, effacer: 'Borrar filtros', voirPlus: (n) => `Ver más (quedan ${n})`,
     suivre: 'Seguir este juego', mesSuivis: 'Mis juegos seguidos', alerteJusqua: (x, d) => `¡${x}, que sigues, está gratis hasta el ${d}!`, alerteMaintenant: (x) => `¡${x}, que sigues, está gratis ahora!`, alerteBientot: (x, d) => `¡${x}, que sigues, estará gratis el ${d}!`, aucunSuivi: 'Ningún juego seguido aquí. Toca ★ en un juego para saber cuándo sea gratis.',
     creditImage: 'Imagen:',
-    indes: 'Indie', demos: 'Demos', libres: 'Libres y retro', bientot: 'Pronto gratis', enCeMoment: 'Gratis ahora', gratuitDes: (d) => `Gratis desde ${d}`, voirEpic: 'Ver en Epic', essayer: 'Probar la demo', nbJeux: (n) => `${n} juegos`,
+    indes: 'Indie', demos: 'Demos', libres: 'Libres y retro', bientot: 'Pronto gratis', enCeMoment: 'Gratis ahora', gratuitDes: (d) => `Gratis desde ${d}`, voirEpic: 'Ver en Epic', essayer: 'Probar la demo', nbJeux: (n) => `${n} juegos`, visites: (n) => `${n} visitas`,
     videos: 'Vídeos', lire: 'Reproducir', sourcesMedias: 'Vídeos y capturas:',
     fermer: 'Cerrar', precedente: 'Captura anterior', suivante: 'Captura siguiente', agrandir: 'Ampliar la captura', bandeAnnonce: 'Tráiler', commentRecuperer: 'Cómo conseguirlo', captures: 'Capturas', aPropos: 'Acerca de', enAnglais: '(en inglés)', configMin: 'Requisitos mínimos', developpeur: 'Desarrollador', editeur: 'Editor', sortie: 'Lanzamiento', os: 'Sistema', processeur: 'Procesador', memoire: 'Memoria', graphismes: 'Gráficos', stockage: 'Almacenamiento', chargement: 'Cargando…',
     dejaOfferts: 'Ya regalados', totalOffert: (n, m, d) => `${n} ${n > 1 ? 'juegos regalados' : 'juego regalado'} desde el ${d}${m ? `, por un valor de ${m}` : ''}`, partager: 'Compartir', lienCopie: 'Enlace copiado', partageTexte: (x) => `¡${x} está gratis ahora mismo!`,
@@ -522,6 +522,12 @@ function afficherBandeau() {
   $('#bandeau').hidden = !alertes.length;
 }
 
+// Compteur public GoatCounter : reste caché tant que « Allow using the visitor counter » n'est pas coché dans GoatCounter.
+fetch('https://geekozor.goatcounter.com/counter/TOTAL.json').then((r) => (r.ok ? r.json() : null)).then((j) => {
+  const n = parseInt(String(j?.count ?? '').replace(/\D/g, ''), 10);
+  if (n) { etat.visites = n; $('#visites').textContent = t('visites', n.toLocaleString(etat.langue)); }
+}).catch(() => {});
+
 function traduirePage() {
   document.documentElement.lang = etat.langue;
   $('#langue').value = etat.langue;
@@ -530,6 +536,7 @@ function traduirePage() {
     el.placeholder = t(el.dataset.tPlaceholder);
     el.setAttribute('aria-label', el.placeholder);
   });
+  if (etat.visites) $('#visites').textContent = t('visites', etat.visites.toLocaleString(etat.langue));
   if (etat.donnees) {
     $('#maj').textContent = `${t('maj')} ${new Date(etat.donnees.maj).toLocaleString(etat.langue, { dateStyle: 'long', timeStyle: 'short' })}`;
   }
