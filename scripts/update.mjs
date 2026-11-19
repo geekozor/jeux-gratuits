@@ -113,14 +113,8 @@ await facultatif('Epic', async () => {
     }
   }
 });
-// Epic retire parfois un jeu annoncé de son flux avant le jour J (Alien: Isolation, 16/11/2026, toujours prévu) :
-// on garde ceux déjà vus jusqu'à leur début. Ensuite, l'offre en cours vient de GamerPower.
-cache.bientot ??= {};
-for (const g of bientot) cache.bientot[g.id] = g;
-for (const [id, g] of Object.entries(cache.bientot)) {
-  if (new Date(g.debut) <= Date.now() || euros(g.valeur) === 0) delete cache.bientot[id];
-  else if (!bientot.some((b) => b.id === id)) bientot.push(g);
-}
+// Seulement ce qu'Epic annonce maintenant : un jeu retiré de son flux avant le jour J n'est pas offert
+// (Alien: Isolation, annoncé pour le 19/11/2026, retiré le 16, jamais donné).
 
 // ---------- 2. Free-to-play PC (FreeToGame) ----------
 // FreeToGame ne donne qu'un genre principal (Fortnite = Shooter) : on complète avec ses catégories.
