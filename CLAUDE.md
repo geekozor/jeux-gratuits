@@ -30,6 +30,10 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 
 ### Fiches de jeu
 - Vidéos et captures : Steam d'abord, sinon la boutique Xbox, sinon `data/bandes-annonces.json` (YouTube) pour la vidéo et le champ `captures` de `f2p-consoles.json` pour les captures.
+- Depuis le 20/11/2026 :
+  - Jeux et démos GOG sans vidéo : bandes-annonces YouTube de la fiche api.gog.com (`cache.gogVideos`, 100 par passage, vérifiées par oEmbed).
+  - Indés itch.io : captures (version 794x1000, pas l'originale en 4K) et vidéo YouTube lues sur la page du jeu (`mediasItch`, `cache.itchMedias`, 10 pages relues par passage à cause des HTTP 429).
+  - Restent sans vidéo : beaucoup de FreeToGame (l'API n'en donne pas), les démos Nintendo maison, 9 jeux libres (à compléter à la main dans `bandes-annonces.json`).
 - Les images des jeux libres viennent de Wikimedia, avec leur crédit.
 
 ### Listes faites à la main dans `data/`

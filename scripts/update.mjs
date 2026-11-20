@@ -11,7 +11,7 @@
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { plateformes as tags } from './plateformes.mjs';
-import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais } from './titres.mjs';
+import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais, mediasItch } from './titres.mjs';
 import { euros, estUnLot } from '../public/prix.js';
 import { offreGratuite, offreActuelle } from './epic.mjs';
 import { aNotifier, messages, envoyer } from './notifications.mjs';
@@ -302,6 +302,7 @@ await facultatif('Steam (démos)', async () => {
 // itch.io masque déjà de ses flux les jeux qu'il classe « adultes ». En plus : mots-clés (jeux qui se
 // déclarent 18+) et étiquettes de la page du jeu (fangame, nsfw…), lues une fois puis gardées en cache.
 cache.itchEtiquettes ??= {};
+cache.itchMedias ??= {};
 const ADULTE = /(^|\W)18\+|\b(nsfw|adults?|hentai|porn|sexy?|sexual|erotic|nud(e|ity)|lewd|fetish)\b/i;
 const indes = [];
 let indesOk = false;
@@ -330,12 +331,18 @@ await facultatif('itch.io', async () => {
       });
     }
   }
+  // Page du jeu : étiquettes et médias (captures, bande-annonce YouTube). Pages lues avant les médias :
+  // relues 10 par passage, pour ne pas se faire bloquer par itch.io (HTTP 429).
+  let itchRelus = 0;
   for (const g of indes) {
-    if (g.lien in cache.itchEtiquettes) continue;
+    const vue = g.lien in cache.itchEtiquettes;
+    if (vue && (g.lien in cache.itchMedias || itchRelus++ >= 10)) continue;
     await facultatif(`Page itch.io ${g.titre}`, async () => {
       const res = await fetch(g.lien, { headers: { 'User-Agent': 'jeux-gratuits-geekozor/1.0' } });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      cache.itchEtiquettes[g.lien] = [...(await res.text()).matchAll(/href="https:\/\/itch\.io\/games\/tag-([a-z0-9-]+)"/g)].map((m) => m[1]);
+      const html = await res.text();
+      cache.itchEtiquettes[g.lien] = [...html.matchAll(/href="https:\/\/itch\.io\/games\/tag-([a-z0-9-]+)"/g)].map((m) => m[1]);
+      cache.itchMedias[g.lien] = mediasItch(html);
     });
   }
   // Jeu non vérifié (page injoignable) : écarté jusqu'au prochain passage.
@@ -347,6 +354,12 @@ await facultatif('itch.io', async () => {
 cache.indes ??= [];
 if (indesOk) cache.indes = indes;
 else indes.splice(0, indes.length, ...cache.indes);
+for (const g of indes) {
+  const m = cache.itchMedias[g.lien];
+  if (!m) continue;
+  details.set(g.id, { ...details.get(g.id), captures: m.captures, source: m.captures.length ? 'itch.io' : undefined,
+    ...(m.youtube && { videos: [{ nom: g.titre, youtube: m.youtube, miniature: `https://i.ytimg.com/vi/${m.youtube}/hqdefault.jpg` }], sourceVideo: 'YouTube' }) });
+}
 
 // ---------- 2 quater. Jeux libres (open source) : liste faite à la main, data/jeux-libres.json ----------
 const libres = JSON.parse(await readFile(new URL('../data/jeux-libres.json', import.meta.url), 'utf8'))
@@ -461,6 +474,33 @@ for (const g of f2p) {
     const o = await getJson(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent('https://www.youtube.com/watch?v=' + id)}`);
     details.set(g.id, { ...d, videos: [{ nom: o.title, youtube: id, miniature: `https://i.ytimg.com/vi/${id}/hqdefault.jpg` }], sourceVideo: 'YouTube' });
   });
+}
+
+// ---------- 3 quinquies. Bandes-annonces YouTube données par GOG (jeux et démos GOG sans vidéo Steam / Xbox) ----------
+// Fiche produit publique api.gog.com, lue une fois par jeu (cache.gogVideos), 100 par passage ;
+// chaque vidéo est vérifiée par oEmbed (supprimée ou privée = écartée).
+cache.gogVideos ??= {};
+let gogLus = 0;
+for (const g of [...f2p, ...demos].filter((g) => g.id.startsWith('gog'))) {
+  const id = g.id.slice(3);
+  const d = details.get(g.id) ?? {};
+  if (d.videos?.length) continue;
+  if (!(id in cache.gogVideos) && gogLus++ < 100) {
+    await facultatif(`Vidéos GOG ${g.titre}`, async () => {
+      const v = (await getJson(`https://api.gog.com/v2/games/${id}?locale=en-US`))._embedded?.videos ?? [];
+      const ok = [];
+      for (const x of v.filter((x) => x.provider === 'youtube').slice(0, 3)) {
+        try { await getJson(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent('https://www.youtube.com/watch?v=' + x.videoId)}`); ok.push(x.videoId); }
+        catch (e) { if (!/HTTP (400|401|403|404)$/.test(e.message)) throw e; } // autre erreur (réseau, 429) : on réessaiera, rien en cache
+      }
+      cache.gogVideos[id] = ok;
+    });
+  }
+  const ids = cache.gogVideos[id] ?? [];
+  if (ids.length) {
+    details.set(g.id, { ...d, sourceVideo: 'GOG (YouTube)',
+      videos: ids.map((v) => ({ nom: g.titre, youtube: v, miniature: `https://i.ytimg.com/vi/${v}/hqdefault.jpg` })) });
+  }
 }
 
 // ---------- 4. Traductions (Claude) ----------

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais } from './titres.mjs';
+import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais, mediasItch } from './titres.mjs';
 import { variantesNom } from '../public/noms.js';
 
 test('mods GOG qui demandent le jeu payant', () => {
@@ -72,4 +72,14 @@ test('jouable en français (langues Steam)', () => {
   // Voix « cochées » dans 100 langues (Best Plumber, Leaper…) : pas crédible, pas de badge.
   const tout = Array.from({ length: 100 }, (_, i) => (i === 1 ? 'French' : 'L' + i) + '<strong>*</strong>').join(', ');
   assert.equal(francais(tout + '<br><strong>*</strong>languages with full audio support'), null);
+});
+
+test('médias d\'une page itch.io', () => {
+  const html = '<div class="video_embed"><iframe src="//www.youtube.com/embed/osJkXuMBsJ0"></iframe></div>'
+    + '<img class="screenshot" src="https://img.itch.zone/avant.png">' // hors du bloc des captures : ignoré
+    + '<div class="screenshot_list"><a href="https://img.itch.zone/a/original/1.png"><img class="screenshot" src="https://img.itch.zone/a/347x500/p.png"'
+    + ' srcset="https://img.itch.zone/a/347x500/p.png 1x, https://img.itch.zone/a/794x1000/g.png 2x" data-screenshot_id="1"/></a>'
+    + '<a href="https://img.itch.zone/b/original/2.png"><img class="screenshot" src="https://img.itch.zone/b/347x500/p.png"/></a></div>'; // sans srcset
+  assert.deepEqual(mediasItch(html), { captures: ['https://img.itch.zone/a/794x1000/g.png', 'https://img.itch.zone/b/347x500/p.png'], youtube: 'osJkXuMBsJ0' });
+  assert.deepEqual(mediasItch('<html>rien</html>'), { captures: [], youtube: undefined });
 });
