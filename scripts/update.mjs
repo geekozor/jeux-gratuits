@@ -384,9 +384,9 @@ for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu
   const k = cle(nom);
   // Fiches lues avant le badge français (sans « fr ») : relues peu à peu, dans le même plafond.
   // regle2 : fiche relue avec la règle VF du 20/11/2026 et le prix en euros (60 par passage, les offres d'abord).
+  // Plafond atteint : une fiche déjà en cache garde ses anciennes données (image, vidéos) en attendant d'être relue.
   if (!(k in cache.steam) || (cache.steam[k] && !cache.steam[k].regle2)) {
-    if (steamFaits++ >= MAX_STEAM_PAR_EXECUTION) continue;
-    await facultatif(`Steam ${nom}`, async () => {
+    if (steamFaits++ < MAX_STEAM_PAR_EXECUTION) await facultatif(`Steam ${nom}`, async () => {
       const r = await getJson(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(nom)}&cc=FR&l=english`);
       const app = r.items?.find((i) => memeJeu(nom, i.name)); // dans le doute, rien plutôt qu'un mauvais jeu
       if (!app) { cache.steam[k] = null; return; }
@@ -405,7 +405,8 @@ for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu
   const s = cache.steam[k];
   if (!s) continue;
   g.image ??= s.image;
-  if (s.fr) g.fr = s.fr; // badge « VF » / « FR »
+  // Ancien « vf » pas encore relu avec la nouvelle règle : incertain, donc pas de badge.
+  if (s.fr && (s.regle2 || s.fr !== 'vf')) g.fr = s.fr; // badge « VF » / « FR »
   // Offre sur Steam : le vrai prix en euros de Steam plutôt que le prix en dollars de GamerPower.
   if (g.type === 'jeu' && s.prix && /steam/i.test(g.plateformesTexte ?? '')) g.valeur = s.prix;
   const d = details.get(g.id) ?? {};

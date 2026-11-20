@@ -92,7 +92,10 @@
     ],
     "genres": [
       "Platformer"
-    ]
+    ],
+    "image": "images/libres/ddracenetwork.jpg",
+    "credit": "Wikimedia Commons : Dennis Felsing, CC BY-SA 4.0",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:DDraceNetwork_Screenshot.png"
   },
   {
     "titre": "Luanti",
@@ -147,7 +150,10 @@
     "genres": [
       "RPG",
       "Open World"
-    ]
+    ],
+    "image": "images/libres/veloren.jpg",
+    "credit": "Wikimedia Commons : Veloren community, GPLv3",
+    "creditLien": "https://commons.wikimedia.org/wiki/File:Veloren_Screenshot_2023.02.09_-_16.06.36.28.png"
   },
   {
     "titre": "Cataclysm: Dark Days Ahead",

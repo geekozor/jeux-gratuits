@@ -106,6 +106,6 @@ python -m http.server 8765 --directory public
 
 ## À surveiller dans la liste consoles
 - Non confirmés : Sky sur PS5 ; Pokémon UNITE, Fall Guys et Disney Speedstorm encore actifs ?
-- Pokémon UNITE n'a pas d'image.
+- Pokémon UNITE : image officielle `https://unite.pokemon.com/images/share-fb.jpg` (20/11/2026), appelée chez eux.
 - Filtres PS5 / Xbox Series / Switch 2 : ils montrent aussi les jeux PS4 / Xbox One / Switch (rétrocompatibilité, table `AUSSI` dans app.js). Code `switch2` = version Switch 2 native (Fortnite, Apex ; Apex a quitté la Switch 1 en août 2026).
 - Revoir la liste tous les 2 ou 3 mois : fermetures, nouvelles consoles.
