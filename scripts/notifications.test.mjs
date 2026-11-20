@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { aNotifier, messages } from './notifications.mjs';
+import { aNotifier, messages, messageRoi } from './notifications.mjs';
 
 const maintenant = Date.parse('2026-11-19T12:00:00Z');
 const jeu = (id, titre, fin) => ({ id, titre, type: 'jeu', fin, plateformesTexte: 'PC, Epic Games Store' });
@@ -38,4 +38,19 @@ test('messages groupés', () => {
   assert.equal(m[0].texte.fr, 'Jeu A, Jeu B');
   assert.equal(m[1].url, 'https://geekozor.github.io/jeux-gratuits/#c');
   assert.equal(messages([], []).length, 0);
+});
+
+test('Choix du Roi : annoncé une fois, pas réannoncé après une absence', () => {
+  const c = (cle, titre) => ({ cle, id: cle, titre, image: 'images/libres/x.jpg', verdict: 'Top' });
+  let r = messageRoi([c('a', 'A')], ['a'], []);
+  assert.equal(r.message.texte.fr, 'A : « Top »');
+  assert.equal(r.message.image, 'https://geekozor.github.io/jeux-gratuits/images/libres/x.jpg');
+  assert.equal(messageRoi([c('a', 'A')], ['a'], r.envoyes).message, null);
+  r = messageRoi([], ['a'], r.envoyes); // jeu absent des données un moment
+  assert.deepEqual(r.envoyes, ['a']);
+  assert.equal(messageRoi([c('a', 'A')], ['a'], r.envoyes).message, null);
+  r = messageRoi([c('a', 'A'), c('b', 'B'), c('d', 'D')], ['a', 'b', 'd'], ['a']);
+  assert.equal(r.message.titre.fr, '👑 2 nouveaux Choix du Roi');
+  assert.equal(r.message.texte.fr, 'B, D');
+  assert.deepEqual(messageRoi([], [], ['a']).envoyes, []); // retiré du fichier : oublié
 });

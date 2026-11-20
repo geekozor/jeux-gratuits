@@ -35,6 +35,24 @@ export function messages(nouveaux, finissants) {
   ];
 }
 
+// Choix du Roi : une notification quand un jeu entre dans public/choix-du-roi.json.
+// choix = entrées trouvées dans les données ({ cle, id, titre, image, verdict }), cles = toutes les entrées du fichier,
+// envoyes = clés déjà annoncées (cache.roiNotifies). Un jeu absent un moment (source en panne) n'est pas réannoncé.
+export function messageRoi(choix, cles, envoyes) {
+  const nouveaux = choix.filter((c) => !envoyes.includes(c.cle));
+  const suite = cles.filter((k) => envoyes.includes(k) || choix.some((c) => c.cle === k));
+  if (!nouveaux.length) return { message: null, envoyes: suite };
+  const seul = nouveaux.length === 1 ? nouveaux[0] : null;
+  const texte = seul ? `${seul.titre} : « ${seul.verdict} »`
+    : nouveaux.slice(0, 5).map((c) => c.titre).join(', ') + (nouveaux.length > 5 ? '…' : '');
+  return { envoyes: suite, message: {
+    titre: seul ? { fr: '👑 Nouveau Choix du Roi', en: "👑 New King's Pick" }
+      : { fr: `👑 ${nouveaux.length} nouveaux Choix du Roi`, en: `👑 ${nouveaux.length} new King's Picks` },
+    texte: { fr: texte, en: texte }, url: SITE + (seul ? '#' + encodeURIComponent(seul.id) : ''),
+    image: seul?.image && new URL(seul.image, SITE).href, // images des jeux libres : chemin relatif au site
+  } };
+}
+
 export async function envoyer(cle, m) {
   const r = await fetch('https://api.onesignal.com/notifications?c=push', {
     method: 'POST',

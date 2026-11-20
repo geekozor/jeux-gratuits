@@ -48,7 +48,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 - `bandes-annonces.json` (ex. OGame : « OGame Cinematic Trailer », chaîne officielle)
 - `jeux-libres.json`
 - `exclusions.json` : jeux à masquer.
-- `public/choix-du-roi.json` (19/11/2026) : 1 à 3 « Choix du Roi » (`jeu` = id ou titre exact, `verdict`). Carte remontée en tête de sa liste, badge doré, verdict à la place de la description. Lu par le navigateur, pas par update.mjs.
+- `public/choix-du-roi.json` (19/11/2026) : 1 à 3 « Choix du Roi » par onglet, sauf Bonus & DLC (choix confié à Claude par le propriétaire le 20/11/2026) (`jeu` = id ou titre exact ; id pour Indés et Démos, un titre peut y exister deux fois ; `verdict`). Ceux des Jeux offerts expirent avec l'offre : à renouveler. Chaque jeu qui entre dans le fichier déclenche une notification à tous les abonnés au passage suivant (une seule pour tout le lot, `messageRoi`, déjà annoncés dans `cache.roiNotifies`). Carte remontée en tête de sa liste, badge doré, verdict à la place de la description. Lu par le navigateur, pas par update.mjs.
 
 ### Décisions déjà prises
 - Pas de notes de jeux.

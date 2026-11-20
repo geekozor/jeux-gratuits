@@ -1,5 +1,25 @@
 [
   { "jeu": "Mark of the Deep", "verdict": "Un metroidvania pirate exigeant et superbe : le plus gros cadeau de la semaine, fonce !" },
   { "jeu": "GigaBash", "verdict": "Des kaijus qui se tapent dessus entre potes : le jeu parfait pour devenir roi des Titans." },
-  { "jeu": "Lonesome Village (Mobile)", "verdict": "Un petit jeu d'énigmes tout doux à glisser dans ta poche, idéal dans le métro." }
+  { "jeu": "Lonesome Village (Mobile)", "verdict": "Un petit jeu d'énigmes tout doux à glisser dans ta poche, idéal dans le métro." },
+
+  { "jeu": "Rocket League", "verdict": "Du foot avec des voitures à réaction : facile à prendre en main, impossible à lâcher." },
+  { "jeu": "Marvel Rivals", "verdict": "Les héros Marvel en 6 contre 6, nerveux et spectaculaire : le meilleur jeu de héros gratuit du moment." },
+  { "jeu": "Guild Wars 2", "verdict": "Un MMO immense dont le jeu de base est gratuit : des centaines d'heures d'aventure, sans abonnement." },
+
+  { "jeu": "itchhttpstobyfoxitchiodeltarune", "verdict": "Par le créateur d'Undertale : drôle, touchant, et des combats où tu peux épargner tout le monde. Un bijou." },
+  { "jeu": "itchhttpsgraeboritchiosortthecourt", "verdict": "Tu joues un roi qui répond oui ou non à ses sujets : forcément, le Roi approuve ! Parfait pour 20 minutes." },
+  { "jeu": "itchhttpssampersonitchiodesktopgoose", "verdict": "Une oie qui sème le chaos sur ton bureau : totalement inutile, donc indispensable." },
+
+  { "jeu": "nin3185680", "verdict": "Le grand RPG des créateurs de Persona : une démo généreuse pour savoir si tu craques." },
+  { "jeu": "nin2439847", "verdict": "Plongée le jour, restaurant de sushis la nuit : un mélange improbable et génial, à tester avant d'acheter." },
+  { "jeu": "nin2785804", "verdict": "Tout se casse, tout se creuse : le gros jeu de plateforme de la Switch 2, à essayer gratuitement." },
+
+  { "jeu": "SuperTuxKart", "verdict": "Un jeu de kart coloré à jouer en ligne ou entre amis, gratuit pour toujours." },
+  { "jeu": "0 A.D.", "verdict": "Un vrai jeu de stratégie à la Age of Empires, gratuit et libre : fans de stratégie, foncez." },
+  { "jeu": "The Battle for Wesnoth", "verdict": "De la stratégie au tour par tour dans un monde fantasy, avec des dizaines de campagnes : gratuit et sans fin." },
+
+  { "jeu": "The Elder Scrolls II: Daggerfall", "verdict": "L'ancêtre de Skyrim, avec une carte grande comme un pays : le jeu de rôle le plus fou des années 90." },
+  { "jeu": "Flight of the Amazon Queen", "verdict": "Une aventure pleine d'humour dans la jungle, façon Indiana Jones : idéale pour découvrir le point-and-click." },
+  { "jeu": "Beneath a Steel Sky (1994)", "verdict": "Un grand classique de l'aventure cyberpunk, offert pour de vrai par ses créateurs : rétro et légal !" }
 ]

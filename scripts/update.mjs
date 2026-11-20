@@ -15,7 +15,7 @@ import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, franc
 import { euros, estUnLot } from '../public/prix.js';
 import { offreGratuite, offreActuelle } from './epic.mjs';
 import { offresSteam } from './steam.mjs';
-import { aNotifier, messages, envoyer } from './notifications.mjs';
+import { aNotifier, messages, messageRoi, envoyer } from './notifications.mjs';
 
 const OUT = new URL('../public/data/jeux.json', import.meta.url);
 const DETAILS = new URL('../public/data/jeux/', import.meta.url); // un petit fichier par jeu, chargé à l'ouverture de sa fiche
@@ -643,6 +643,19 @@ if (ONESIGNAL_API_KEY) {
     if (cache.notifies) for (const m of messages(nouveaux, finissants)) await envoyer(ONESIGNAL_API_KEY, m);
     cache.notifies = vus;
   } catch (e) { alertes.push(`OneSignal : ${e.message}`); }
+  // Choix du Roi (jeu = id ou titre exact, comme dans l'app)
+  const fichier = JSON.parse(await readFile(new URL('../public/choix-du-roi.json', import.meta.url), 'utf8'));
+  const tous = [...offerts, ...bientot, ...f2p, ...indes, ...demos, ...libres];
+  const cles = fichier.map((c) => String(c.jeu).toLowerCase());
+  const choix = fichier.flatMap((c, i) => {
+    const g = tous.find((x) => x.id.toLowerCase() === cles[i] || x.titre.toLowerCase() === cles[i]);
+    return g ? [{ cle: cles[i], id: g.id, titre: g.titre, image: g.image, verdict: c.verdict }] : [];
+  });
+  const { message, envoyes } = messageRoi(choix, cles, cache.roiNotifies ?? []);
+  try {
+    if (message) await envoyer(ONESIGNAL_API_KEY, message);
+    cache.roiNotifies = envoyes;
+  } catch (e) { alertes.push(`OneSignal (Choix du Roi) : ${e.message}`); }
 }
 
 // ---------- Santé des sources : si l'une casse ou ne renvoie plus rien, l'automatisation GitHub échoue
