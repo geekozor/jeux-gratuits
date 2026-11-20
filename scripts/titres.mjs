@@ -37,7 +37,7 @@ export function francais(langues) {
 // Page d'un jeu itch.io -> captures (bloc « screenshot_list ») et bande-annonce YouTube (bloc « video_embed »).
 // Captures : la version « 2x » du srcset (794x1000), pas l'originale (souvent en 4K, trop lourde sur téléphone).
 export function mediasItch(html) {
-  const captures = [...(html.split('class="screenshot_list"')[1] ?? '').matchAll(/<img class="screenshot"[^>]*>/g)]
+  const captures = [...(html.split('class="screenshot_list"')[1] ?? '').matchAll(/<img [^>]*class="screenshot"[^>]*>/g)] // itch.io mélange l'ordre des attributs d'une visite à l'autre
     .map(([img]) => img.match(/(https:\/\/img\.itch\.zone\/\S+) 2x/)?.[1] ?? img.match(/src="(https:\/\/img\.itch\.zone\/[^"]+)"/)?.[1])
     .filter(Boolean).slice(0, 8);
   const youtube = (html.split('class="video_embed"')[1] ?? '').match(/youtube(?:-nocookie)?\.com\/embed\/([\w-]{11})/)?.[1];

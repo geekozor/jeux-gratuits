@@ -336,13 +336,13 @@ await facultatif('itch.io', async () => {
   let itchRelus = 0;
   for (const g of indes) {
     const vue = g.lien in cache.itchEtiquettes;
-    if (vue && (g.lien in cache.itchMedias || itchRelus++ >= 10)) continue;
+    if (vue && (cache.itchMedias[g.lien]?.v === 2 || itchRelus++ >= 10)) continue; // v2 : lecture des captures corrigée
     await facultatif(`Page itch.io ${g.titre}`, async () => {
       const res = await fetch(g.lien, { headers: { 'User-Agent': 'jeux-gratuits-geekozor/1.0' } });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const html = await res.text();
       cache.itchEtiquettes[g.lien] = [...html.matchAll(/href="https:\/\/itch\.io\/games\/tag-([a-z0-9-]+)"/g)].map((m) => m[1]);
-      cache.itchMedias[g.lien] = mediasItch(html);
+      cache.itchMedias[g.lien] = { ...mediasItch(html), v: 2 };
     });
   }
   // Jeu non vérifié (page injoignable) : écarté jusqu'au prochain passage.

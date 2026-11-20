@@ -82,4 +82,7 @@ test('médias d\'une page itch.io', () => {
     + '<a href="https://img.itch.zone/b/original/2.png"><img class="screenshot" src="https://img.itch.zone/b/347x500/p.png"/></a></div>'; // sans srcset
   assert.deepEqual(mediasItch(html), { captures: ['https://img.itch.zone/a/794x1000/g.png', 'https://img.itch.zone/b/347x500/p.png'], youtube: 'osJkXuMBsJ0' });
   assert.deepEqual(mediasItch('<html>rien</html>'), { captures: [], youtube: undefined });
+  // Attributs dans un autre ordre (class après srcset) : vu sur GitHub.
+  assert.deepEqual(mediasItch('<div class="screenshot_list"><img srcset="https://img.itch.zone/a/1x.png 1x, https://img.itch.zone/a/g.png 2x" class="screenshot" src="https://img.itch.zone/a/p.png"/>').captures,
+    ['https://img.itch.zone/a/g.png']);
 });
