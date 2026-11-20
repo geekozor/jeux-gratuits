@@ -22,9 +22,16 @@ const ETIQUETTES_EXCLUES = new Set(['fangame', 'fan-game', 'nsfw', 'adult', 'adu
 export const etiquettesInterdites = (etiquettes) => etiquettes.some((e) => ETIQUETTES_EXCLUES.has(e));
 
 // Langues Steam ("English<strong>*</strong>, French<strong>*</strong>, German", * = voix) -> 'vf', 'st' ou null.
+// Seul ce champ déclaré par le développeur compte, jamais le titre ni la description.
+// Un jeu qui déclare des voix dans plus de VOIX_MAX langues (Best Plumber : 100+, Cherokee compris) a tout coché :
+// déclaration pas crédible, donc pas de badge du tout.
+const VOIX_MAX = 16; // les plus gros jeux doublés en ont une quinzaine
 export function francais(langues) {
-  const m = (langues ?? '').match(/\bFrench\b(<strong>\*<\/strong>)?/);
-  return !m ? null : m[1] ? 'vf' : 'st';
+  const liste = (langues ?? '').split('<br>')[0]; // la légende « *languages with full audio support » vient après
+  const m = liste.match(/\bFrench\b(<strong>\*<\/strong>)?/);
+  if (!m) return null;
+  if (!m[1]) return 'st';
+  return (liste.match(/<strong>\*<\/strong>/g).length <= VOIX_MAX ? 'vf' : null);
 }
 
 export function nettoyerTitre(titre) {

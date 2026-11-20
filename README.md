@@ -11,7 +11,7 @@ Application web installable (PWA) qui liste les jeux vidéo gratuits du moment, 
 | Jeux offerts : heure de fin exacte + « Bientôt gratuit » | Epic Games Store (adresse publique non documentée) | non |
 | Free-to-play (complément) et Démos | catalogue GOG (non documenté) | non |
 | Indés | [itch.io](https://itch.io), flux RSS officiel des jeux gratuits les mieux notés (filtre « adulte ») | non |
-| Libres & rétro | liste à la main `data/jeux-libres.json` + lien vers [Abandonware France](https://www.abandonware-france.org) | non |
+| Libres & rétro | liste à la main `data/jeux-libres.json` + carte « Rétro légal » (aucun lien abandonware / ROM) | non |
 | Fiches : vidéos et captures | boutique Steam, sinon boutique Xbox (API publiques non documentées) | non |
 | Fiches : bandes-annonces des gros jeux hors Steam/Xbox | liste à la main `data/bandes-annonces.json` (YouTube) | non |
 

@@ -69,4 +69,7 @@ test('jouable en français (langues Steam)', () => {
   assert.equal(francais('English<strong>*</strong>, French, German<br><strong>*</strong>languages with full audio support'), 'st');
   assert.equal(francais('English, Spanish - Spain'), null);
   assert.equal(francais(undefined), null);
+  // Voix « cochées » dans 100 langues (Best Plumber, Leaper…) : pas crédible, pas de badge.
+  const tout = Array.from({ length: 100 }, (_, i) => (i === 1 ? 'French' : 'L' + i) + '<strong>*</strong>').join(', ');
+  assert.equal(francais(tout + '<br><strong>*</strong>languages with full audio support'), null);
 });

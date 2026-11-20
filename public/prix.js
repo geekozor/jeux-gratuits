@@ -11,6 +11,9 @@ export function euros(valeur) {
   return String(valeur).includes('$') ? Math.round(n * TAUX_USD_EUR * 100) / 100 : n;
 }
 
+// Prix en dollars converti au taux fixe (pas le vrai prix en euros de la boutique) : affiché avec « env. ».
+export const estConverti = (valeur) => String(valeur ?? '').includes('$');
+
 // 19.5 -> "19,50 €" en français.
 export const formatEuros = (n, langue = 'fr', decimales = 2) => new Intl.NumberFormat(langue,
   { style: 'currency', currency: 'EUR', minimumFractionDigits: decimales, maximumFractionDigits: decimales }).format(n);

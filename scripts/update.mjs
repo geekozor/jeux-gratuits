@@ -13,6 +13,7 @@ import { createHash } from 'node:crypto';
 import { plateformes as tags } from './plateformes.mjs';
 import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais } from './titres.mjs';
 import { euros, estUnLot } from '../public/prix.js';
+import { offreGratuite, offreActuelle } from './epic.mjs';
 import { aNotifier, messages, envoyer } from './notifications.mjs';
 
 const OUT = new URL('../public/data/jeux.json', import.meta.url);
@@ -91,9 +92,10 @@ const bientot = [];
 await facultatif('Epic', async () => {
   const jeux = (await getJson('https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?locale=en-US&country=FR'))
     .data.Catalog.searchStore.elements;
+  let offertsEpic = 0;
   for (const e of jeux) {
-    const actuelle = e.promotions?.promotionalOffers?.[0]?.promotionalOffers?.[0];
-    const prochaine = e.promotions?.upcomingPromotionalOffers?.[0]?.promotionalOffers?.[0];
+    const actuelle = offreActuelle(e.promotions?.promotionalOffers);
+    const prochaine = offreGratuite(e.promotions?.upcomingPromotionalOffers); // voir scripts/epic.mjs
     const valeur = e.price?.totalPrice?.fmtPrice?.originalPrice ?? null;
     const slug = e.catalogNs?.mappings?.[0]?.pageSlug ?? e.productSlug;
     const image = e.keyImages?.find((k) => k.type === 'OfferImageWide') ?? e.keyImages?.[0];
@@ -103,8 +105,12 @@ await facultatif('Epic', async () => {
       plateformes: ['pc'], plateformesTexte: 'PC, Epic Games Store',
     };
     if (actuelle && e.price?.totalPrice?.discountPrice === 0) { // offert en ce moment : on prend son heure de fin réelle
+      offertsEpic++;
       const deja = offerts.filter((g) => /epic/i.test(g.plateformesTexte) && memeJeu(g.titre, e.title));
-      for (const g of deja) g.fin = actuelle.endDate;
+      for (const g of deja) {
+        g.fin = actuelle.endDate;
+        if (euros(valeur)) g.valeur = valeur; // vrai prix Epic en euros (country=FR), pas le prix en dollars de GamerPower
+      }
       // GamerPower met parfois des heures à lister le jeu du jeudi (Mark of the Deep, 19/11/2026) : en attendant, on le prend chez Epic.
       if (!deja.length && euros(valeur) !== 0) offerts.push({ ...fiche, type: 'jeu', publie: actuelle.startDate, fin: actuelle.endDate });
     }
@@ -113,6 +119,8 @@ await facultatif('Epic', async () => {
       bientot.push({ ...fiche, type: 'bientot', debut: prochaine.startDate, fin: prochaine.endDate });
     }
   }
+  // Epic offre toujours au moins un jeu : si on n'en lit aucun, c'est que le flux a changé de forme -> e-mail d'alerte.
+  if (!offertsEpic) throw new Error('aucun jeu offert lu dans le flux : son format a peut-être changé');
 });
 // Seulement ce qu'Epic annonce maintenant : un jeu retiré de son flux avant le jour J n'est pas offert
 // (Alien: Isolation, annoncé pour le 19/11/2026, retiré le 16, jamais donné).
@@ -251,14 +259,16 @@ await facultatif('Steam (démos)', async () => {
       const titre = entites(bloc.match(/<span class="title">([^<]+)/)?.[1] ?? '').trim();
       if (!titre || deja.has(cle(titre))) continue;
       deja.add(cle(titre));
-      if (!('fr' in (cache.steamDemo[id] ?? {})) && fiches++ < 60) {
+      // regle2 : fiche relue avec la règle VF du 20/11/2026 (voix déclarées en trop de langues = pas fiable).
+      const c = cache.steamDemo[id];
+      if ((!c || !('fr' in c) || (c.fr === 'vf' && !c.regle2)) && fiches++ < 60) {
         await facultatif(`Fiche démo Steam ${titre}`, async () => {
           const d = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${id}&cc=us&l=english`))[id]?.data;
           if (!d) throw new Error('fiche vide');
           cache.steamDemo[id] = {
             adulte: (d.content_descriptors?.ids ?? []).some((x) => x === 3 || x === 4), // contenu sexuel, nudité
             langueOk: /English|French/.test(d.supported_languages ?? ''), // sinon injouable pour nos lecteurs
-            fr: francais(d.supported_languages),
+            fr: francais(d.supported_languages), regle2: true,
             image: d.header_image, description: entites(d.short_description ?? ''),
             genres: (d.genres ?? []).map((x) => x.description).slice(0, 3), developpeur: d.developers?.[0],
             videos: (d.movies ?? []).filter((m) => m.hls_h264).slice(0, 3).map((m) => ({ nom: m.name, hls: m.hls_h264, miniature: m.thumbnail })),
@@ -373,16 +383,20 @@ for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu
   const nom = nomRecherche(g);
   const k = cle(nom);
   // Fiches lues avant le badge français (sans « fr ») : relues peu à peu, dans le même plafond.
-  if (!(k in cache.steam) || (cache.steam[k] && !('fr' in cache.steam[k]))) {
+  // regle2 : fiche relue avec la règle VF du 20/11/2026 et le prix en euros (60 par passage, les offres d'abord).
+  if (!(k in cache.steam) || (cache.steam[k] && !cache.steam[k].regle2)) {
     if (steamFaits++ >= MAX_STEAM_PAR_EXECUTION) continue;
     await facultatif(`Steam ${nom}`, async () => {
       const r = await getJson(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(nom)}&cc=FR&l=english`);
       const app = r.items?.find((i) => memeJeu(nom, i.name)); // dans le doute, rien plutôt qu'un mauvais jeu
       if (!app) { cache.steam[k] = null; return; }
-      const d = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${app.id}&l=english`))[app.id]?.data;
+      const d = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${app.id}&cc=fr&l=english`))[app.id]?.data;
       if (d?.type !== 'game') { cache.steam[k] = null; return; } // un DLC ou un pack du même nom
+      const p = d.price_overview;
       cache.steam[k] = {
-        image: d.header_image, fr: francais(d.supported_languages),
+        image: d.header_image, fr: francais(d.supported_languages), regle2: true,
+        // Prix normal (avant promo) de la boutique Steam France, au format d'Epic : « €19.99 ».
+        prix: p?.currency === 'EUR' ? '€' + (p.initial / 100).toFixed(2) : null,
         videos: (d?.movies ?? []).filter((m) => m.hls_h264).slice(0, 3).map((m) => ({ nom: m.name, hls: m.hls_h264, miniature: m.thumbnail })),
         captures: (d?.screenshots ?? []).slice(0, 8).map((c) => c.path_full),
       };
@@ -391,7 +405,9 @@ for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu
   const s = cache.steam[k];
   if (!s) continue;
   g.image ??= s.image;
-  if (s.fr) g.fr = s.fr; // badge « VF » / « Sous-titres FR »
+  if (s.fr) g.fr = s.fr; // badge « VF » / « FR »
+  // Offre sur Steam : le vrai prix en euros de Steam plutôt que le prix en dollars de GamerPower.
+  if (g.type === 'jeu' && s.prix && /steam/i.test(g.plateformesTexte ?? '')) g.valeur = s.prix;
   const d = details.get(g.id) ?? {};
   details.set(g.id, { ...d, videos: s.videos, captures: s.captures.length ? s.captures : d.captures });
 }

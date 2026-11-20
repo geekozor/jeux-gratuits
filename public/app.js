@@ -1,5 +1,5 @@
 import { cleNom, variantesNom } from './noms.js';
-import { euros, formatEuros } from './prix.js';
+import { euros, formatEuros, estConverti } from './prix.js';
 
 // ---------- Traductions de l'interface ----------
 const T = {
@@ -16,14 +16,13 @@ const T = {
     triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
     suisMoi: 'Tu aimes ces bons plans ? Suis Geekozor :', installer: 'Installer', alertesActiver: "Me prévenir", alertesActives: "Alertes activées", alertesIos: "Sur iPhone, les alertes marchent seulement avec l'appli installée : touche Partager (ou ••• puis Partager) puis « Sur l'écran d'accueil », puis ouvre l'appli depuis l'écran d'accueil.", alertesBloquees: "Les notifications sont bloquées pour ce site : autorise-les dans les réglages du navigateur.", jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
     recherche: 'Rechercher un jeu…', toutes: 'Toutes', recuperer: 'Récupérer', jouer: 'Jouer gratuitement',
-    gratuit: 'Gratuit', vf: 'VF', vfTitre: 'Voix et textes en français', st: 'Sous-titres FR', stTitre: 'Textes en français, voix dans une autre langue', encore: (n) => `Encore ${n} j`,
+    gratuit: 'Gratuit', vf: 'VF', vfTitre: 'Voix et textes en français', st: 'FR', stTitre: 'Textes en français (interface ou sous-titres), voix dans une autre langue', encore: (n) => `Encore ${n} j`,
     nbOffres: (n) => `${n} offres en cours`, nbF2p: (n) => `${n} jeux free-to-play`,
     erreur: 'Impossible de charger la liste. Vérifie ta connexion.',
     sources: 'Données :', maj: 'Mis à jour le', navigateur: 'Navigateur', mobile: 'Mobile',
-    retroTitre: 'Les vieux jeux, gratuitement',
-    retroTexte: "Des milliers de jeux des années 80, 90 et 2000 que leurs éditeurs n'exploitent plus, présentés avec leur histoire par Abandonware France.",
-    retroBouton: 'Voir Abandonware France',
-    retroNote: "Site externe. Ces jeux restent souvent protégés par le droit d'auteur : renseigne-toi avant de télécharger.",
+    retroTitre: 'Rétro légal 👑',
+    retroTexte: 'Les vieux jeux, oui, le piratage, non. Bientôt ici : émulateurs, copies de tes propres jeux et classiques offerts officiellement par leurs éditeurs.',
+    env: 'env.', bientotVide: 'Les prochains jeux offerts arrivent bientôt, reviens jeudi 👑',
   },
   en: {
     recupere: 'I got it', heures: (n) => `Only ${n} h left`, videOnglet: (o) => `Nothing in “${o}” right now. The list is updated every hour.`, videFiltres: (o, f) => `Nothing in “${o}” for ${f} right now.`, effacer: 'Clear filters', voirPlus: (n) => `Show more (${n} left)`,
@@ -42,10 +41,9 @@ const T = {
     nbOffres: (n) => `${n} active offers`, nbF2p: (n) => `${n} free-to-play games`,
     erreur: 'Could not load the list. Check your connection.',
     sources: 'Data:', maj: 'Updated on', navigateur: 'Browser', mobile: 'Mobile',
-    retroTitre: 'Old games, for free',
-    retroTexte: 'Thousands of games from the 80s, 90s and 2000s that publishers no longer sell, presented with their history by Abandonware France.',
-    retroBouton: 'Visit Abandonware France',
-    retroNote: 'External site (in French). These games are often still under copyright: check before downloading.',
+    retroTitre: 'Legal retro 👑',
+    retroTexte: 'Old games, yes; piracy, no. Coming soon here: emulators, copies of your own games and classics given away officially by their publishers.',
+    env: 'approx.', bientotVide: 'The next free games are coming soon, come back on Thursday 👑',
   },
   it: {
     recupere: "L'ho riscattato", heures: (n) => `Solo più ${n} h`, videOnglet: (o) => `Niente in «${o}» al momento. La lista si aggiorna ogni ora.`, videFiltres: (o, f) => `Niente in «${o}» per ${f} al momento.`, effacer: 'Cancella i filtri', voirPlus: (n) => `Mostra altri (${n} rimanenti)`,
@@ -64,10 +62,9 @@ const T = {
     nbOffres: (n) => `${n} offerte attive`, nbF2p: (n) => `${n} giochi free-to-play`,
     erreur: 'Impossibile caricare la lista. Controlla la connessione.',
     sources: 'Dati:', maj: 'Aggiornato il', navigateur: 'Browser', mobile: 'Mobile',
-    retroTitre: 'Vecchi giochi, gratis',
-    retroTexte: 'Migliaia di giochi degli anni 80, 90 e 2000 non più venduti dagli editori, presentati con la loro storia da Abandonware France.',
-    retroBouton: 'Vai su Abandonware France',
-    retroNote: "Sito esterno (in francese). Questi giochi sono spesso ancora protetti da diritto d'autore: informati prima di scaricare.",
+    retroTitre: 'Retrò legale 👑',
+    retroTexte: 'I vecchi giochi sì, la pirateria no. Presto qui: emulatori, copie dei tuoi giochi e classici regalati ufficialmente dai loro editori.',
+    env: 'circa', bientotVide: 'I prossimi giochi in regalo arrivano presto, torna giovedì 👑',
   },
   de: {
     recupere: 'Hab ich schon', heures: (n) => `Nur noch ${n} Std.`, videOnglet: (o) => `Gerade nichts in „${o}“. Die Liste wird stündlich aktualisiert.`, videFiltres: (o, f) => `Gerade nichts in „${o}“ für ${f}.`, effacer: 'Filter löschen', voirPlus: (n) => `Mehr anzeigen (noch ${n})`,
@@ -86,10 +83,9 @@ const T = {
     nbOffres: (n) => `${n} aktuelle Angebote`, nbF2p: (n) => `${n} Free-to-play-Spiele`,
     erreur: 'Liste konnte nicht geladen werden. Prüfe deine Verbindung.',
     sources: 'Daten:', maj: 'Aktualisiert am', navigateur: 'Browser', mobile: 'Mobil',
-    retroTitre: 'Alte Spiele, kostenlos',
-    retroTexte: 'Tausende Spiele aus den 80ern, 90ern und 2000ern, die nicht mehr verkauft werden, mit ihrer Geschichte vorgestellt von Abandonware France.',
-    retroBouton: 'Zu Abandonware France',
-    retroNote: 'Externe Seite (auf Französisch). Diese Spiele sind oft noch urheberrechtlich geschützt: informiere dich vor dem Download.',
+    retroTitre: 'Legales Retro 👑',
+    retroTexte: 'Alte Spiele ja, Raubkopien nein. Bald hier: Emulatoren, Kopien deiner eigenen Spiele und Klassiker, die ihre Publisher offiziell verschenken.',
+    env: 'ca.', bientotVide: 'Die nächsten Gratis-Spiele kommen bald, schau am Donnerstag wieder vorbei 👑',
   },
   es: {
     recupere: 'Ya lo tengo', heures: (n) => `Solo quedan ${n} h`, videOnglet: (o) => `Nada en «${o}» por ahora. La lista se actualiza cada hora.`, videFiltres: (o, f) => `Nada en «${o}» para ${f} por ahora.`, effacer: 'Borrar filtros', voirPlus: (n) => `Ver más (quedan ${n})`,
@@ -108,10 +104,9 @@ const T = {
     nbOffres: (n) => `${n} ofertas activas`, nbF2p: (n) => `${n} juegos free-to-play`,
     erreur: 'No se pudo cargar la lista. Revisa tu conexión.',
     sources: 'Datos:', maj: 'Actualizado el', navigateur: 'Navegador', mobile: 'Móvil',
-    retroTitre: 'Juegos antiguos, gratis',
-    retroTexte: 'Miles de juegos de los 80, 90 y 2000 que sus editores ya no venden, presentados con su historia por Abandonware France.',
-    retroBouton: 'Ir a Abandonware France',
-    retroNote: 'Sitio externo (en francés). Estos juegos suelen seguir protegidos por derechos de autor: infórmate antes de descargar.',
+    retroTitre: 'Retro legal 👑',
+    retroTexte: 'Juegos antiguos, sí; piratería, no. Pronto aquí: emuladores, copias de tus propios juegos y clásicos regalados oficialmente por sus editores.',
+    env: 'aprox.', bientotVide: 'Los próximos juegos regalados llegan pronto, vuelve el jueves 👑',
   },
 };
 
@@ -194,6 +189,7 @@ function elements() {
 const aVenir = () => (etat.donnees.bientot ?? []).filter((g) => new Date(g.debut) > Date.now());
 
 const prix = (g) => euros(g.valeur) ?? 0;
+const prixTexte = (g) => (estConverti(g.valeur) ? t('env') + ' ' : '') + formatEuros(prix(g), etat.langue);
 const TRIS = {
   triFin: (a, b) => (a.fin ? new Date(a.fin) : Infinity) - (b.fin ? new Date(b.fin) : Infinity),
   triRecent: (a, b) => new Date(b.publie) - new Date(a.publie),
@@ -212,7 +208,7 @@ function badgesDe(g, nbGenres, avecTemps = true) {
     temps && `<span class="badge fin">${temps.texte}</span>`,
     g.publie && Date.now() - new Date(g.publie) < 86400000 && `<span class="badge nouveau">${t('nouveau')}</span>`,
     etat.langue === 'fr' && g.fr && `<span class="badge fr" title="${t(g.fr + 'Titre')}">${t(g.fr)}</span>`, // langues Steam, utile surtout en français
-    prix(g) > 0 && `<span class="badge prix"><s>${esc(formatEuros(prix(g), etat.langue))}</s>${t('gratuit')}</span>`,
+    prix(g) > 0 && `<span class="badge prix"><s>${esc(prixTexte(g))}</s>${t('gratuit')}</span>`,
     ...(g.genres ?? []).slice(0, nbGenres).map((x) => `<span class="badge genre">${esc(x)}</span>`),
   ].filter(Boolean).join('');
 }
@@ -389,8 +385,6 @@ function carteRetro() {
     <div class="corps">
       <h2>${t('retroTitre')}</h2>
       <p>${t('retroTexte')}</p>
-      <a class="recuperer" href="https://www.abandonware-france.org" target="_blank" rel="noopener">${t('retroBouton')}</a>
-      <p class="meta">${t('retroNote')}</p>
     </div>
   </article>`;
 }
@@ -474,10 +468,12 @@ function afficher() {
 
   const bientot = etat.onglet === 'jeux' ? aVenir().filter(garde).sort(roiDabord) : [];
   // Ce qui est gratuit maintenant d'abord, « Bientôt gratuit » ensuite.
-  $('#liste').innerHTML = (bientot.length ? `<h2 class="section">${t('enCeMoment')}</h2>` : '')
+  $('#liste').innerHTML = (bientot.length || (etat.onglet === 'jeux' && !aVenir().length) ? `<h2 class="section">${t('enCeMoment')}</h2>` : '')
     + (liste.slice(0, etat.limite).map(carte).join('') || messageVide())
     + (liste.length > etat.limite ? `<button class="voir-plus">${t('voirPlus', liste.length - etat.limite)}</button>` : '')
-    + (bientot.length ? `<h2 class="section">${t('bientot')}</h2>${bientot.map(carte).join('')}` : '')
+    + (bientot.length ? `<h2 class="section">${t('bientot')}</h2>${bientot.map(carte).join('')}`
+      // Rien d'annoncé chez Epic : on le dit plutôt que de cacher la section (pas quand ce sont les filtres qui la vident).
+      : etat.onglet === 'jeux' && !aVenir().length ? `<h2 class="section">${t('bientot')}</h2><p class="vide">${esc(t('bientotVide'))}</p>` : '')
     + (etat.onglet === 'libres' ? carteRetro() : '')
     + (etat.onglet === 'jeux' && liste.length <= etat.limite ? historiqueHTML(garde) : '');
 }
@@ -493,7 +489,7 @@ function historiqueHTML(garde) {
   return `<h2 class="section">${t('dejaOfferts')}</h2>
     <p class="historique-total">${esc(t('totalOffert', d.historiqueNb, d.historiqueTotal ? formatEuros(d.historiqueTotal, etat.langue, 0) : '', depuis))}</p>
     <ul class="historique">${h.map((g) => `<li><span class="dates">${date(g.debut)} – ${date(g.fin)}</span>
-      <span class="titre">${esc(g.titre)}<small>${esc(g.plateformesTexte)}</small></span>${prix(g) > 0 ? `<s>${esc(formatEuros(prix(g), etat.langue))}</s>` : ''}</li>`).join('')}</ul>`;
+      <span class="titre">${esc(g.titre)}<small>${esc(g.plateformesTexte)}</small></span>${prix(g) > 0 ? `<s>${esc(prixTexte(g))}</s>` : ''}</li>`).join('')}</ul>`;
 }
 
 const PAQUET = 40;
@@ -563,7 +559,7 @@ $('#plateformes').addEventListener('click', (e) => {
 // Clic vers la boutique (Steam, Epic…) : ce qui comptera pour les liens affiliés
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a.recuperer');
-  if (a) stat({ path: `clic/${a.dataset.id ?? 'abandonware'}`, title: `${a.dataset.titre ?? 'Abandonware France'} → ${new URL(a.href).hostname}`, event: true });
+  if (a) stat({ path: `clic/${a.dataset.id}`, title: `${a.dataset.titre} → ${new URL(a.href).hostname}`, event: true });
 });
 // Clic vers un réseau de Geekozor
 document.addEventListener('click', (e) => {

@@ -31,6 +31,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Tests d'abord : s'ils échouent, le site garde sa version précédente et GitHub envoie un e-mail.
+      - run: node --test scripts/*.test.mjs
       - run: node scripts/update.mjs
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

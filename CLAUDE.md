@@ -26,7 +26,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 | Free-to-play | FreeToGame (PC), jeux gratuits GOG, consoles depuis `data/f2p-consoles.json` |
 | Indés | flux RSS itch.io, filtré (adultes, fangames) grâce aux étiquettes des pages |
 | Démos | GOG, Nintendo Europe (150 démos Switch / Switch 2 les plus téléchargées) et Steam (100 démos, fiche lue 60 par passage, cache `steamDemo`, sans anglais ni français = écartée), présentées en alternance. Nintendo donne lui-même textes et liens en fr/de/it/es (`g.trad`, `g.liens`), donc pas de traduction Claude pour eux. Vidéos et captures des démos Nintendo : cherchées sur Steam puis Xbox (`nomRecherche` enlève « Nintendo Switch 2 Edition »…) ; 94 / 146 en ont, les jeux Nintendo maison n'en ont pas (lien de recherche YouTube) |
-| Libres & rétro | `data/jeux-libres.json` et un lien vers Abandonware France |
+| Libres & rétro | `data/jeux-libres.json` et une carte « Rétro légal 👑 » sans lien. Règle (20/11/2026) : aucun lien vers abandonware, ROMs ou téléchargements non autorisés |
 
 ### Fiches de jeu
 - Vidéos et captures : Steam d'abord, sinon la boutique Xbox, sinon `data/bandes-annonces.json` (YouTube) pour la vidéo et le champ `captures` de `f2p-consoles.json` pour les captures.
@@ -43,6 +43,8 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 
 ### Décisions déjà prises
 - Pas de notes de jeux.
+- Badges de langue (20/11/2026), seulement depuis le champ Steam `supported_languages`, jamais le titre ni la description : « VF » si français avec voix (`*`) et au plus 16 langues avec voix (au-delà, le développeur a tout coché : pas de badge), « FR » si textes seulement, rien sinon. `francais()` dans `scripts/titres.mjs` ; fiches marquées `regle2` dans le cache.
+- Prix (20/11/2026) : vrai prix en euros de la boutique d'abord (Epic `country=FR`, Steam `cc=fr` pour les offres Steam), sinon conversion du dollar affichée avec « env. ».
 - Mise à jour toutes les heures.
 - RAWG retiré : le propriétaire ne voulait pas demander de clé. Il est remplacé par la liste consoles.
 - Wikidata a été testé et rejeté : incomplet, et il liste des jeux fermés.
