@@ -28,6 +28,11 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 | Démos | GOG, Nintendo Europe (150 démos Switch / Switch 2 les plus téléchargées) et Steam (100 démos, fiche lue 60 par passage, cache `steamDemo`, sans anglais ni français = écartée), présentées en alternance. Nintendo donne lui-même textes et liens en fr/de/it/es (`g.trad`, `g.liens`), donc pas de traduction Claude pour eux. Vidéos et captures des démos Nintendo : cherchées sur Steam puis Xbox (`nomRecherche` enlève « Nintendo Switch 2 Edition »…) ; 94 / 146 en ont, les jeux Nintendo maison n'en ont pas (lien de recherche YouTube) |
 | Libres & rétro | `data/jeux-libres.json` puis la section « Rétro légal 👑 » : `data/retro.json` (titre exact GOG + description écrite à la main), jeux retirés du Free-to-play par update.mjs (type `retro`), vidéos via `data/bandes-annonces.json` (chaîne Squakenet, faute de bande-annonce officielle). Règle (20/11/2026) : aucun lien vers abandonware, ROMs ou téléchargements non autorisés |
 
+### Ajouts du 20/11/2026 (soir)
+- « 🎮 Gratuit ce week-end » (onglet Jeux offerts, après « Bientôt gratuit ») : liste `essais` (type `essai`), source = mises en avant officielles Steam (`api/featuredcategories`, « Free Weekend »). Pas de date de fin dans la source : disparaît quand Steam retire la mise en avant. Pas d'alerte, pas compté dans les économies.
+- Vidéos TikTok de Geekozor : `public/tiktok.json` (`jeu` = id ou titre exact, `video` = lien https://www.tiktok.com/@…/video/…, tout autre lien est ignoré). Bouton dans la fiche. Lu par le navigateur.
+- Tableau de bord du propriétaire : `public/tableau.html` (lié nulle part, noindex). Chiffres GoatCounter publics (visites, vues `jeu/`, clics `clic/`, partages, onglets, réseaux) + `public/data/stats.json` écrit par update.mjs (abonnés OneSignal si la clé le permet, 30 dernières alertes avec reçues/cliquées, alertes des sources). Public mais sans donnée personnelle.
+
 ### Cartes
 - Compte à rebours « Encore 2 j 5 h », puis « Plus que 5 h 12 min » le dernier jour, mis à jour chaque minute.
 - Compteur « Tu as économisé X € » (onglets à offres) : valeur gardée dans `localStorage.economies` au moment où on coche « Je l'ai récupéré ».

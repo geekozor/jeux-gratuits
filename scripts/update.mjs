@@ -15,7 +15,7 @@ import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, franc
 import { euros, estUnLot } from '../public/prix.js';
 import { offreGratuite, offreActuelle } from './epic.mjs';
 import { offresSteam } from './steam.mjs';
-import { aNotifier, messages, messageRoi, envoyer } from './notifications.mjs';
+import { aNotifier, messages, messageRoi, envoyer, resultat, nbAbonnes } from './notifications.mjs';
 
 const OUT = new URL('../public/data/jeux.json', import.meta.url);
 const DETAILS = new URL('../public/data/jeux/', import.meta.url); // un petit fichier par jeu, chargé à l'ouverture de sa fiche
@@ -106,6 +106,28 @@ await facultatif('Steam (-100 %)', async () => {
       fin: null, publie: (cache.steamGratuits[appid] ??= new Date().toISOString()),
     });
     details.set('steam' + appid, { instructions: 'Open the Steam page and click "Add to Account" while the offer lasts: the game stays in your library for good.' });
+  }
+});
+
+// ---------- 1 quater. Gratuit ce week-end : jeux Steam jouables gratuitement quelques jours ----------
+// Source : les mises en avant officielles de la boutique (« Free Weekend »). Le jeu ne reste pas dans la bibliothèque.
+// Pas de date de fin dans la source : le jeu disparaît quand Steam retire la mise en avant.
+const essais = [];
+await facultatif('Steam (week-end gratuit)', async () => {
+  const j = await getJson('https://store.steampowered.com/api/featuredcategories?cc=fr&l=english');
+  const ids = Object.values(j).filter((c) => c?.name === 'Spotlights').flatMap((c) => c.items ?? [])
+    .filter((i) => /free weekend|free to play this weekend|play for free/i.test(i.name ?? ''))
+    .map((i) => i.url?.match(/\/app\/(\d+)/)?.[1]).filter(Boolean);
+  for (const appid of new Set(ids)) {
+    const a = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${appid}&cc=fr&l=english`))[appid]?.data;
+    if (!a || a.type !== 'game' || a.is_free) continue; // un vrai free-to-play est déjà dans son onglet
+    essais.push({ id: 'essai' + appid, titre: a.name, type: 'essai', image: a.header_image, description: entites(a.short_description ?? ''),
+      lien: `https://store.steampowered.com/app/${appid}/`, plateformes: ['pc'], plateformesTexte: 'PC, Steam', editeur: a.publishers?.[0],
+      genres: (a.genres ?? []).map((x) => x.description).slice(0, 3), fr: francais(a.supported_languages) ?? undefined });
+    details.set('essai' + appid, { developpeur: a.developers?.[0], sortie: a.release_date?.date, source: 'Steam',
+      videos: (a.movies ?? []).filter((m) => m.hls_h264).slice(0, 3).map((m) => ({ nom: m.name, hls: m.hls_h264, miniature: m.thumbnail })),
+      captures: (a.screenshots ?? []).slice(0, 8).map((c) => c.path_full),
+      instructions: 'Open the Steam page and click "Play Game" during the free weekend: the game can be played for free for a few days, but it does not stay in your library.' });
   }
 });
 
@@ -538,7 +560,7 @@ for (const r of JSON.parse(await readFile(new URL('../data/retro.json', import.m
 if (ANTHROPIC_API_KEY) {
   const { default: Anthropic } = await import('@anthropic-ai/sdk');
   const client = new Anthropic();
-  const aTraduire = [...new Map([...offerts, ...bientot, ...f2p, ...indes, ...demos, ...libres]
+  const aTraduire = [...new Map([...offerts, ...bientot, ...essais, ...f2p, ...indes, ...demos, ...libres]
     .filter((g) => g.description && !g.trad && !cache.trad[hash(g.description)])
     .map((g) => [hash(g.description), g.description])).entries()]
     .slice(0, MAX_TRAD_PAR_EXECUTION);
@@ -589,7 +611,7 @@ if (ANTHROPIC_API_KEY) {
   console.warn('ANTHROPIC_API_KEY absente : descriptions laissées en anglais.');
 }
 
-for (const g of [...offerts, ...bientot, ...f2p, ...indes, ...demos, ...libres]) {
+for (const g of [...offerts, ...bientot, ...essais, ...f2p, ...indes, ...demos, ...libres]) {
   const t = g.description && cache.trad[hash(g.description)];
   if (t) g.trad = t;
 }
@@ -630,22 +652,28 @@ if (offertsJeux.length) {
 
 // ---------- Exclusions faites à la main (data/exclusions.json) ----------
 const exclus = new Set(JSON.parse(await readFile(new URL('../data/exclusions.json', import.meta.url), 'utf8')).titres.map(cle));
-for (const liste of [offerts, bientot, f2p, indes, demos, libres]) {
+for (const liste of [offerts, bientot, essais, f2p, indes, demos, libres]) {
   liste.splice(0, liste.length, ...liste.filter((g) => !exclus.has(cle(g.titre))));
 }
 
 // ---------- Notifications push (OneSignal), seulement avec la clé (pas depuis le PC) ----------
 // Premier passage : on retient les jeux déjà là sans rien envoyer (sinon 30 notifications d'un coup).
 // shortcut: si le 2e envoi échoue, le 1er repart au passage suivant ; à revoir si OneSignal tombe souvent.
+// Chaque envoi est noté (30 derniers) pour le tableau de bord du propriétaire (public/tableau.html).
+const envoyerEtNoter = async (m) => {
+  const id = await envoyer(ONESIGNAL_API_KEY, m);
+  (cache.notifsEnvoyees ??= []).unshift({ id, date: new Date().toISOString(), titre: m.titre.fr, texte: m.texte.fr });
+  cache.notifsEnvoyees.splice(30);
+};
 if (ONESIGNAL_API_KEY) {
   const { nouveaux, finissants, vus } = aNotifier(offerts, cache.notifies ?? {});
   try {
-    if (cache.notifies) for (const m of messages(nouveaux, finissants)) await envoyer(ONESIGNAL_API_KEY, m);
+    if (cache.notifies) for (const m of messages(nouveaux, finissants)) await envoyerEtNoter(m);
     cache.notifies = vus;
   } catch (e) { alertes.push(`OneSignal : ${e.message}`); }
   // Choix du Roi (jeu = id ou titre exact, comme dans l'app)
   const fichier = JSON.parse(await readFile(new URL('../public/choix-du-roi.json', import.meta.url), 'utf8'));
-  const tous = [...offerts, ...bientot, ...f2p, ...indes, ...demos, ...libres];
+  const tous = [...offerts, ...bientot, ...essais, ...f2p, ...indes, ...demos, ...libres];
   const cles = fichier.map((c) => String(c.jeu).toLowerCase());
   const choix = fichier.flatMap((c, i) => {
     const g = tous.find((x) => x.id.toLowerCase() === cles[i] || x.titre.toLowerCase() === cles[i]);
@@ -653,9 +681,14 @@ if (ONESIGNAL_API_KEY) {
   });
   const { message, envoyes } = messageRoi(choix, cles, cache.roiNotifies ?? []);
   try {
-    if (message) await envoyer(ONESIGNAL_API_KEY, message);
+    if (message) await envoyerEtNoter(message);
     cache.roiNotifies = envoyes;
   } catch (e) { alertes.push(`OneSignal (Choix du Roi) : ${e.message}`); }
+  // Tableau de bord : reçues / cliquées des notifications de la semaine (chiffre gardé si la lecture échoue).
+  for (const n of (cache.notifsEnvoyees ?? []).filter((n) => n.id && Date.now() - new Date(n.date) < 7 * 864e5)) {
+    try { Object.assign(n, await resultat(ONESIGNAL_API_KEY, n.id)); } catch { /* réessayé au passage suivant */ }
+  }
+  cache.abonnes = (await nbAbonnes(ONESIGNAL_API_KEY).catch(() => null)) ?? cache.abonnes;
 }
 
 // ---------- Santé des sources : si l'une casse ou ne renvoie plus rien, l'automatisation GitHub échoue
@@ -675,16 +708,19 @@ await mkdir(new URL('.', OUT), { recursive: true });
 await mkdir(new URL('.', CACHE), { recursive: true });
 const historique = cache.historique.filter((g) => !exclus.has(cle(g.titre)));
 await writeFile(OUT, JSON.stringify({
-  maj: new Date().toISOString(), offerts, bientot, f2p, indes, demos, libres,
+  maj: new Date().toISOString(), offerts, bientot, essais, f2p, indes, demos, libres,
   // shortcut: seuls les 200 derniers vont dans l'app (poids du fichier) ; le total compte tout l'historique.
   historique: historique.slice(0, 200), historiqueNb: historique.length,
   // Total en euros, sans les lots (« Free itch.io Games Bundle » : 116 jeux pour 384 $).
   historiqueTotal: Math.round(historique.reduce((s, g) => s + (estUnLot(g) ? 0 : euros(g.valeur) ?? 0), 0)), historiqueDepuis: cache.historiqueDepuis,
 }));
 await writeFile(CACHE, JSON.stringify(cache));
+// Tableau de bord du propriétaire : seulement des chiffres et des titres, rien de personnel (le fichier est public).
+await writeFile(new URL('../public/data/stats.json', import.meta.url), JSON.stringify({ maj: new Date().toISOString(),
+  abonnes: cache.abonnes ?? null, notifs: (cache.notifsEnvoyees ?? []).map(({ id, ...n }) => n), alertes }));
 await rm(DETAILS, { recursive: true, force: true });
 await mkdir(DETAILS, { recursive: true });
 // Les id viennent en partie des sources : un id du genre « ../x » écrirait hors du dossier, donc on l'écarte.
 await Promise.all([...details].filter(([id]) => /^[\w-]+$/.test(id)).map(([id, d]) => writeFile(new URL(`${id}.json`, DETAILS), JSON.stringify(d))));
-console.log(`${offerts.length} offerts, ${bientot.length} bientôt, ${f2p.length} free-to-play, ${indes.length} indés, ${demos.length} démos, ${libres.length} libres, `
+console.log(`${offerts.length} offerts, ${bientot.length} bientôt, ${essais.length} week-end, ${f2p.length} free-to-play, ${indes.length} indés, ${demos.length} démos, ${libres.length} libres, `
   + `${details.size} fiches, ${Object.keys(cache.trad).length} traductions en cache`);

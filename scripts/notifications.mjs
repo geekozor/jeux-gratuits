@@ -63,4 +63,21 @@ export async function envoyer(cle, m) {
     }),
   });
   if (!r.ok) throw new Error(`OneSignal ${r.status} : ${await r.text()}`);
+  return (await r.json()).id; // pour lire ensuite combien l'ont reçue et cliquée
+}
+
+// Tableau de bord : résultat d'une notification envoyée, lu avec la même clé que l'envoi.
+export async function resultat(cle, id) {
+  const r = await fetch(`https://api.onesignal.com/notifications/${encodeURIComponent(id)}?app_id=${APP_ID}`, { headers: { Authorization: `Key ${cle}` } });
+  if (!r.ok) throw new Error(`OneSignal ${r.status}`);
+  const j = await r.json();
+  return { recues: j.successful ?? 0, clics: j.converted ?? 0 };
+}
+
+// Nombre d'abonnés aux alertes. OneSignal peut exiger la clé du compte plutôt que celle de l'app : alors null.
+export async function nbAbonnes(cle) {
+  const r = await fetch(`https://api.onesignal.com/apps/${APP_ID}`, { headers: { Authorization: `Key ${cle}` } });
+  if (!r.ok) return null;
+  const j = await r.json();
+  return j.messageable_players ?? j.players ?? null;
 }

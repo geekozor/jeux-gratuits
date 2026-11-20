@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Page du propriétaire : liée nulle part et pas indexée. Elle ne montre que des chiffres publics (pas de données personnelles). -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Tableau de bord</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    main { max-width: 900px; margin: 0 auto; padding: 16px; }
+    h1 { font-size: 22px; margin: 8px 0 4px; }
+    h2 { font-size: 17px; margin: 28px 0 10px; }
+    .sous { color: var(--doux); margin: 0; font-size: 14px; }
+    .tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 16px; }
+    .tuile { background: var(--carte); border: 1px solid var(--bord); border-radius: 12px; padding: 12px 14px; }
+    .tuile b { display: block; font-size: 26px; color: var(--accent); }
+    .tuile span { color: var(--doux); font-size: 13px; }
+    .boite { background: var(--carte); border: 1px solid var(--bord); border-radius: 12px; padding: 4px 14px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--bord); vertical-align: top; }
+    tr:last-child td { border-bottom: 0; }
+    th { color: var(--doux); font-weight: 500; }
+    td.n, th.n { text-align: right; white-space: nowrap; }
+    .ok { color: var(--accent); }
+    .ko { color: var(--alerte); }
+    ul.boite { list-style: none; margin: 0; padding: 4px 14px; }
+    ul.boite li { padding: 8px 0; border-bottom: 1px solid var(--bord); }
+    ul.boite li:last-child { border-bottom: 0; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>👑 Tableau de bord</h1>
+  <p class="sous" id="maj">Chargement…</p>
+  <div class="tuiles" id="tuiles"></div>
+
+  <h2>Santé des sources</h2>
+  <div id="sante"></div>
+
+  <h2>Choix du Roi</h2>
+  <div class="boite"><table id="roi"></table></div>
+
+  <h2>Dernières alertes envoyées</h2>
+  <div id="notifs"></div>
+
+  <h2>Jeux du moment</h2>
+  <p class="sous">Jeux offerts, gratuits ce week-end et Choix du Roi, triés par clics sur le bouton du jeu (depuis le début).</p>
+  <div class="boite"><table id="jeux"></table></div>
+
+  <h2>Onglets les plus ouverts</h2>
+  <div class="boite"><table id="onglets"></table></div>
+
+  <h2>Clics vers tes réseaux</h2>
+  <div class="boite"><table id="reseaux"></table></div>
+
+  <p class="sous" style="margin-top:24px">Visites détaillées : <a href="https://geekozor.goatcounter.com" target="_blank" rel="noopener">GoatCounter</a> ·
+    Abonnés aux alertes : <a href="https://dashboard.onesignal.com" target="_blank" rel="noopener">OneSignal</a></p>
+</main>
+<script type="module">
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const nb = (n) => (n == null ? '—' : Number(n).toLocaleString('fr'));
+const date = (s) => new Date(s).toLocaleString('fr', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+const json = (u) => fetch(u, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+
+// Compteurs publics GoatCounter (404 = jamais compté = 0), 4 à la fois pour rester léger.
+const compteurs = new Map();
+async function compter(chemins) {
+  const file = [...new Set(chemins)].filter((c) => !compteurs.has(c));
+  await Promise.all(Array.from({ length: 4 }, async () => {
+    for (let c; (c = file.shift());) {
+      const j = await json(`https://geekozor.goatcounter.com/counter/${encodeURIComponent(c)}.json`);
+      compteurs.set(c, Number(String(j?.count ?? '0').replace(/\D/g, '')) || 0);
+    }
+  }));
+}
+const vu = (c) => compteurs.get(c) ?? 0;
+
+const [d, stats, roi] = await Promise.all([json('data/jeux.json'), json('data/stats.json'), json('choix-du-roi.json')]);
+if (!d) { $('#maj').textContent = 'Impossible de lire les données du site.'; throw new Error('jeux.json'); }
+
+const LISTES = { offerts: 'Jeux offerts', bientot: 'Bientôt gratuit', essais: 'Ce week-end', f2p: 'Free-to-play', indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro' };
+const tous = Object.keys(LISTES).flatMap((l) => (d[l] ?? []).map((g) => ({ ...g, liste: l })));
+const trouver = (k) => tous.find((g) => g.id.toLowerCase() === k || g.titre.toLowerCase() === k);
+const jeuxOfferts = d.offerts.filter((g) => g.type === 'jeu');
+
+const ONGLETS = { jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro' };
+const RESEAUX = { tiktok: 'TikTok', instagram: 'Instagram', youtube: 'YouTube' };
+const choix = (roi ?? []).map((c) => ({ ...c, g: trouver(String(c.jeu).toLowerCase()) }));
+const suivis = [...new Map([...tous.filter((g) => (g.liste === 'offerts' && g.type === 'jeu') || g.liste === 'essais'), ...choix.map((c) => c.g).filter(Boolean)]
+  .map((g) => [g.id, g])).values()];
+await compter(['TOTAL', 'alertes/activer', ...Object.keys(ONGLETS).map((o) => 'onglet/' + o), ...Object.keys(RESEAUX).map((r) => 'reseau/' + r),
+  ...suivis.flatMap((g) => ['jeu/' + g.id, 'clic/' + g.id, 'partage/' + g.id])]);
+
+$('#maj').textContent = `Site mis à jour le ${date(d.maj)}`;
+const tuile = (n, texte) => `<div class="tuile"><b>${n}</b><span>${texte}</span></div>`;
+$('#tuiles').innerHTML = tuile(nb(vu('TOTAL')), 'visites depuis le début')
+  + tuile(nb(stats?.abonnes), stats?.abonnes == null ? 'abonnés aux alertes (voir OneSignal)' : 'abonnés aux alertes')
+  + tuile(nb(vu('alertes/activer')), 'clics sur « Me prévenir »')
+  + tuile(nb(jeuxOfferts.length), 'jeux offerts en ce moment')
+  + tuile(nb(d.essais?.length ?? 0), 'gratuits ce week-end')
+  + tuile(nb(d.offerts.length - jeuxOfferts.length), 'bonus & DLC');
+
+const alertes = stats?.alertes ?? [];
+$('#sante').innerHTML = alertes.length
+  ? `<ul class="boite">${alertes.map((a) => `<li class="ko">⚠️ ${esc(a)}</li>`).join('')}</ul>`
+  : `<p class="ok">✅ Toutes les sources répondent${stats ? ` (vérifié le ${date(stats.maj)})` : ''}.</p>`;
+
+$('#roi').innerHTML = '<tr><th>Jeu</th><th>Onglet</th><th class="n">Vues</th><th class="n">Clics</th></tr>' + (choix.map((c) => c.g
+  ? `<tr><td><a href="./#${encodeURIComponent(c.g.id)}">${esc(c.g.titre)}</a></td><td>${LISTES[c.g.liste]}</td><td class="n">${nb(vu('jeu/' + c.g.id))}</td><td class="n">${nb(vu('clic/' + c.g.id))}</td></tr>`
+  : `<tr><td class="ko">⚠️ ${esc(c.jeu)}</td><td class="ko" colspan="3">n'est plus sur le site : à remplacer</td></tr>`).join('')
+  || '<tr><td colspan="4">Aucun Choix du Roi.</td></tr>');
+
+const notifs = stats?.notifs ?? [];
+$('#notifs').innerHTML = notifs.length
+  ? `<div class="boite"><table><tr><th>Date</th><th>Alerte</th><th class="n">Reçues</th><th class="n">Clics</th></tr>${notifs.map((n) =>
+    `<tr><td>${date(n.date)}</td><td><b>${esc(n.titre)}</b><br><span class="sous">${esc(n.texte)}</span></td><td class="n">${nb(n.recues)}</td><td class="n">${nb(n.clics)}</td></tr>`).join('')}</table></div>`
+  : '<p class="sous">Aucune alerte notée pour l\'instant (le suivi commence avec la prochaine alerte).</p>';
+
+$('#jeux').innerHTML = '<tr><th>Jeu</th><th class="n">Vues</th><th class="n">Clics</th><th class="n">Partages</th></tr>'
+  + suivis.sort((a, b) => vu('clic/' + b.id) - vu('clic/' + a.id) || vu('jeu/' + b.id) - vu('jeu/' + a.id)).map((g) =>
+    `<tr><td><a href="./#${encodeURIComponent(g.id)}">${esc(g.titre)}</a> <span class="sous">· ${LISTES[g.liste]}</span></td><td class="n">${nb(vu('jeu/' + g.id))}</td><td class="n">${nb(vu('clic/' + g.id))}</td><td class="n">${nb(vu('partage/' + g.id))}</td></tr>`).join('');
+
+const tableau = (sel, noms, prefixe) => { $(sel).innerHTML = Object.entries(noms).sort(([a], [b]) => vu(prefixe + b) - vu(prefixe + a))
+  .map(([k, nom]) => `<tr><td>${nom}</td><td class="n">${nb(vu(prefixe + k))}</td></tr>`).join(''); };
+tableau('#onglets', ONGLETS, 'onglet/');
+tableau('#reseaux', RESEAUX, 'reseau/');
+</script>
+</body>
+</html>

@@ -22,7 +22,7 @@ const T = {
     sources: 'Données :', maj: 'Mis à jour le', navigateur: 'Navigateur', mobile: 'Mobile',
     retroTitre: 'Rétro légal 👑',
     retroTexte: 'Les vieux jeux, oui, le piratage, non. Ces classiques sont offerts officiellement par leurs éditeurs, à récupérer sur GOG ou Steam.',
-    env: 'env.', economies: (m, n) => `💰 Tu as économisé ${m} grâce au site (${n} ${n > 1 ? 'jeux récupérés' : 'jeu récupéré'})`, bientotVide: 'Les prochains jeux offerts arrivent bientôt, reviens jeudi 👑',
+    env: 'env.', videoTiktok: "Ma vidéo TikTok sur ce jeu", essais: "🎮 Gratuit ce week-end", essaisTexte: "À jouer gratuitement pendant quelques jours seulement : le jeu ne reste pas dans ta bibliothèque.", economies: (m, n) => `💰 Tu as économisé ${m} grâce au site (${n} ${n > 1 ? 'jeux récupérés' : 'jeu récupéré'})`, bientotVide: 'Les prochains jeux offerts arrivent bientôt, reviens jeudi 👑',
   },
   en: {
     recupere: 'I got it', heures: (h, m) => `Only ${h} h ${m} min left`, videOnglet: (o) => `Nothing in “${o}” right now. The list is updated every hour.`, videFiltres: (o, f) => `Nothing in “${o}” for ${f} right now.`, effacer: 'Clear filters', voirPlus: (n) => `Show more (${n} left)`,
@@ -43,7 +43,7 @@ const T = {
     sources: 'Data:', maj: 'Updated on', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Legal retro 👑',
     retroTexte: 'Old games, yes; piracy, no. These classics are given away officially by their publishers, on GOG or Steam.',
-    env: 'approx.', economies: (m, n) => `💰 You saved ${m} thanks to this site (${n} ${n > 1 ? 'games' : 'game'} claimed)`, bientotVide: 'The next free games are coming soon, come back on Thursday 👑',
+    env: 'approx.', videoTiktok: "My TikTok video about this game", essais: "🎮 Free this weekend", essaisTexte: "Free to play for a few days only: the game does not stay in your library.", economies: (m, n) => `💰 You saved ${m} thanks to this site (${n} ${n > 1 ? 'games' : 'game'} claimed)`, bientotVide: 'The next free games are coming soon, come back on Thursday 👑',
   },
   it: {
     recupere: "L'ho riscattato", heures: (h, m) => `Solo più ${h} h ${m} min`, videOnglet: (o) => `Niente in «${o}» al momento. La lista si aggiorna ogni ora.`, videFiltres: (o, f) => `Niente in «${o}» per ${f} al momento.`, effacer: 'Cancella i filtri', voirPlus: (n) => `Mostra altri (${n} rimanenti)`,
@@ -64,7 +64,7 @@ const T = {
     sources: 'Dati:', maj: 'Aggiornato il', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Retrò legale 👑',
     retroTexte: 'I vecchi giochi sì, la pirateria no. Questi classici sono regalati ufficialmente dai loro editori, su GOG o Steam.',
-    env: 'circa', economies: (m, n) => `💰 Hai risparmiato ${m} grazie al sito (${n} ${n > 1 ? 'giochi riscattati' : 'gioco riscattato'})`, bientotVide: 'I prossimi giochi in regalo arrivano presto, torna giovedì 👑',
+    env: 'circa', videoTiktok: "Il mio video TikTok su questo gioco", essais: "🎮 Gratis questo weekend", essaisTexte: "Gratis da giocare solo per qualche giorno: il gioco non resta nella tua libreria.", economies: (m, n) => `💰 Hai risparmiato ${m} grazie al sito (${n} ${n > 1 ? 'giochi riscattati' : 'gioco riscattato'})`, bientotVide: 'I prossimi giochi in regalo arrivano presto, torna giovedì 👑',
   },
   de: {
     recupere: 'Hab ich schon', heures: (h, m) => `Nur noch ${h} Std. ${m} Min.`, videOnglet: (o) => `Gerade nichts in „${o}“. Die Liste wird stündlich aktualisiert.`, videFiltres: (o, f) => `Gerade nichts in „${o}“ für ${f}.`, effacer: 'Filter löschen', voirPlus: (n) => `Mehr anzeigen (noch ${n})`,
@@ -85,7 +85,7 @@ const T = {
     sources: 'Daten:', maj: 'Aktualisiert am', navigateur: 'Browser', mobile: 'Mobil',
     retroTitre: 'Legales Retro 👑',
     retroTexte: 'Alte Spiele ja, Raubkopien nein. Diese Klassiker verschenken ihre Publisher offiziell, auf GOG oder Steam.',
-    env: 'ca.', economies: (m, n) => `💰 Du hast ${m} gespart dank dieser Seite (${n} ${n > 1 ? 'Spiele geholt' : 'Spiel geholt'})`, bientotVide: 'Die nächsten Gratis-Spiele kommen bald, schau am Donnerstag wieder vorbei 👑',
+    env: 'ca.', videoTiktok: "Mein TikTok-Video zu diesem Spiel", essais: "🎮 Gratis an diesem Wochenende", essaisTexte: "Nur ein paar Tage gratis spielbar: Das Spiel bleibt nicht in deiner Bibliothek.", economies: (m, n) => `💰 Du hast ${m} gespart dank dieser Seite (${n} ${n > 1 ? 'Spiele geholt' : 'Spiel geholt'})`, bientotVide: 'Die nächsten Gratis-Spiele kommen bald, schau am Donnerstag wieder vorbei 👑',
   },
   es: {
     recupere: 'Ya lo tengo', heures: (h, m) => `Solo quedan ${h} h ${m} min`, videOnglet: (o) => `Nada en «${o}» por ahora. La lista se actualiza cada hora.`, videFiltres: (o, f) => `Nada en «${o}» para ${f} por ahora.`, effacer: 'Borrar filtros', voirPlus: (n) => `Ver más (quedan ${n})`,
@@ -106,7 +106,7 @@ const T = {
     sources: 'Datos:', maj: 'Actualizado el', navigateur: 'Navegador', mobile: 'Móvil',
     retroTitre: 'Retro legal 👑',
     retroTexte: 'Juegos antiguos, sí; piratería, no. Estos clásicos los regalan oficialmente sus editores, en GOG o Steam.',
-    env: 'aprox.', economies: (m, n) => `💰 Has ahorrado ${m} gracias al sitio (${n} ${n > 1 ? 'juegos conseguidos' : 'juego conseguido'})`, bientotVide: 'Los próximos juegos regalados llegan pronto, vuelve el jueves 👑',
+    env: 'aprox.', videoTiktok: "Mi vídeo de TikTok sobre este juego", essais: "🎮 Gratis este fin de semana", essaisTexte: "Gratis para jugar solo unos días: el juego no se queda en tu biblioteca.", economies: (m, n) => `💰 Has ahorrado ${m} gracias al sitio (${n} ${n > 1 ? 'juegos conseguidos' : 'juego conseguido'})`, bientotVide: 'Los próximos juegos regalados llegan pronto, vuelve el jueves 👑',
   },
 };
 
@@ -196,7 +196,7 @@ function tempsDe(g) {
 
 // Onglets des offres temporaires (avec date de fin) ; les autres sont des listes de jeux gratuits permanents.
 const offresTemporaires = () => etat.onglet === 'jeux' || etat.onglet === 'dlc';
-const ONGLET_DU_TYPE = { jeu: 'jeux', bientot: 'jeux', dlc: 'dlc', inde: 'indes', demo: 'demos', libre: 'libres', retro: 'libres' };
+const ONGLET_DU_TYPE = { jeu: 'jeux', bientot: 'jeux', dlc: 'dlc', inde: 'indes', demo: 'demos', libre: 'libres', retro: 'libres', essai: 'jeux' };
 const LISTE_DE_L_ONGLET = { f2p: 'f2p', indes: 'indes', demos: 'demos', libres: 'libres' };
 
 function elements() {
@@ -262,6 +262,12 @@ const metaDe = (g) => (g.plateformesTexte || g.plateformes.map(nomPlateforme).jo
 let roi = new Map();
 fetch('choix-du-roi.json', { cache: 'no-cache' }).then((r) => r.json())
   .then((l) => { roi = new Map(l.map((c) => [String(c.jeu).toLowerCase(), c.verdict])); afficher(); }).catch(() => {});
+// Vidéos TikTok de Geekozor sur un jeu : tiktok.json (`jeu` = id ou titre exact, `video` = lien de la vidéo).
+let tiktoks = new Map();
+fetch('tiktok.json', { cache: 'no-cache' }).then((r) => r.json())
+  .then((l) => { tiktoks = new Map(l.filter((v) => /^https:\/\/www\.tiktok\.com\/@[\w.]+\/video\/\d+$/.test(v.video)) // lien TikTok exact, rien d'autre
+    .map((v) => [String(v.jeu).toLowerCase(), v.video])); if (etat.fiche) rendreFiche(); }).catch(() => {});
+const tiktokDe = (g) => tiktoks.get(g.id.toLowerCase()) ?? tiktoks.get(g.titre.toLowerCase());
 const verdictDe = (g) => roi.get(g.id.toLowerCase()) ?? roi.get(g.titre.toLowerCase());
 const roiDabord = (a, b) => !verdictDe(a) - !verdictDe(b);
 const descriptionDe = (g) => (etat.langue !== 'en' && g.trad?.[etat.langue]) || g.description;
@@ -300,6 +306,7 @@ function rendreFiche() {
       <div class="badges">${badgesDe(g, Infinity)}</div>
       ${caseRecupere(g)}
       ${actionsDe(g)}
+      ${tiktokDe(g) ? `<a class="bande-annonce video-tiktok" href="${esc(tiktokDe(g))}" target="_blank" rel="noopener">${icone('lecture')} ${t('videoTiktok')}</a>` : ''}
       <p>${esc(descriptionDe(g))}</p>
       ${!d ? `<p class="meta">${t('chargement')}</p>` : ''}
       ${d && !d.videos?.length ? `<a class="bande-annonce" href="${youtube}" target="_blank" rel="noopener">${icone('lecture')} ${t('bandeAnnonce')}</a>` : ''}
@@ -403,7 +410,7 @@ function fermerFiche() {
 function suivreAdresse() {
   const id = decodeURIComponent(location.hash.slice(1));
   const d = etat.donnees;
-  const g = id && ['offerts', 'bientot', 'f2p', 'indes', 'demos', 'libres'].map((l) => d[l]?.find((x) => x.id === id)).find(Boolean);
+  const g = id && ['offerts', 'bientot', 'essais', 'f2p', 'indes', 'demos', 'libres'].map((l) => d[l]?.find((x) => x.id === id)).find(Boolean);
   if (!g) return fermerFiche(); // pas de fiche, jeu expiré ou lien inconnu : la liste
   const onglet = ONGLET_DU_TYPE[g.type] ?? 'f2p';
   if (onglet !== etat.onglet) { // arrivée par un lien partagé : la liste derrière montre le jeu, sans filtre
@@ -478,6 +485,7 @@ function afficher() {
   afficherBandeau();
 
   const bientot = etat.onglet === 'jeux' ? aVenir().filter(garde).sort(roiDabord) : [];
+  const essais = etat.onglet === 'jeux' ? (etat.donnees.essais ?? []).filter(garde).sort(roiDabord) : [];
   // Ce qui est gratuit maintenant d'abord, « Bientôt gratuit » ensuite.
   const eco = offresTemporaires() && economiesTexte();
   $('#liste').innerHTML = (eco ? `<p class="economies">${esc(eco)}</p>` : '')
@@ -487,11 +495,12 @@ function afficher() {
     + (bientot.length ? `<h2 class="section">${t('bientot')}</h2>${bientot.map(carte).join('')}`
       // Rien d'annoncé chez Epic : on le dit plutôt que de cacher la section (pas quand ce sont les filtres qui la vident).
       : etat.onglet === 'jeux' && !aVenir().length ? `<h2 class="section">${t('bientot')}</h2><p class="vide">${esc(t('bientotVide'))}</p>` : '')
+    + (essais.length ? `<h2 class="section">${t('essais')}</h2><p class="intro-section">${t('essaisTexte')}</p>${essais.map(carte).join('')}` : '')
     + (etat.onglet === 'jeux' && liste.length <= etat.limite ? historiqueHTML(garde) : '');
 }
 
 
-const enteteRetro = () => `<h2 class="section">${t('retroTitre')}</h2><p class="intro-retro">${t('retroTexte')}</p>`;
+const enteteRetro = () => `<h2 class="section">${t('retroTitre')}</h2><p class="intro-section">${t('retroTexte')}</p>`;
 
 // Fin de l'onglet Jeux offerts : les jeux déjà offerts (dates, valeur), avec les mêmes filtres que la liste.
 function historiqueHTML(garde) {
