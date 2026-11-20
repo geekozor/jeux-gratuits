@@ -14,6 +14,7 @@ import { plateformes as tags } from './plateformes.mjs';
 import { nettoyerTitre, memeJeu, pasVraimentGratuit, etiquettesInterdites, francais, mediasItch } from './titres.mjs';
 import { euros, estUnLot } from '../public/prix.js';
 import { offreGratuite, offreActuelle } from './epic.mjs';
+import { offresSteam } from './steam.mjs';
 import { aNotifier, messages, envoyer } from './notifications.mjs';
 
 const OUT = new URL('../public/data/jeux.json', import.meta.url);
@@ -85,6 +86,28 @@ for (const m of JSON.parse(await readFile(new URL('../data/offerts-manuels.json'
   offerts.push({ id, type: 'jeu', valeur: null, ...g });
   details.set(id, { instructions });
 }
+
+// ---------- 1 ter. Steam : jeux à -100 % (gratuits à garder) que GamerPower n'a pas encore listés ----------
+// Recherche publique du magasin (promotions, prix final gratuit). Pas de date de fin chez Steam : le jeu reste
+// tant qu'il est dans la recherche, puis passe dans l'historique.
+cache.steamGratuits ??= {}; // appid -> date où on l'a vu la première fois
+await facultatif('Steam (-100 %)', async () => {
+  const { results_html: html } = await getJson('https://store.steampowered.com/search/results/?query=&specials=1&maxprice=free&category1=998&infinite=1&count=50&cc=fr&l=english');
+  for (const { appid, titre: brut } of offresSteam(html)) {
+    const titre = entites(brut);
+    if (offerts.some((g) => memeJeu(g.titre, titre) || memeJeu(titre, g.titre))) continue;
+    const a = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${appid}&cc=fr&l=english`))[appid]?.data;
+    if (!a || a.type !== 'game') continue;
+    const p = a.price_overview;
+    offerts.push({
+      id: 'steam' + appid, titre, type: 'jeu', image: a.header_image, description: a.short_description,
+      valeur: p?.currency === 'EUR' && p.initial ? '€' + (p.initial / 100).toFixed(2) : null,
+      lien: `https://store.steampowered.com/app/${appid}/`, plateformes: ['pc'], plateformesTexte: 'PC, Steam',
+      fin: null, publie: (cache.steamGratuits[appid] ??= new Date().toISOString()),
+    });
+    details.set('steam' + appid, { instructions: 'Open the Steam page and click "Add to Account" while the offer lasts: the game stays in your library for good.' });
+  }
+});
 
 // ---------- 1 bis. Epic en direct : heure de fin exacte + jeux gratuits de la semaine prochaine ----------
 // Adresse publique non documentée, utilisée par la page « Jeux gratuits » d'Epic.
@@ -466,7 +489,7 @@ for (const g of [...offerts, ...bientot, ...f2p, ...indes, ...demos, ...libres])
 // ---------- 3 quater. Liste faite à la main : bandes-annonces YouTube (data/bandes-annonces.json) ----------
 // YouTube permet d'intégrer une vidéo connue sans clé ; on vérifie seulement qu'elle existe toujours.
 const bandesAnnonces = JSON.parse(await readFile(new URL('../data/bandes-annonces.json', import.meta.url), 'utf8'));
-for (const g of f2p) {
+for (const g of [...f2p, ...libres]) {
   const id = bandesAnnonces[g.titre];
   const d = details.get(g.id) ?? {};
   if (!id || d.videos?.length) continue;

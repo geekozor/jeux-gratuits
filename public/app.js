@@ -4,7 +4,7 @@ import { euros, formatEuros, estConverti } from './prix.js';
 // ---------- Traductions de l'interface ----------
 const T = {
   fr: {
-    recupere: "Je l'ai récupéré", heures: (n) => `Plus que ${n} h`, videOnglet: (o) => `Rien dans « ${o} » en ce moment. La liste est mise à jour toutes les heures.`, videFiltres: (o, f) => `Rien dans « ${o} » pour ${f} en ce moment.`, effacer: 'Effacer les filtres', voirPlus: (n) => `Voir plus (${n} restants)`,
+    recupere: "Je l'ai récupéré", heures: (h, m) => `Plus que ${h} h ${m} min`, videOnglet: (o) => `Rien dans « ${o} » en ce moment. La liste est mise à jour toutes les heures.`, videFiltres: (o, f) => `Rien dans « ${o} » pour ${f} en ce moment.`, effacer: 'Effacer les filtres', voirPlus: (n) => `Voir plus (${n} restants)`,
     suivre: 'Suivre ce jeu', mesSuivis: 'Mes jeux suivis', alerteJusqua: (x, d) => `${x}, que tu suis, est gratuit jusqu'au ${d} !`, alerteMaintenant: (x) => `${x}, que tu suis, est gratuit en ce moment !`, alerteBientot: (x, d) => `${x}, que tu suis, sera gratuit le ${d} !`, aucunSuivi: 'Aucun jeu suivi ici. Touche ★ sur un jeu pour être prévenu quand il devient gratuit.',
     creditImage: 'Image :',
     indes: 'Indés', demos: 'Démos', libres: 'Libres & rétro', bientot: 'Bientôt gratuit', enCeMoment: 'Gratuits en ce moment', gratuitDes: (d) => `Gratuit dès ${d}`, voirEpic: 'Voir sur Epic', essayer: 'Essayer la démo', nbJeux: (n) => `${n} jeux`, visites: (n) => `${n} visites`,
@@ -16,16 +16,16 @@ const T = {
     triFin: 'Fin la plus proche', triRecent: 'Plus récents', triValeur: 'Plus grande valeur', triPopulaire: 'Populaires', triAZ: 'De A à Z',
     suisMoi: 'Tu aimes ces bons plans ? Suis Geekozor :', installer: 'Installer', alertesActiver: "Me prévenir", alertesActives: "Alertes activées", alertesIos: "Sur iPhone, les alertes marchent seulement avec l'appli installée : touche Partager (ou ••• puis Partager) puis « Sur l'écran d'accueil », puis ouvre l'appli depuis l'écran d'accueil.", alertesBloquees: "Les notifications sont bloquées pour ce site : autorise-les dans les réglages du navigateur.", jeux: 'Jeux offerts', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Rétro',
     recherche: 'Rechercher un jeu…', toutes: 'Toutes', recuperer: 'Récupérer', jouer: 'Jouer gratuitement',
-    gratuit: 'Gratuit', vf: 'VF', vfTitre: 'Voix et textes en français', st: 'FR', stTitre: 'Textes en français (interface ou sous-titres), voix dans une autre langue', encore: (n) => `Encore ${n} j`,
+    gratuit: 'Gratuit', vf: 'VF', vfTitre: 'Voix et textes en français', st: 'FR', stTitre: 'Textes en français (interface ou sous-titres), voix dans une autre langue', encore: (j, h) => `Encore ${j} j ${h} h`,
     nbOffres: (n) => `${n} offres en cours`, nbF2p: (n) => `${n} jeux free-to-play`,
     erreur: 'Impossible de charger la liste. Vérifie ta connexion.',
     sources: 'Données :', maj: 'Mis à jour le', navigateur: 'Navigateur', mobile: 'Mobile',
     retroTitre: 'Rétro légal 👑',
-    retroTexte: 'Les vieux jeux, oui, le piratage, non. Bientôt ici : émulateurs, copies de tes propres jeux et classiques offerts officiellement par leurs éditeurs.',
-    env: 'env.', bientotVide: 'Les prochains jeux offerts arrivent bientôt, reviens jeudi 👑',
+    retroTexte: 'Les vieux jeux, oui, le piratage, non. Ces classiques sont offerts officiellement par leurs éditeurs, à récupérer sur GOG ou Steam :',
+    env: 'env.', economies: (m, n) => `💰 Tu as économisé ${m} grâce au site (${n} ${n > 1 ? 'jeux récupérés' : 'jeu récupéré'})`, bientotVide: 'Les prochains jeux offerts arrivent bientôt, reviens jeudi 👑',
   },
   en: {
-    recupere: 'I got it', heures: (n) => `Only ${n} h left`, videOnglet: (o) => `Nothing in “${o}” right now. The list is updated every hour.`, videFiltres: (o, f) => `Nothing in “${o}” for ${f} right now.`, effacer: 'Clear filters', voirPlus: (n) => `Show more (${n} left)`,
+    recupere: 'I got it', heures: (h, m) => `Only ${h} h ${m} min left`, videOnglet: (o) => `Nothing in “${o}” right now. The list is updated every hour.`, videFiltres: (o, f) => `Nothing in “${o}” for ${f} right now.`, effacer: 'Clear filters', voirPlus: (n) => `Show more (${n} left)`,
     suivre: 'Follow this game', mesSuivis: 'My followed games', alerteJusqua: (x, d) => `${x}, which you follow, is free until ${d}!`, alerteMaintenant: (x) => `${x}, which you follow, is free right now!`, alerteBientot: (x, d) => `${x}, which you follow, will be free on ${d}!`, aucunSuivi: 'No followed game here. Tap ★ on a game to be told when it goes free.',
     creditImage: 'Image:',
     indes: 'Indie', demos: 'Demos', libres: 'Open source & retro', bientot: 'Free soon', enCeMoment: 'Free right now', gratuitDes: (d) => `Free from ${d}`, voirEpic: 'View on Epic', essayer: 'Try the demo', nbJeux: (n) => `${n} games`, visites: (n) => `${n} visits`,
@@ -37,16 +37,16 @@ const T = {
     triFin: 'Ending soonest', triRecent: 'Newest', triValeur: 'Highest value', triPopulaire: 'Popular', triAZ: 'A to Z',
     suisMoi: 'Like these deals? Follow Geekozor:', installer: 'Install', alertesActiver: "Notify me", alertesActives: "Alerts on", alertesIos: "On iPhone, alerts only work with the app installed: tap Share (or ••• then Share), then “Add to Home Screen”, then open the app from your Home Screen.", alertesBloquees: "Notifications are blocked for this site: allow them in your browser settings.", jeux: 'Free games', dlc: 'Bonus & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Search a game…', toutes: 'All', recuperer: 'Claim', jouer: 'Play for free',
-    gratuit: 'Free', encore: (n) => `${n} days left`,
+    gratuit: 'Free', encore: (j, h) => `${j} d ${h} h left`,
     nbOffres: (n) => `${n} active offers`, nbF2p: (n) => `${n} free-to-play games`,
     erreur: 'Could not load the list. Check your connection.',
     sources: 'Data:', maj: 'Updated on', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Legal retro 👑',
-    retroTexte: 'Old games, yes; piracy, no. Coming soon here: emulators, copies of your own games and classics given away officially by their publishers.',
-    env: 'approx.', bientotVide: 'The next free games are coming soon, come back on Thursday 👑',
+    retroTexte: 'Old games, yes; piracy, no. These classics are given away officially by their publishers, on GOG or Steam:',
+    env: 'approx.', economies: (m, n) => `💰 You saved ${m} thanks to this site (${n} ${n > 1 ? 'games' : 'game'} claimed)`, bientotVide: 'The next free games are coming soon, come back on Thursday 👑',
   },
   it: {
-    recupere: "L'ho riscattato", heures: (n) => `Solo più ${n} h`, videOnglet: (o) => `Niente in «${o}» al momento. La lista si aggiorna ogni ora.`, videFiltres: (o, f) => `Niente in «${o}» per ${f} al momento.`, effacer: 'Cancella i filtri', voirPlus: (n) => `Mostra altri (${n} rimanenti)`,
+    recupere: "L'ho riscattato", heures: (h, m) => `Solo più ${h} h ${m} min`, videOnglet: (o) => `Niente in «${o}» al momento. La lista si aggiorna ogni ora.`, videFiltres: (o, f) => `Niente in «${o}» per ${f} al momento.`, effacer: 'Cancella i filtri', voirPlus: (n) => `Mostra altri (${n} rimanenti)`,
     suivre: 'Segui questo gioco', mesSuivis: 'I miei giochi seguiti', alerteJusqua: (x, d) => `${x}, che segui, è gratis fino al ${d}!`, alerteMaintenant: (x) => `${x}, che segui, è gratis adesso!`, alerteBientot: (x, d) => `${x}, che segui, sarà gratis il ${d}!`, aucunSuivi: 'Nessun gioco seguito qui. Tocca ★ su un gioco per sapere quando diventa gratis.',
     creditImage: 'Immagine:',
     indes: 'Indie', demos: 'Demo', libres: 'Liberi e retrò', bientot: 'Presto gratis', enCeMoment: 'Gratis adesso', gratuitDes: (d) => `Gratis da ${d}`, voirEpic: 'Vedi su Epic', essayer: 'Prova la demo', nbJeux: (n) => `${n} giochi`, visites: (n) => `${n} visite`,
@@ -58,16 +58,16 @@ const T = {
     triFin: 'In scadenza', triRecent: 'Più recenti', triValeur: 'Valore più alto', triPopulaire: 'Popolari', triAZ: 'Dalla A alla Z',
     suisMoi: 'Ti piacciono queste offerte? Segui Geekozor:', installer: 'Installa', alertesActiver: "Avvisami", alertesActives: "Avvisi attivi", alertesIos: "Su iPhone gli avvisi funzionano solo con l'app installata: tocca Condividi, poi « Aggiungi alla schermata Home », poi apri l'app dalla schermata Home.", alertesBloquees: "Le notifiche sono bloccate per questo sito: consentile nelle impostazioni del browser.", jeux: 'Giochi in regalo', dlc: 'Bonus e DLC', f2p: 'Free-to-play', retro: 'Retrò',
     recherche: 'Cerca un gioco…', toutes: 'Tutte', recuperer: 'Riscatta', jouer: 'Gioca gratis',
-    gratuit: 'Gratis', encore: (n) => `Ancora ${n} g`,
+    gratuit: 'Gratis', encore: (j, h) => `Ancora ${j} g ${h} h`,
     nbOffres: (n) => `${n} offerte attive`, nbF2p: (n) => `${n} giochi free-to-play`,
     erreur: 'Impossibile caricare la lista. Controlla la connessione.',
     sources: 'Dati:', maj: 'Aggiornato il', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Retrò legale 👑',
-    retroTexte: 'I vecchi giochi sì, la pirateria no. Presto qui: emulatori, copie dei tuoi giochi e classici regalati ufficialmente dai loro editori.',
-    env: 'circa', bientotVide: 'I prossimi giochi in regalo arrivano presto, torna giovedì 👑',
+    retroTexte: 'I vecchi giochi sì, la pirateria no. Questi classici sono regalati ufficialmente dai loro editori, su GOG o Steam:',
+    env: 'circa', economies: (m, n) => `💰 Hai risparmiato ${m} grazie al sito (${n} ${n > 1 ? 'giochi riscattati' : 'gioco riscattato'})`, bientotVide: 'I prossimi giochi in regalo arrivano presto, torna giovedì 👑',
   },
   de: {
-    recupere: 'Hab ich schon', heures: (n) => `Nur noch ${n} Std.`, videOnglet: (o) => `Gerade nichts in „${o}“. Die Liste wird stündlich aktualisiert.`, videFiltres: (o, f) => `Gerade nichts in „${o}“ für ${f}.`, effacer: 'Filter löschen', voirPlus: (n) => `Mehr anzeigen (noch ${n})`,
+    recupere: 'Hab ich schon', heures: (h, m) => `Nur noch ${h} Std. ${m} Min.`, videOnglet: (o) => `Gerade nichts in „${o}“. Die Liste wird stündlich aktualisiert.`, videFiltres: (o, f) => `Gerade nichts in „${o}“ für ${f}.`, effacer: 'Filter löschen', voirPlus: (n) => `Mehr anzeigen (noch ${n})`,
     suivre: 'Diesem Spiel folgen', mesSuivis: 'Meine gefolgten Spiele', alerteJusqua: (x, d) => `${x}, dem du folgst, ist gratis bis ${d}!`, alerteMaintenant: (x) => `${x}, dem du folgst, ist gerade gratis!`, alerteBientot: (x, d) => `${x}, dem du folgst, ist gratis ab ${d}!`, aucunSuivi: 'Hier folgst du keinem Spiel. Tippe auf ★, um zu erfahren, wann ein Spiel gratis wird.',
     creditImage: 'Bild:',
     indes: 'Indie', demos: 'Demos', libres: 'Open Source & Retro', bientot: 'Bald gratis', enCeMoment: 'Jetzt gratis', gratuitDes: (d) => `Gratis ab ${d}`, voirEpic: 'Bei Epic ansehen', essayer: 'Demo testen', nbJeux: (n) => `${n} Spiele`, visites: (n) => `${n} Besuche`,
@@ -79,16 +79,16 @@ const T = {
     triFin: 'Endet bald', triRecent: 'Neueste', triValeur: 'Höchster Wert', triPopulaire: 'Beliebt', triAZ: 'A bis Z',
     suisMoi: 'Gefallen dir diese Angebote? Folge Geekozor:', installer: 'Installieren', alertesActiver: "Benachrichtigen", alertesActives: "Alarme an", alertesIos: "Auf dem iPhone gehen Alarme nur mit installierter App: Tippe auf Teilen, dann „Zum Home-Bildschirm“, und öffne die App vom Home-Bildschirm.", alertesBloquees: "Benachrichtigungen sind für diese Seite blockiert: Erlaube sie in den Browser-Einstellungen.", jeux: 'Gratis-Spiele', dlc: 'Boni & DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Spiel suchen…', toutes: 'Alle', recuperer: 'Holen', jouer: 'Kostenlos spielen',
-    gratuit: 'Gratis', encore: (n) => `Noch ${n} T.`,
+    gratuit: 'Gratis', encore: (j, h) => `Noch ${j} T. ${h} Std.`,
     nbOffres: (n) => `${n} aktuelle Angebote`, nbF2p: (n) => `${n} Free-to-play-Spiele`,
     erreur: 'Liste konnte nicht geladen werden. Prüfe deine Verbindung.',
     sources: 'Daten:', maj: 'Aktualisiert am', navigateur: 'Browser', mobile: 'Mobil',
     retroTitre: 'Legales Retro 👑',
-    retroTexte: 'Alte Spiele ja, Raubkopien nein. Bald hier: Emulatoren, Kopien deiner eigenen Spiele und Klassiker, die ihre Publisher offiziell verschenken.',
-    env: 'ca.', bientotVide: 'Die nächsten Gratis-Spiele kommen bald, schau am Donnerstag wieder vorbei 👑',
+    retroTexte: 'Alte Spiele ja, Raubkopien nein. Diese Klassiker verschenken ihre Publisher offiziell, auf GOG oder Steam:',
+    env: 'ca.', economies: (m, n) => `💰 Du hast ${m} gespart dank dieser Seite (${n} ${n > 1 ? 'Spiele geholt' : 'Spiel geholt'})`, bientotVide: 'Die nächsten Gratis-Spiele kommen bald, schau am Donnerstag wieder vorbei 👑',
   },
   es: {
-    recupere: 'Ya lo tengo', heures: (n) => `Solo quedan ${n} h`, videOnglet: (o) => `Nada en «${o}» por ahora. La lista se actualiza cada hora.`, videFiltres: (o, f) => `Nada en «${o}» para ${f} por ahora.`, effacer: 'Borrar filtros', voirPlus: (n) => `Ver más (quedan ${n})`,
+    recupere: 'Ya lo tengo', heures: (h, m) => `Solo quedan ${h} h ${m} min`, videOnglet: (o) => `Nada en «${o}» por ahora. La lista se actualiza cada hora.`, videFiltres: (o, f) => `Nada en «${o}» para ${f} por ahora.`, effacer: 'Borrar filtros', voirPlus: (n) => `Ver más (quedan ${n})`,
     suivre: 'Seguir este juego', mesSuivis: 'Mis juegos seguidos', alerteJusqua: (x, d) => `¡${x}, que sigues, está gratis hasta el ${d}!`, alerteMaintenant: (x) => `¡${x}, que sigues, está gratis ahora!`, alerteBientot: (x, d) => `¡${x}, que sigues, estará gratis el ${d}!`, aucunSuivi: 'Ningún juego seguido aquí. Toca ★ en un juego para saber cuándo sea gratis.',
     creditImage: 'Imagen:',
     indes: 'Indie', demos: 'Demos', libres: 'Libres y retro', bientot: 'Pronto gratis', enCeMoment: 'Gratis ahora', gratuitDes: (d) => `Gratis desde ${d}`, voirEpic: 'Ver en Epic', essayer: 'Probar la demo', nbJeux: (n) => `${n} juegos`, visites: (n) => `${n} visitas`,
@@ -100,13 +100,13 @@ const T = {
     triFin: 'Terminan antes', triRecent: 'Más recientes', triValeur: 'Mayor valor', triPopulaire: 'Populares', triAZ: 'De la A a la Z',
     suisMoi: '¿Te gustan estas ofertas? Sigue a Geekozor:', installer: 'Instalar', alertesActiver: "Avísame", alertesActives: "Alertas activadas", alertesIos: "En iPhone, las alertas solo funcionan con la app instalada: toca Compartir, luego «Añadir a pantalla de inicio» y abre la app desde la pantalla de inicio.", alertesBloquees: "Las notificaciones están bloqueadas para este sitio: permítelas en los ajustes del navegador.", jeux: 'Juegos regalados', dlc: 'Extras y DLC', f2p: 'Free-to-play', retro: 'Retro',
     recherche: 'Buscar un juego…', toutes: 'Todas', recuperer: 'Conseguir', jouer: 'Jugar gratis',
-    gratuit: 'Gratis', encore: (n) => `Quedan ${n} d`,
+    gratuit: 'Gratis', encore: (j, h) => `Quedan ${j} d ${h} h`,
     nbOffres: (n) => `${n} ofertas activas`, nbF2p: (n) => `${n} juegos free-to-play`,
     erreur: 'No se pudo cargar la lista. Revisa tu conexión.',
     sources: 'Datos:', maj: 'Actualizado el', navigateur: 'Navegador', mobile: 'Móvil',
     retroTitre: 'Retro legal 👑',
-    retroTexte: 'Juegos antiguos, sí; piratería, no. Pronto aquí: emuladores, copias de tus propios juegos y clásicos regalados oficialmente por sus editores.',
-    env: 'aprox.', bientotVide: 'Los próximos juegos regalados llegan pronto, vuelve el jueves 👑',
+    retroTexte: 'Juegos antiguos, sí; piratería, no. Estos clásicos los regalan oficialmente sus editores, en GOG o Steam:',
+    env: 'aprox.', economies: (m, n) => `💰 Has ahorrado ${m} gracias al sitio (${n} ${n > 1 ? 'juegos conseguidos' : 'juego conseguido'})`, bientotVide: 'Los próximos juegos regalados llegan pronto, vuelve el jueves 👑',
   },
 };
 
@@ -127,6 +127,24 @@ const clesSuivi = (titre, type) => (type === 'dlc' ? [cleNom(titre)] : variantes
 const estSuivi = (g) => clesSuivi(g.titre, g.type).some((k) => suivis.has(k));
 // Offres déjà récupérées : grisées et rangées en bas de la liste.
 const recuperes = new Set(lireListe('recuperes'));
+const economies = (() => { try { return JSON.parse(memoire.get('economies')) || {}; } catch { return {}; } })(); // id -> valeur (« $9.99 », « €19.50 »)
+function noterEconomies() {
+  const tous = [...etat.donnees.offerts, ...(etat.donnees.historique ?? [])];
+  for (const id of recuperes) if (!(id in economies)) { const g = tous.find((x) => x.id === id); if (g) economies[id] = g.valeur ?? null; }
+  for (const id of Object.keys(economies)) if (!recuperes.has(id)) delete economies[id];
+  memoire.set('economies', JSON.stringify(economies));
+}
+// Sans tout réafficher (la carte ne doit pas bouger sous le doigt) : texte mis à jour, ou ajouté en haut de la liste.
+function majEconomies() {
+  const el = document.querySelector('.economies'), txt = economiesTexte();
+  if (el) { el.textContent = txt; el.hidden = !txt; } else if (txt && offresTemporaires()) $('#liste').insertAdjacentHTML('afterbegin', `<p class="economies">${esc(txt)}</p>`);
+}
+function economiesTexte() {
+  const v = [...recuperes].map((id) => economies[id]).filter((x) => euros(x) > 0);
+  if (!v.length) return '';
+  const total = v.reduce((s, x) => s + euros(x), 0);
+  return t('economies', (v.some(estConverti) ? t('env') + ' ' : '') + formatEuros(total, etat.langue, 0), v.length);
+}
 const langueAuto = (navigator.language || 'fr').slice(0, 2);
 const etat = {
   onglet: 'jeux', plateformes: new Set(), genre: '', tri: '', recherche: '', donnees: null, suivisSeuls: false, limite: 0,
@@ -172,7 +190,8 @@ function tempsDe(g) {
   const ms = g.fin ? new Date(g.fin) - Date.now() : -1;
   if (ms < 0) return null;
   const urgent = ms < 86400000;
-  return { texte: urgent ? t('heures', Math.ceil(ms / 3600000)) : t('encore', Math.ceil(ms / 86400000)), urgent };
+  const min = Math.ceil(ms / 60000);
+  return { texte: urgent ? t('heures', Math.floor(min / 60), min % 60) : t('encore', Math.floor(min / 1440), Math.floor(min / 60) % 24), urgent };
 }
 
 // Onglets des offres temporaires (avec date de fin) ; les autres sont des listes de jeux gratuits permanents.
@@ -221,7 +240,7 @@ function carte(g) {
     <a href="#${esc(g.id)}" class="ouvrir" tabindex="-1" aria-hidden="true">${g.image
       ? `<img src="${esc(lienSur(g.image))}" alt="" loading="lazy">`
       : `<div class="sans-image">${esc(g.titre)}</div>`}</a>
-    ${temps ? `<span class="pastille${temps.urgent ? ' urgente' : ''}">${temps.texte}</span>` : ''}
+    ${temps ? `<span class="pastille${temps.urgent ? ' urgente' : ''}" data-id="${esc(g.id)}">${temps.texte}</span>` : ''}
     ${caseRecupere(g)}
     <div class="corps">
       <h2><a href="#${esc(g.id)}" class="ouvrir">${esc(g.titre)}</a></h2>
@@ -380,11 +399,16 @@ function fermerFiche() {
   document.getElementById(id)?.scrollIntoView({ block: 'center' });
 }
 
+// Titres exacts des fiches GOG / Steam (gratuits vérifiés le 20/11/2026) ; un jeu absent des données n'est pas affiché.
+const RETRO = ['Lure of the Temptress (1992)', 'Beneath a Steel Sky (1994)', 'Teenagent', 'The Elder Scrolls: Arena', 'Flight of the Amazon Queen',
+  'The Elder Scrolls II: Daggerfall', 'Tyrian 2000', 'Worlds of Ultima™: The Savage Empire', 'Ultima™ Worlds of Adventure 2: Martian Dreams'];
 function carteRetro() {
+  const jeux = RETRO.map((x) => etat.donnees.f2p.find((g) => g.titre === x)).filter(Boolean);
   return `<article class="carte retro">
     <div class="corps">
       <h2>${t('retroTitre')}</h2>
       <p>${t('retroTexte')}</p>
+      ${jeux.length ? `<ul class="retro-liste">${jeux.map((g) => `<li><a href="#${esc(g.id)}">${esc(g.titre.replace(/™/g, ''))}</a></li>`).join('')}</ul>` : ''}
     </div>
   </article>`;
 }
@@ -468,7 +492,9 @@ function afficher() {
 
   const bientot = etat.onglet === 'jeux' ? aVenir().filter(garde).sort(roiDabord) : [];
   // Ce qui est gratuit maintenant d'abord, « Bientôt gratuit » ensuite.
-  $('#liste').innerHTML = (bientot.length || (etat.onglet === 'jeux' && !aVenir().length) ? `<h2 class="section">${t('enCeMoment')}</h2>` : '')
+  const eco = offresTemporaires() && economiesTexte();
+  $('#liste').innerHTML = (eco ? `<p class="economies">${esc(eco)}</p>` : '')
+    + (bientot.length || (etat.onglet === 'jeux' && !aVenir().length) ? `<h2 class="section">${t('enCeMoment')}</h2>` : '')
     + (liste.slice(0, etat.limite).map(carte).join('') || messageVide())
     + (liste.length > etat.limite ? `<button class="voir-plus">${t('voirPlus', liste.length - etat.limite)}</button>` : '')
     + (bientot.length ? `<h2 class="section">${t('bientot')}</h2>${bientot.map(carte).join('')}`
@@ -595,6 +621,8 @@ document.addEventListener('change', (e) => { // « Je l'ai récupéré », sur l
   if (!c) return;
   if (c.checked) recuperes.add(c.dataset.id); else recuperes.delete(c.dataset.id);
   memoire.set('recuperes', JSON.stringify([...recuperes]));
+  noterEconomies();
+  majEconomies();
   document.querySelectorAll(`.case-recupere input[data-id="${CSS.escape(c.dataset.id)}"]`).forEach((x) => { x.checked = c.checked; });
   document.getElementById(c.dataset.id)?.classList.toggle('recupere', c.checked);
   afficherBandeau(); // la carte reste en place ; elle descendra au prochain affichage
@@ -662,5 +690,15 @@ if (ios && !navigator.standalone) {
 traduirePage();
 fetch('data/jeux.json', { cache: 'no-cache' })
   .then((r) => r.json())
-  .then((d) => { etat.donnees = d; traduirePage(); suivreAdresse(); })
+  .then((d) => { etat.donnees = d; noterEconomies(); traduirePage(); suivreAdresse(); })
   .catch(() => { $('#liste').innerHTML = `<p class="vide">${t('erreur')}</p>`; });
+
+// Compte à rebours des cartes, mis à jour chaque minute sans tout réafficher.
+setInterval(() => {
+  if (!etat.donnees || document.hidden) return;
+  const tous = [...etat.donnees.offerts, ...(etat.donnees.bientot ?? [])];
+  document.querySelectorAll('.pastille[data-id]').forEach((el) => {
+    const temps = tempsDe(tous.find((g) => g.id === el.dataset.id) ?? {});
+    if (temps) { el.textContent = temps.texte; el.classList.toggle('urgente', Boolean(temps.urgent)); }
+  });
+}, 60000);

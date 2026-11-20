@@ -21,19 +21,24 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 ### Onglets et sources
 | Onglet | Source |
 |---|---|
-| Jeux offerts, Bientôt gratuit | GamerPower et Epic (`freeGamesPromotions`, heure de fin exacte) |
+| Jeux offerts, Bientôt gratuit | GamerPower, Epic (`freeGamesPromotions`, heure de fin exacte) et recherche Steam des jeux à -100 % (`scripts/steam.mjs`, id `steam<appid>`, sans date de fin ; ajouté le 20/11/2026). Prime Gaming : pas de source publique fiable, pas branché. Ubisoft / EA : passent par GamerPower quand ils offrent un jeu |
 | Bonus & DLC | GamerPower |
 | Free-to-play | FreeToGame (PC), jeux gratuits GOG, consoles depuis `data/f2p-consoles.json` |
 | Indés | flux RSS itch.io, filtré (adultes, fangames) grâce aux étiquettes des pages |
 | Démos | GOG, Nintendo Europe (150 démos Switch / Switch 2 les plus téléchargées) et Steam (100 démos, fiche lue 60 par passage, cache `steamDemo`, sans anglais ni français = écartée), présentées en alternance. Nintendo donne lui-même textes et liens en fr/de/it/es (`g.trad`, `g.liens`), donc pas de traduction Claude pour eux. Vidéos et captures des démos Nintendo : cherchées sur Steam puis Xbox (`nomRecherche` enlève « Nintendo Switch 2 Edition »…) ; 94 / 146 en ont, les jeux Nintendo maison n'en ont pas (lien de recherche YouTube) |
-| Libres & rétro | `data/jeux-libres.json` et une carte « Rétro légal 👑 » sans lien. Règle (20/11/2026) : aucun lien vers abandonware, ROMs ou téléchargements non autorisés |
+| Libres & rétro | `data/jeux-libres.json` et une carte « Rétro légal 👑 » : liste `RETRO` dans app.js (classiques gratuits sur GOG / Steam, déjà dans l'onglet Free-to-play), liens vers leurs fiches seulement. Règle (20/11/2026) : aucun lien vers abandonware, ROMs ou téléchargements non autorisés |
+
+### Cartes
+- Compte à rebours « Encore 2 j 5 h », puis « Plus que 5 h 12 min » le dernier jour, mis à jour chaque minute.
+- Compteur « Tu as économisé X € » (onglets à offres) : valeur gardée dans `localStorage.economies` au moment où on coche « Je l'ai récupéré ».
+- Rappel de fin d'offre : notification à tous les abonnés 24 h avant la fin (`aNotifier`). Pas filtré sur « récupéré » : cette case n'existe que sur le téléphone.
 
 ### Fiches de jeu
 - Vidéos et captures : Steam d'abord, sinon la boutique Xbox, sinon `data/bandes-annonces.json` (YouTube) pour la vidéo et le champ `captures` de `f2p-consoles.json` pour les captures.
 - Depuis le 20/11/2026 :
   - Jeux et démos GOG sans vidéo : bandes-annonces YouTube de la fiche api.gog.com (`cache.gogVideos`, 100 par passage, vérifiées par oEmbed).
   - Indés itch.io : captures (version 794x1000, pas l'originale en 4K) et vidéo YouTube lues sur la page du jeu (`mediasItch`, `cache.itchMedias`, 10 pages relues par passage à cause des HTTP 429).
-  - Restent sans vidéo : beaucoup de FreeToGame (l'API n'en donne pas), les démos Nintendo maison, 9 jeux libres (à compléter à la main dans `bandes-annonces.json`).
+  - Restent sans vidéo : beaucoup de FreeToGame (l'API n'en donne pas), les démos Nintendo maison, Luanti et Freeciv (pas de bande-annonce officielle). `bandes-annonces.json` vaut aussi pour les jeux libres depuis le 20/11/2026.
 - Les images des jeux libres viennent de Wikimedia, avec leur crédit.
 
 ### Listes faites à la main dans `data/`
