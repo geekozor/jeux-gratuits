@@ -21,7 +21,7 @@ const T = {
     erreur: 'Impossible de charger la liste. Vérifie ta connexion.',
     sources: 'Données :', maj: 'Mis à jour le', navigateur: 'Navigateur', mobile: 'Mobile',
     retroTitre: 'Rétro légal 👑',
-    retroTexte: 'Les vieux jeux, oui, le piratage, non. Ces classiques sont offerts officiellement par leurs éditeurs, à récupérer sur GOG ou Steam :',
+    retroTexte: 'Les vieux jeux, oui, le piratage, non. Ces classiques sont offerts officiellement par leurs éditeurs, à récupérer sur GOG ou Steam.',
     env: 'env.', economies: (m, n) => `💰 Tu as économisé ${m} grâce au site (${n} ${n > 1 ? 'jeux récupérés' : 'jeu récupéré'})`, bientotVide: 'Les prochains jeux offerts arrivent bientôt, reviens jeudi 👑',
   },
   en: {
@@ -42,7 +42,7 @@ const T = {
     erreur: 'Could not load the list. Check your connection.',
     sources: 'Data:', maj: 'Updated on', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Legal retro 👑',
-    retroTexte: 'Old games, yes; piracy, no. These classics are given away officially by their publishers, on GOG or Steam:',
+    retroTexte: 'Old games, yes; piracy, no. These classics are given away officially by their publishers, on GOG or Steam.',
     env: 'approx.', economies: (m, n) => `💰 You saved ${m} thanks to this site (${n} ${n > 1 ? 'games' : 'game'} claimed)`, bientotVide: 'The next free games are coming soon, come back on Thursday 👑',
   },
   it: {
@@ -63,7 +63,7 @@ const T = {
     erreur: 'Impossibile caricare la lista. Controlla la connessione.',
     sources: 'Dati:', maj: 'Aggiornato il', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Retrò legale 👑',
-    retroTexte: 'I vecchi giochi sì, la pirateria no. Questi classici sono regalati ufficialmente dai loro editori, su GOG o Steam:',
+    retroTexte: 'I vecchi giochi sì, la pirateria no. Questi classici sono regalati ufficialmente dai loro editori, su GOG o Steam.',
     env: 'circa', economies: (m, n) => `💰 Hai risparmiato ${m} grazie al sito (${n} ${n > 1 ? 'giochi riscattati' : 'gioco riscattato'})`, bientotVide: 'I prossimi giochi in regalo arrivano presto, torna giovedì 👑',
   },
   de: {
@@ -84,7 +84,7 @@ const T = {
     erreur: 'Liste konnte nicht geladen werden. Prüfe deine Verbindung.',
     sources: 'Daten:', maj: 'Aktualisiert am', navigateur: 'Browser', mobile: 'Mobil',
     retroTitre: 'Legales Retro 👑',
-    retroTexte: 'Alte Spiele ja, Raubkopien nein. Diese Klassiker verschenken ihre Publisher offiziell, auf GOG oder Steam:',
+    retroTexte: 'Alte Spiele ja, Raubkopien nein. Diese Klassiker verschenken ihre Publisher offiziell, auf GOG oder Steam.',
     env: 'ca.', economies: (m, n) => `💰 Du hast ${m} gespart dank dieser Seite (${n} ${n > 1 ? 'Spiele geholt' : 'Spiel geholt'})`, bientotVide: 'Die nächsten Gratis-Spiele kommen bald, schau am Donnerstag wieder vorbei 👑',
   },
   es: {
@@ -105,7 +105,7 @@ const T = {
     erreur: 'No se pudo cargar la lista. Revisa tu conexión.',
     sources: 'Datos:', maj: 'Actualizado el', navigateur: 'Navegador', mobile: 'Móvil',
     retroTitre: 'Retro legal 👑',
-    retroTexte: 'Juegos antiguos, sí; piratería, no. Estos clásicos los regalan oficialmente sus editores, en GOG o Steam:',
+    retroTexte: 'Juegos antiguos, sí; piratería, no. Estos clásicos los regalan oficialmente sus editores, en GOG o Steam.',
     env: 'aprox.', economies: (m, n) => `💰 Has ahorrado ${m} gracias al sitio (${n} ${n > 1 ? 'juegos conseguidos' : 'juego conseguido'})`, bientotVide: 'Los próximos juegos regalados llegan pronto, vuelve el jueves 👑',
   },
 };
@@ -196,7 +196,7 @@ function tempsDe(g) {
 
 // Onglets des offres temporaires (avec date de fin) ; les autres sont des listes de jeux gratuits permanents.
 const offresTemporaires = () => etat.onglet === 'jeux' || etat.onglet === 'dlc';
-const ONGLET_DU_TYPE = { jeu: 'jeux', bientot: 'jeux', dlc: 'dlc', inde: 'indes', demo: 'demos', libre: 'libres' };
+const ONGLET_DU_TYPE = { jeu: 'jeux', bientot: 'jeux', dlc: 'dlc', inde: 'indes', demo: 'demos', libre: 'libres', retro: 'libres' };
 const LISTE_DE_L_ONGLET = { f2p: 'f2p', indes: 'indes', demos: 'demos', libres: 'libres' };
 
 function elements() {
@@ -267,7 +267,7 @@ const roiDabord = (a, b) => !verdictDe(a) - !verdictDe(b);
 const descriptionDe = (g) => (etat.langue !== 'en' && g.trad?.[etat.langue]) || g.description;
 const actionsDe = (g) => `<div class="actions">
     <a class="recuperer" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}" href="${esc(lienSur(g.liens?.[etat.langue] ?? g.lien))}" target="_blank" rel="noopener">${t(
-      { jeu: 'recuperer', dlc: 'recuperer', bientot: 'voirEpic', demo: 'essayer' }[g.type] ?? 'jouer')}</a>
+      { jeu: 'recuperer', dlc: 'recuperer', retro: 'recuperer', bientot: 'voirEpic', demo: 'essayer' }[g.type] ?? 'jouer')}</a>
     <button class="suivre" data-titre="${esc(g.titre)}" data-type="${esc(g.type)}" aria-pressed="${estSuivi(g)}" aria-label="${t('suivre')}" title="${t('suivre')}">${icone('etoile')}</button>
     <button class="partager" data-id="${esc(g.id)}" data-titre="${esc(g.titre)}" title="${t('partager')}">${icone('partager')}<span>${t('partager')}</span></button>
   </div>`;
@@ -399,20 +399,6 @@ function fermerFiche() {
   document.getElementById(id)?.scrollIntoView({ block: 'center' });
 }
 
-// Titres exacts des fiches GOG / Steam (gratuits vérifiés le 20/11/2026) ; un jeu absent des données n'est pas affiché.
-const RETRO = ['Lure of the Temptress (1992)', 'Beneath a Steel Sky (1994)', 'Teenagent', 'The Elder Scrolls: Arena', 'Flight of the Amazon Queen',
-  'The Elder Scrolls II: Daggerfall', 'Tyrian 2000', 'Worlds of Ultima™: The Savage Empire', 'Ultima™ Worlds of Adventure 2: Martian Dreams'];
-function carteRetro() {
-  const jeux = RETRO.map((x) => etat.donnees.f2p.find((g) => g.titre === x)).filter(Boolean);
-  return `<article class="carte retro">
-    <div class="corps">
-      <h2>${t('retroTitre')}</h2>
-      <p>${t('retroTexte')}</p>
-      ${jeux.length ? `<ul class="retro-liste">${jeux.map((g) => `<li><a href="#${esc(g.id)}">${esc(g.titre.replace(/™/g, ''))}</a></li>`).join('')}</ul>` : ''}
-    </div>
-  </article>`;
-}
-
 // L'adresse (…/#gp1234) dit quelle fiche est ouverte : clic sur un jeu, lien partagé, bouton retour.
 function suivreAdresse() {
   const id = decodeURIComponent(location.hash.slice(1));
@@ -476,6 +462,7 @@ function afficher() {
   if (TRIS[etat.tri]) liste.sort(TRIS[etat.tri]);
   liste.sort((a, b) => recuperes.has(a.id) - recuperes.has(b.id)); // tri stable : l'ordre choisi reste dans chaque groupe
   liste.sort(roiDabord);
+  liste.sort((a, b) => (a.type === 'retro') - (b.type === 'retro')); // Rétro légal après les jeux libres
 
   // Par paquets de 40 (plus de 500 free-to-play) ; on repart de 40 dès que l'onglet ou un filtre change.
   const reglages = JSON.stringify([etat.onglet, [...etat.plateformes], etat.genre, etat.tri, q, etat.suivisSeuls]);
@@ -495,15 +482,16 @@ function afficher() {
   const eco = offresTemporaires() && economiesTexte();
   $('#liste').innerHTML = (eco ? `<p class="economies">${esc(eco)}</p>` : '')
     + (bientot.length || (etat.onglet === 'jeux' && !aVenir().length) ? `<h2 class="section">${t('enCeMoment')}</h2>` : '')
-    + (liste.slice(0, etat.limite).map(carte).join('') || messageVide())
+    + (liste.slice(0, etat.limite).map((g, i, l) => (g.type === 'retro' && l[i - 1]?.type !== 'retro' ? enteteRetro() : '') + carte(g)).join('') || messageVide())
     + (liste.length > etat.limite ? `<button class="voir-plus">${t('voirPlus', liste.length - etat.limite)}</button>` : '')
     + (bientot.length ? `<h2 class="section">${t('bientot')}</h2>${bientot.map(carte).join('')}`
       // Rien d'annoncé chez Epic : on le dit plutôt que de cacher la section (pas quand ce sont les filtres qui la vident).
       : etat.onglet === 'jeux' && !aVenir().length ? `<h2 class="section">${t('bientot')}</h2><p class="vide">${esc(t('bientotVide'))}</p>` : '')
-    + (etat.onglet === 'libres' ? carteRetro() : '')
     + (etat.onglet === 'jeux' && liste.length <= etat.limite ? historiqueHTML(garde) : '');
 }
 
+
+const enteteRetro = () => `<h2 class="section">${t('retroTitre')}</h2><p class="intro-retro">${t('retroTexte')}</p>`;
 
 // Fin de l'onglet Jeux offerts : les jeux déjà offerts (dates, valeur), avec les mêmes filtres que la liste.
 function historiqueHTML(garde) {

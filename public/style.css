@@ -145,9 +145,7 @@ main { padding: 12px 16px; max-width: 1100px; margin: 0 auto; }
 /* Genres : simple texte gris, séparé par des points, pour laisser ressortir prix et temps */
 .badge.genre { background: none; color: var(--doux); font-weight: 500; padding: 2px 0; }
 .badge.genre + .badge.genre::before { content: "· "; }
-.carte.retro { max-width: 560px; }
-.carte.retro p { margin: 0; }
-.retro-liste { margin: 10px 0 0; padding-left: 20px; line-height: 1.7; }
+.intro-retro { grid-column: 1 / -1; margin: 0; color: var(--doux); }
 .economies { grid-column: 1 / -1; margin: 0; padding: 10px 14px; border: 1px solid var(--bord); border-radius: 10px; background: var(--carte); color: var(--accent); font-weight: 600; }
 .economies[hidden] { display: none; }
 .actions { margin-top: auto; display: flex; gap: 8px; }

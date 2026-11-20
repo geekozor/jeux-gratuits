@@ -26,7 +26,7 @@ Ce fichier est lu automatiquement au début de chaque conversation ouverte dans 
 | Free-to-play | FreeToGame (PC), jeux gratuits GOG, consoles depuis `data/f2p-consoles.json` |
 | Indés | flux RSS itch.io, filtré (adultes, fangames) grâce aux étiquettes des pages |
 | Démos | GOG, Nintendo Europe (150 démos Switch / Switch 2 les plus téléchargées) et Steam (100 démos, fiche lue 60 par passage, cache `steamDemo`, sans anglais ni français = écartée), présentées en alternance. Nintendo donne lui-même textes et liens en fr/de/it/es (`g.trad`, `g.liens`), donc pas de traduction Claude pour eux. Vidéos et captures des démos Nintendo : cherchées sur Steam puis Xbox (`nomRecherche` enlève « Nintendo Switch 2 Edition »…) ; 94 / 146 en ont, les jeux Nintendo maison n'en ont pas (lien de recherche YouTube) |
-| Libres & rétro | `data/jeux-libres.json` et une carte « Rétro légal 👑 » : liste `RETRO` dans app.js (classiques gratuits sur GOG / Steam, déjà dans l'onglet Free-to-play), liens vers leurs fiches seulement. Règle (20/11/2026) : aucun lien vers abandonware, ROMs ou téléchargements non autorisés |
+| Libres & rétro | `data/jeux-libres.json` puis la section « Rétro légal 👑 » : `data/retro.json` (titre exact GOG + description écrite à la main), jeux retirés du Free-to-play par update.mjs (type `retro`), vidéos via `data/bandes-annonces.json` (chaîne Squakenet, faute de bande-annonce officielle). Règle (20/11/2026) : aucun lien vers abandonware, ROMs ou téléchargements non autorisés |
 
 ### Cartes
 - Compte à rebours « Encore 2 j 5 h », puis « Plus que 5 h 12 min » le dernier jour, mis à jour chaque minute.

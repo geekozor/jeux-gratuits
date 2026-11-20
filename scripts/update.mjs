@@ -526,6 +526,14 @@ for (const g of [...f2p, ...demos].filter((g) => g.id.startsWith('gog'))) {
   }
 }
 
+// ---------- 3 sexies. Rétro légal : classiques offerts par leurs éditeurs sur GOG (data/retro.json) ----------
+// Passent de l'onglet Free-to-play à « Libres & rétro », avec une description écrite à la main.
+for (const r of JSON.parse(await readFile(new URL('../data/retro.json', import.meta.url), 'utf8'))) {
+  const i = f2p.findIndex((g) => g.titre === r.titre);
+  if (i < 0) { if (f2p.some((g) => g.id.startsWith('gog'))) alertes.push(`retro.json : « ${r.titre} » n'est plus gratuit sur GOG`); continue; }
+  libres.push({ ...f2p.splice(i, 1)[0], type: 'retro', description: r.description });
+}
+
 // ---------- 4. Traductions (Claude) ----------
 if (ANTHROPIC_API_KEY) {
   const { default: Anthropic } = await import('@anthropic-ai/sdk');
