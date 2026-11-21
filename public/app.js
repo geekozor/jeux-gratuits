@@ -199,10 +199,10 @@ const offresTemporaires = () => etat.onglet === 'jeux' || etat.onglet === 'dlc';
 const ONGLET_DU_TYPE = { jeu: 'jeux', bientot: 'jeux', dlc: 'dlc', inde: 'indes', demo: 'demos', libre: 'libres', retro: 'libres', essai: 'jeux' };
 const LISTE_DE_L_ONGLET = { f2p: 'f2p', indes: 'indes', demos: 'demos', libres: 'libres' };
 
-function elements() {
+function elements(onglet = etat.onglet) {
   const d = etat.donnees;
-  if (!offresTemporaires()) return d[LISTE_DE_L_ONGLET[etat.onglet]] ?? [];
-  const type = etat.onglet === 'jeux' ? 'jeu' : 'dlc';
+  if (onglet !== 'jeux' && onglet !== 'dlc') return d[LISTE_DE_L_ONGLET[onglet]] ?? [];
+  const type = onglet === 'jeux' ? 'jeu' : 'dlc';
   return d.offerts.filter((g) => g.type === type && (!g.fin || new Date(g.fin) > Date.now()));
 }
 const aVenir = () => (etat.donnees.bientot ?? []).filter((g) => new Date(g.debut) > Date.now());
@@ -441,7 +441,10 @@ function afficher() {
   if (!etat.donnees) return;
   const actif = document.querySelector('.onglets [aria-selected="true"]'); // garde l'onglet choisi visible dans la barre
   actif.parentElement.scrollLeft = actif.offsetLeft - (actif.parentElement.clientWidth - actif.offsetWidth) / 2;
-  const tous = elements();
+  const q = etat.recherche.trim().toLowerCase();
+  // Une recherche fouille tous les onglets : on trouve le jeu même sans être dans la bonne catégorie.
+  const tous = !q ? elements() : [...new Map(['jeux', 'dlc', ...Object.keys(LISTE_DE_L_ONGLET)]
+    .flatMap((o) => elements(o)).map((g) => [g.id, g])).values()];
   // Toutes les plateformes, même vides ; « Navigateur » seulement pour les jeux permanents.
   const filtres = PLATEFORMES.filter((p) => p !== 'navigateur' || !offresTemporaires());
   etat.plateformes.forEach((p) => filtres.includes(p) || etat.plateformes.delete(p));
@@ -459,7 +462,6 @@ function afficher() {
   $('#tri').setAttribute('aria-label', t('tri'));
   $('#tri').innerHTML = options(trisOnglet(), etat.tri, t);
 
-  const q = etat.recherche.toLowerCase();
   const garde = (g) =>
     (!etat.plateformes.size || [...etat.plateformes].some((p) => g.plateformes.includes(p) || g.plateformes.includes(AUSSI[p]))) &&
     (!etat.genre || g.genres?.includes(etat.genre)) &&
