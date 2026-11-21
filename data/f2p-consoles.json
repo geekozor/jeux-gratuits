@@ -46,6 +46,10 @@
     { "titre": "Hearthstone: Heroes of Warcraft", "plateformes": ["mobile"] },
     { "titre": "We Were Here", "plateformes": ["pc"], "genres": ["Puzzle", "Adventure"], "lien": "https://store.steampowered.com/app/582500/We_Were_Here/",
       "description": "A two-player co-op puzzle adventure: split up inside a frozen castle, you and your partner must talk by walkie-talkie to escape." },
+    { "titre": "Trackmania", "plateformes": ["pc", "ps5", "xboxseries"], "genres": ["Racing"], "lien": "https://www.trackmania.com/",
+      "description": "Ubisoft Nadeo's arcade racing game: loops, jumps and stunt tracks, a free starter access with seasonal campaigns, and endless tracks made by players." },
+    { "titre": "Cave Story", "plateformes": ["pc"], "genres": ["Platformer", "Action"], "lien": "https://www.cavestory.org/",
+      "description": "The cult 2004 freeware action-platformer made by a single developer, Daisuke 'Pixel' Amaya: explore a mysterious cave island and save its inhabitants." },
     { "titre": "OGame", "plateformes": ["navigateur"], "genres": ["Strategy", "MMO"], "lien": "https://ogame.org/",
       "image": "https://secure-asset-delivery.gameforge.com/partnersite_live_product/7f459f59-11dd-467b-83a4-29f0b7fe922b/d7898c65-2a98-45f9-af8b-b983e5dd0f592026-07-21_OG_Main_Asset_Season_of_Exploration_800x450.jpg",
       "captures": [
