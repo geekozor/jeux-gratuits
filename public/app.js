@@ -21,7 +21,7 @@ const T = {
     erreur: 'Impossible de charger la liste. Vérifie ta connexion.',
     sources: 'Données :', maj: 'Mis à jour le', navigateur: 'Navigateur', mobile: 'Mobile',
     retroTitre: 'Rétro légal 👑',
-    retroTexte: 'Les vieux jeux, oui, le piratage, non. Ces classiques sont offerts officiellement par leurs éditeurs, à récupérer sur GOG ou Steam.',
+    retroTexte: 'Les vieux jeux, oui, le piratage, non. Ces classiques sont offerts officiellement par leurs éditeurs, à récupérer sur GOG, Steam ou des sites autorisés.',
     env: 'env.', videoTiktok: "Ma vidéo TikTok sur ce jeu", essais: "🎮 Gratuit ce week-end", essaisTexte: "À jouer gratuitement pendant quelques jours seulement : le jeu ne reste pas dans ta bibliothèque.", economies: (m, n) => `💰 Tu as économisé ${m} grâce au site (${n} ${n > 1 ? 'jeux récupérés' : 'jeu récupéré'})`, bientotVide: 'Les prochains jeux offerts arrivent bientôt, reviens jeudi 👑',
   },
   en: {
@@ -42,7 +42,7 @@ const T = {
     erreur: 'Could not load the list. Check your connection.',
     sources: 'Data:', maj: 'Updated on', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Legal retro 👑',
-    retroTexte: 'Old games, yes; piracy, no. These classics are given away officially by their publishers, on GOG or Steam.',
+    retroTexte: 'Old games, yes; piracy, no. These classics are given away officially by their publishers, on GOG, Steam or authorised sites.',
     env: 'approx.', videoTiktok: "My TikTok video about this game", essais: "🎮 Free this weekend", essaisTexte: "Free to play for a few days only: the game does not stay in your library.", economies: (m, n) => `💰 You saved ${m} thanks to this site (${n} ${n > 1 ? 'games' : 'game'} claimed)`, bientotVide: 'The next free games are coming soon, come back on Thursday 👑',
   },
   it: {
@@ -63,7 +63,7 @@ const T = {
     erreur: 'Impossibile caricare la lista. Controlla la connessione.',
     sources: 'Dati:', maj: 'Aggiornato il', navigateur: 'Browser', mobile: 'Mobile',
     retroTitre: 'Retrò legale 👑',
-    retroTexte: 'I vecchi giochi sì, la pirateria no. Questi classici sono regalati ufficialmente dai loro editori, su GOG o Steam.',
+    retroTexte: 'I vecchi giochi sì, la pirateria no. Questi classici sono regalati ufficialmente dai loro editori, su GOG, Steam o siti autorizzati.',
     env: 'circa', videoTiktok: "Il mio video TikTok su questo gioco", essais: "🎮 Gratis questo weekend", essaisTexte: "Gratis da giocare solo per qualche giorno: il gioco non resta nella tua libreria.", economies: (m, n) => `💰 Hai risparmiato ${m} grazie al sito (${n} ${n > 1 ? 'giochi riscattati' : 'gioco riscattato'})`, bientotVide: 'I prossimi giochi in regalo arrivano presto, torna giovedì 👑',
   },
   de: {
@@ -84,7 +84,7 @@ const T = {
     erreur: 'Liste konnte nicht geladen werden. Prüfe deine Verbindung.',
     sources: 'Daten:', maj: 'Aktualisiert am', navigateur: 'Browser', mobile: 'Mobil',
     retroTitre: 'Legales Retro 👑',
-    retroTexte: 'Alte Spiele ja, Raubkopien nein. Diese Klassiker verschenken ihre Publisher offiziell, auf GOG oder Steam.',
+    retroTexte: 'Alte Spiele ja, Raubkopien nein. Diese Klassiker verschenken ihre Publisher offiziell, auf GOG, Steam oder autorisierten Seiten.',
     env: 'ca.', videoTiktok: "Mein TikTok-Video zu diesem Spiel", essais: "🎮 Gratis an diesem Wochenende", essaisTexte: "Nur ein paar Tage gratis spielbar: Das Spiel bleibt nicht in deiner Bibliothek.", economies: (m, n) => `💰 Du hast ${m} gespart dank dieser Seite (${n} ${n > 1 ? 'Spiele geholt' : 'Spiel geholt'})`, bientotVide: 'Die nächsten Gratis-Spiele kommen bald, schau am Donnerstag wieder vorbei 👑',
   },
   es: {
@@ -105,7 +105,7 @@ const T = {
     erreur: 'No se pudo cargar la lista. Revisa tu conexión.',
     sources: 'Datos:', maj: 'Actualizado el', navigateur: 'Navegador', mobile: 'Móvil',
     retroTitre: 'Retro legal 👑',
-    retroTexte: 'Juegos antiguos, sí; piratería, no. Estos clásicos los regalan oficialmente sus editores, en GOG o Steam.',
+    retroTexte: 'Juegos antiguos, sí; piratería, no. Estos clásicos los regalan oficialmente sus editores, en GOG, Steam o sitios autorizados.',
     env: 'aprox.', videoTiktok: "Mi vídeo de TikTok sobre este juego", essais: "🎮 Gratis este fin de semana", essaisTexte: "Gratis para jugar solo unos días: el juego no se queda en tu biblioteca.", economies: (m, n) => `💰 Has ahorrado ${m} gracias al sitio (${n} ${n > 1 ? 'juegos conseguidos' : 'juego conseguido'})`, bientotVide: 'Los próximos juegos regalados llegan pronto, vuelve el jueves 👑',
   },
 };

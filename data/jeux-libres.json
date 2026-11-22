@@ -215,5 +215,417 @@
     "genres": [
       "Strategy"
     ]
+  },
+  {
+    "titre": "Classic Marathon",
+    "description": "Bungie's 1994 sci-fi first-person shooter, before Halo: fight aliens aboard a colony ship. Free on Steam with Bungie's blessing.",
+    "lien": "https://store.steampowered.com/app/2398450/Classic_Marathon/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true
+  },
+  {
+    "titre": "Microsoft Allegiance",
+    "description": "Microsoft's 2000 team space combat game: pilot fighters while your commander builds bases and researches technology. Released for free by Microsoft.",
+    "lien": "https://store.steampowered.com/app/700480/Microsoft_Allegiance/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy",
+      "Shooter"
+    ],
+    "retro": true
+  },
+  {
+    "titre": "Ultima IV: Quest of the Avatar",
+    "description": "The 1985 cult role-playing game where you win not by killing a villain but by mastering eight virtues. Offered for free on GOG.",
+    "lien": "https://www.gog.com/en/game/ultima_iv_quest_of_the_avatar",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "RPG"
+    ],
+    "retro": true
+  },
+  {
+    "titre": "DreamWeb",
+    "description": "A dark 1994 cyberpunk adventure: a barman believes he must kill seven people to save the world. Released as freeware by its creators for ScummVM.",
+    "lien": "https://www.scummvm.org/games/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "retro": true,
+    "image": "https://www.scummvm.org/data/screenshots/dreamweb/dreamweb/dreamweb_dos_en_1_1_full.png",
+    "captures": [
+      "https://www.scummvm.org/data/screenshots/dreamweb/dreamweb/dreamweb_dos_en_1_1_full.png",
+      "https://www.scummvm.org/data/screenshots/dreamweb/dreamweb/dreamweb_dos_en_1_2_full.png",
+      "https://www.scummvm.org/data/screenshots/dreamweb/dreamweb/dreamweb_dos_en_1_3_full.png",
+      "https://www.scummvm.org/data/screenshots/dreamweb/dreamweb/dreamweb_dos_en_1_4_full.png",
+      "https://www.scummvm.org/data/screenshots/dreamweb/dreamweb/dreamweb_dos_en_1_5_full.png",
+      "https://www.scummvm.org/data/screenshots/dreamweb/dreamweb/dreamweb_dos_en_1_10_full.png"
+    ],
+    "instructions": "1. Download and install ScummVM (free) from scummvm.org. 2. On the ScummVM games page, download the freeware version of the game and unzip it. 3. In ScummVM, click \"Add Game\", choose the unzipped folder, then \"Start\"."
+  },
+  {
+    "titre": "Drascula: The Vampire Strikes Back",
+    "description": "A 1996 comedy point-and-click adventure: an estate agent rescues his girlfriend from the vampire Drascula. Released as freeware, with French text.",
+    "lien": "https://www.scummvm.org/games/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "retro": true,
+    "instructions": "1. Download and install ScummVM (free) from scummvm.org. 2. On the ScummVM games page, download the freeware version of the game and unzip it. 3. In ScummVM, click \"Add Game\", choose the unzipped folder, then \"Start\"."
+  },
+  {
+    "titre": "Sołtys",
+    "description": "A small 1995 Polish comedy adventure: a village mayor solves the strange problems of his villagers. Released as freeware for ScummVM.",
+    "lien": "https://www.scummvm.org/games/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "retro": true,
+    "image": "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_1_full.png",
+    "captures": [
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_1_full.png",
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_2_full.png",
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_3_full.png",
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_4_full.png",
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_5_full.png",
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_6_full.png",
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_7_full.png",
+      "https://www.scummvm.org/data/screenshots/cge/soltys/soltys_dos_en_1_8_full.png"
+    ],
+    "instructions": "1. Download and install ScummVM (free) from scummvm.org. 2. On the ScummVM games page, download the freeware version of the game and unzip it. 3. In ScummVM, click \"Add Game\", choose the unzipped folder, then \"Start\"."
+  },
+  {
+    "titre": "Classic Marathon 2: Durandal",
+    "description": "The 1995 sequel to Bungie's Marathon: the rogue AI Durandal sends you to an alien world. Free on Steam with Bungie's blessing.",
+    "lien": "https://store.steampowered.com/app/2398490/Classic_Marathon_2/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true,
+    "steam": 2398490
+  },
+  {
+    "titre": "Classic Marathon Infinity",
+    "description": "The 1996 finale of Bungie's Marathon trilogy, with a mind-bending story across parallel timelines. Free on Steam.",
+    "lien": "https://store.steampowered.com/search/?term=Classic%20Marathon%20Infinity",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true
+  },
+  {
+    "titre": "Free Stars: The Ur-Quan Masters",
+    "description": "The free edition of Star Control II (1992), published by its original creators: explore the galaxy, meet dozens of alien races and free Earth.",
+    "lien": "https://store.steampowered.com/app/2645580/Free_Stars_The_UrQuan_Masters/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Adventure",
+      "Strategy"
+    ],
+    "retro": true
+  },
+  {
+    "titre": "StarCraft",
+    "description": "Blizzard's 1998 real-time strategy legend with its Brood War expansion: Terrans, Zerg and Protoss. Made free by Blizzard in 2017 via the Battle.net app.",
+    "lien": "https://starcraft.com/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/5E4c9sP7t8A/hqdefault.jpg"
+  },
+  {
+    "titre": "Unreal Gold",
+    "description": "Epic's 1998 first-person shooter: escape a prison ship crashed on an alien planet. Free download with Epic's permission, updated by OldUnreal.",
+    "lien": "https://www.oldunreal.com/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true,
+    "steam": 13250
+  },
+  {
+    "titre": "Unreal Tournament",
+    "description": "Epic's legendary 1999 arena shooter: Deathmatch, Capture the Flag and bots. Free download with Epic's permission, updated by OldUnreal.",
+    "lien": "https://www.oldunreal.com/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true,
+    "steam": 13240
+  },
+  {
+    "titre": "Unreal Tournament 2004",
+    "description": "Epic's 2004 arena shooter with vehicles and the Onslaught mode. Free download with Epic's permission, patched for modern PCs by OldUnreal.",
+    "lien": "https://www.oldunreal.com/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true,
+    "steam": 13230
+  },
+  {
+    "titre": "Warzone 2100",
+    "description": "A 1999 real-time strategy game set after a nuclear apocalypse, where you design your own units. Released by Eidos, now free and open source.",
+    "lien": "https://wz2100.net/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "retro": true
+  },
+  {
+    "titre": "Dink Smallwood",
+    "description": "A quirky 1997 action role-playing game: a pig farmer becomes a hero. Made freeware by its creators, with hundreds of fan adventures.",
+    "lien": "https://www.rtsoft.com/pages/dink.php",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "RPG"
+    ],
+    "retro": true,
+    "image": "https://www.rtsoft.com/dink/hd/ipad_dragons.jpg",
+    "captures": [
+      "https://www.rtsoft.com/dink/hd/ipad_darklands.jpg",
+      "https://www.rtsoft.com/dink/hd/ipad_dragons.jpg",
+      "https://www.rtsoft.com/dink/hd/ipad_inventory.jpg",
+      "https://www.rtsoft.com/dink/hd/ipad_snow.jpg",
+      "https://www.rtsoft.com/dink/hd/iphone4_big_building.jpg"
+    ]
+  },
+  {
+    "titre": "Major Stryker",
+    "description": "A fast 1993 vertical shoot 'em up by Apogee across lava, ice and desert worlds. Released as freeware by Apogee in 2006.",
+    "lien": "https://www.classicdosgames.com/game/Major_Stryker.html",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true
+  },
+  {
+    "titre": "Xargon",
+    "description": "A colourful 1993 action-platformer published by Epic MegaGames. Released as freeware by its author in 2008.",
+    "lien": "https://www.classicdosgames.com/game/Xargon.html",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Platformer",
+      "Action"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/9MYoUklZw4o/hqdefault.jpg"
+  },
+  {
+    "titre": "One Must Fall: 2097",
+    "description": "A 1994 fighting game with giant robots, published by Epic MegaGames. Released as freeware in 1999, playable today with OpenOMF.",
+    "lien": "https://www.openomf.org/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Fighting"
+    ],
+    "retro": true,
+    "image": "https://openomf.org/assets/vs.png",
+    "captures": [
+      "https://openomf.org/assets/intro.png",
+      "https://openomf.org/assets/menu.png",
+      "https://openomf.org/assets/melee.png",
+      "https://openomf.org/assets/stadium.png",
+      "https://openomf.org/assets/desert.png",
+      "https://openomf.org/assets/powerplant.png",
+      "https://openomf.org/assets/mechlab.png",
+      "https://openomf.org/assets/2player.png"
+    ]
+  },
+  {
+    "titre": "Championship Manager 01/02",
+    "description": "Eidos's cult 2001 football management game. Released as freeware by Eidos in 2009, still updated with new seasons by its community.",
+    "lien": "https://www.champman0102.net/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Sports",
+      "Simulation"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/0R8E06LrMHo/hqdefault.jpg"
+  },
+  {
+    "titre": "Command & Conquer",
+    "description": "Westwood's 1995 real-time strategy classic: GDI against Nod in the war for Tiberium. Released as freeware by EA in 2007, playable today with CnCNet.",
+    "lien": "https://cncnet.org/download",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/g8BpkajvBjI/hqdefault.jpg",
+    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online."
+  },
+  {
+    "titre": "Command & Conquer: Red Alert",
+    "description": "The 1996 cult real-time strategy game: the Allies against the Soviets in an alternate history. Released as freeware by EA in 2008, playable with CnCNet.",
+    "lien": "https://cncnet.org/download",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/pZWgbfvALiQ/hqdefault.jpg",
+    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online."
+  },
+  {
+    "titre": "Command & Conquer: Tiberian Sun",
+    "description": "The 1999 sequel to Command & Conquer, with its Firestorm expansion: GDI and Nod fight again on a Tiberium-ravaged Earth. Released as freeware by EA in 2010.",
+    "lien": "https://cncnet.org/download",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Strategy"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/lepGsgK5k-I/hqdefault.jpg",
+    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online."
+  },
+  {
+    "titre": "Chex Quest HD",
+    "description": "The modern remake of the cult 1996 cereal-box shooter built on Doom: blast slimy Flemoids with your zorcher. Free on Steam, published by General Mills.",
+    "lien": "https://store.steampowered.com/app/804270/Chex_Quest_HD/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Shooter"
+    ],
+    "retro": true,
+    "steam": 804270
+  },
+  {
+    "titre": "God of Thunder",
+    "description": "A 1993 action-puzzle adventure starring Thor, armed with his hammer, across three episodes. Freeware from its creators, free on Steam.",
+    "lien": "https://store.steampowered.com/app/738470/God_Of_Thunder/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Action",
+      "Adventure"
+    ],
+    "retro": true,
+    "steam": 738470
+  },
+  {
+    "titre": "Jetpack",
+    "description": "A 1993 platform puzzle game: grab every gem with your jetpack and dodge the traps. Released as freeware by Adept Software in 1998, with a level editor.",
+    "lien": "https://www.adeptsoftware.com/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Platformer",
+      "Puzzle"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/FufNRvAWsL0/hqdefault.jpg"
+  },
+  {
+    "titre": "Bio Menace",
+    "description": "Apogee's 1993 run-and-gun platformer: a CIA agent fights the mutants of Dr. Mangle across three episodes. Released as freeware by 3D Realms in 2005.",
+    "lien": "https://www.classicdosgames.com/game/Bio_Menace.html",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Platformer",
+      "Shooter"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/vV6S3UvJ-nM/hqdefault.jpg"
+  },
+  {
+    "titre": "Nippon Safes Inc.",
+    "description": "A 1992 comedy point-and-click adventure where you play three crooks, one after the other. Declared freeware in 2021, with French text, playable with ScummVM.",
+    "lien": "https://www.scummvm.org/games/",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "retro": true,
+    "image": "https://www.scummvm.org/data/screenshots/parallaction/nippon/nippon_dos_en_1_1_full.png",
+    "captures": [
+      "https://www.scummvm.org/data/screenshots/parallaction/nippon/nippon_dos_en_1_1_full.png",
+      "https://www.scummvm.org/data/screenshots/parallaction/nippon/nippon_dos_en_1_2_full.png",
+      "https://www.scummvm.org/data/screenshots/parallaction/nippon/nippon_dos_en_1_3_full.png",
+      "https://www.scummvm.org/data/screenshots/parallaction/nippon/nippon_dos_en_1_4_full.png"
+    ],
+    "instructions": "1. Download and install ScummVM (free) from scummvm.org. 2. On the ScummVM games page, download the freeware version of the game and unzip it. 3. In ScummVM, click \"Add Game\", choose the unzipped folder, then \"Start\"."
+  },
+  {
+    "titre": "Zork I: The Great Underground Empire",
+    "description": "The legendary 1980 Infocom text adventure: explore a vast underground empire by typing your commands. Released as open source by Microsoft in 2025.",
+    "lien": "https://github.com/historicalsource/zork1",
+    "plateformes": [
+      "pc"
+    ],
+    "genres": [
+      "Adventure"
+    ],
+    "retro": true,
+    "image": "https://i.ytimg.com/vi/xzUagi41Wo0/hqdefault.jpg",
+    "instructions": "1. On the GitHub page, open the COMPILED folder and download the file zork1.z3. 2. Go to iplayif.com (a free online player for text adventures) and open the file, or install the free Gargoyle or Frotz app. 3. Type your commands in English, for example \"open mailbox\" or \"go north\"."
   }
 ]

@@ -408,7 +408,11 @@ for (const g of indes) {
 
 // ---------- 2 quater. Jeux libres (open source) : liste faite à la main, data/jeux-libres.json ----------
 const libres = JSON.parse(await readFile(new URL('../data/jeux-libres.json', import.meta.url), 'utf8'))
-  .map((g) => ({ ...g, id: 'libre' + cle(g.titre), type: 'libre' }));
+  .map(({ captures, instructions, ...g }) => { // captures : seulement dans la fiche, comme pour f2p-consoles.json
+    const id = 'libre' + cle(g.titre);
+    if (captures || instructions) details.set(id, { captures, instructions });
+    return { ...g, id, type: g.retro ? 'retro' : 'libre' };
+  });
 
 // ---------- 3. Free-to-play consoles : liste faite à la main, data/f2p-consoles.json ----------
 // Aucune source libre et fiable ne donne les consoles des free-to-play (FreeToGame = PC seulement) ; ça bouge peu.
@@ -439,14 +443,14 @@ const demosNintendo = demos.filter((g) => g.id.startsWith('nin'));
 // Les jeux libres d'abord : peu nombreux, et sans image tant que Steam ne leur en a pas donné.
 for (const g of [...libres, ...bientot, ...offerts.filter((o) => o.type === 'jeu'), ...f2p, ...demosNintendo]) {
   const nom = nomRecherche(g);
-  const k = cle(nom);
+  const k = g.steam ? 'app' + g.steam : cle(nom); // steam : numéro de fiche donné à la main (jeu retiré de la vente, nom différent)
   // Fiches lues avant le badge français (sans « fr ») : relues peu à peu, dans le même plafond.
   // regle2 : fiche relue avec la règle VF du 20/11/2026 et le prix en euros (60 par passage, les offres d'abord).
   // Plafond atteint : une fiche déjà en cache garde ses anciennes données (image, vidéos) en attendant d'être relue.
   if (!(k in cache.steam) || (cache.steam[k] && !cache.steam[k].regle2)) {
     if (steamFaits++ < MAX_STEAM_PAR_EXECUTION) await facultatif(`Steam ${nom}`, async () => {
       const r = await getJson(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(nom)}&cc=FR&l=english`);
-      const app = r.items?.find((i) => memeJeu(nom, i.name)); // dans le doute, rien plutôt qu'un mauvais jeu
+      const app = g.steam ? { id: g.steam } : r.items?.find((i) => memeJeu(nom, i.name)); // dans le doute, rien plutôt qu'un mauvais jeu
       if (!app) { cache.steam[k] = null; return; }
       const d = (await getJson(`https://store.steampowered.com/api/appdetails?appids=${app.id}&cc=fr&l=english`))[app.id]?.data;
       if (d?.type !== 'game') { cache.steam[k] = null; return; } // un DLC ou un pack du même nom
@@ -684,6 +688,12 @@ if (ONESIGNAL_API_KEY) {
     if (message) await envoyerEtNoter(message);
     cache.roiNotifies = envoyes;
   } catch (e) { alertes.push(`OneSignal (Choix du Roi) : ${e.message}`); }
+  // Annonces écrites à la main (data/annonces.json) : chacune envoyée une seule fois (cache.annoncesEnvoyees).
+  for (const m of JSON.parse(await readFile(new URL('../data/annonces.json', import.meta.url), 'utf8'))) {
+    if ((cache.annoncesEnvoyees ??= []).includes(m.id)) continue;
+    try { await envoyerEtNoter({ ...m, url: 'https://geekozor.github.io/jeux-gratuits/' + (m.url ?? '') }); cache.annoncesEnvoyees.push(m.id); }
+    catch (e) { alertes.push(`OneSignal (annonce ${m.id}) : ${e.message}`); }
+  }
   // Tableau de bord : reçues / cliquées des notifications de la semaine (chiffre gardé si la lecture échoue).
   for (const n of (cache.notifsEnvoyees ?? []).filter((n) => n.id && Date.now() - new Date(n.date) < 7 * 864e5)) {
     try { Object.assign(n, await resultat(ONESIGNAL_API_KEY, n.id)); } catch { /* réessayé au passage suivant */ }
