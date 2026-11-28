@@ -214,7 +214,13 @@
     ],
     "genres": [
       "Strategy"
-    ]
+    ],
+    "captures": [
+      "https://i.ytimg.com/vi/u28tWIsC01E/hq1.jpg",
+      "https://i.ytimg.com/vi/u28tWIsC01E/hq2.jpg",
+      "https://i.ytimg.com/vi/u28tWIsC01E/hq3.jpg"
+    ],
+    "image": "https://i.ytimg.com/vi/u28tWIsC01E/hqdefault.jpg"
   },
   {
     "titre": "Classic Marathon",
@@ -361,12 +367,17 @@
       "Strategy"
     ],
     "retro": true,
-    "image": "https://i.ytimg.com/vi/5E4c9sP7t8A/hqdefault.jpg"
+    "image": "https://i.ytimg.com/vi/5E4c9sP7t8A/hqdefault.jpg",
+    "captures": [
+      "https://i.ytimg.com/vi/5E4c9sP7t8A/hq1.jpg",
+      "https://i.ytimg.com/vi/5E4c9sP7t8A/hq2.jpg",
+      "https://i.ytimg.com/vi/5E4c9sP7t8A/hq3.jpg"
+    ]
   },
   {
     "titre": "Unreal Gold",
     "description": "Epic's 1998 first-person shooter: escape a prison ship crashed on an alien planet. Free download with Epic's permission, updated by OldUnreal.",
-    "lien": "https://www.oldunreal.com/",
+    "lien": "https://github.com/OldUnreal/FullGameInstallers/releases/tag/windows-game-installers",
     "plateformes": [
       "pc"
     ],
@@ -374,12 +385,13 @@
       "Shooter"
     ],
     "retro": true,
-    "steam": 13250
+    "steam": 13250,
+    "instructions": "1. On the OldUnreal GitHub page, download the installer for the game (Unreal_Gold.exe, UT_GOTY.exe or UT2004.exe). 2. Run it: it downloads the original game from the Internet Archive, with Epic's permission, and installs the latest community patch. 3. Launch the game from the shortcut it creates."
   },
   {
     "titre": "Unreal Tournament",
     "description": "Epic's legendary 1999 arena shooter: Deathmatch, Capture the Flag and bots. Free download with Epic's permission, updated by OldUnreal.",
-    "lien": "https://www.oldunreal.com/",
+    "lien": "https://github.com/OldUnreal/FullGameInstallers/releases/tag/windows-game-installers",
     "plateformes": [
       "pc"
     ],
@@ -387,12 +399,13 @@
       "Shooter"
     ],
     "retro": true,
-    "steam": 13240
+    "steam": 13240,
+    "instructions": "1. On the OldUnreal GitHub page, download the installer for the game (Unreal_Gold.exe, UT_GOTY.exe or UT2004.exe). 2. Run it: it downloads the original game from the Internet Archive, with Epic's permission, and installs the latest community patch. 3. Launch the game from the shortcut it creates."
   },
   {
     "titre": "Unreal Tournament 2004",
     "description": "Epic's 2004 arena shooter with vehicles and the Onslaught mode. Free download with Epic's permission, patched for modern PCs by OldUnreal.",
-    "lien": "https://www.oldunreal.com/",
+    "lien": "https://github.com/OldUnreal/FullGameInstallers/releases/tag/windows-game-installers",
     "plateformes": [
       "pc"
     ],
@@ -400,7 +413,8 @@
       "Shooter"
     ],
     "retro": true,
-    "steam": 13230
+    "steam": 13230,
+    "instructions": "1. On the OldUnreal GitHub page, download the installer for the game (Unreal_Gold.exe, UT_GOTY.exe or UT2004.exe). 2. Run it: it downloads the original game from the Internet Archive, with Epic's permission, and installs the latest community patch. 3. Launch the game from the shortcut it creates."
   },
   {
     "titre": "Warzone 2100",
@@ -458,7 +472,12 @@
       "Action"
     ],
     "retro": true,
-    "image": "https://i.ytimg.com/vi/9MYoUklZw4o/hqdefault.jpg"
+    "image": "https://i.ytimg.com/vi/9MYoUklZw4o/hqdefault.jpg",
+    "captures": [
+      "https://i.ytimg.com/vi/9MYoUklZw4o/hq1.jpg",
+      "https://i.ytimg.com/vi/9MYoUklZw4o/hq2.jpg",
+      "https://i.ytimg.com/vi/9MYoUklZw4o/hq3.jpg"
+    ]
   },
   {
     "titre": "One Must Fall: 2097",
@@ -495,7 +514,12 @@
       "Simulation"
     ],
     "retro": true,
-    "image": "https://i.ytimg.com/vi/0R8E06LrMHo/hqdefault.jpg"
+    "image": "https://i.ytimg.com/vi/0R8E06LrMHo/hqdefault.jpg",
+    "captures": [
+      "https://i.ytimg.com/vi/0R8E06LrMHo/hq1.jpg",
+      "https://i.ytimg.com/vi/0R8E06LrMHo/hq2.jpg",
+      "https://i.ytimg.com/vi/0R8E06LrMHo/hq3.jpg"
+    ]
   },
   {
     "titre": "Command & Conquer",
@@ -509,7 +533,12 @@
     ],
     "retro": true,
     "image": "https://i.ytimg.com/vi/g8BpkajvBjI/hqdefault.jpg",
-    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online."
+    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online.",
+    "captures": [
+      "https://i.ytimg.com/vi/g8BpkajvBjI/hq1.jpg",
+      "https://i.ytimg.com/vi/g8BpkajvBjI/hq2.jpg",
+      "https://i.ytimg.com/vi/g8BpkajvBjI/hq3.jpg"
+    ]
   },
   {
     "titre": "Command & Conquer: Red Alert",
@@ -523,7 +552,12 @@
     ],
     "retro": true,
     "image": "https://i.ytimg.com/vi/pZWgbfvALiQ/hqdefault.jpg",
-    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online."
+    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online.",
+    "captures": [
+      "https://i.ytimg.com/vi/pZWgbfvALiQ/hq1.jpg",
+      "https://i.ytimg.com/vi/pZWgbfvALiQ/hq2.jpg",
+      "https://i.ytimg.com/vi/pZWgbfvALiQ/hq3.jpg"
+    ]
   },
   {
     "titre": "Command & Conquer: Tiberian Sun",
@@ -537,7 +571,12 @@
     ],
     "retro": true,
     "image": "https://i.ytimg.com/vi/lepGsgK5k-I/hqdefault.jpg",
-    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online."
+    "instructions": "1. On cncnet.org/download, choose the game and download its installer. 2. Install it: the full game is included for free, already patched for modern PCs. 3. Launch it to play the campaign or online.",
+    "captures": [
+      "https://i.ytimg.com/vi/lepGsgK5k-I/hq1.jpg",
+      "https://i.ytimg.com/vi/lepGsgK5k-I/hq2.jpg",
+      "https://i.ytimg.com/vi/lepGsgK5k-I/hq3.jpg"
+    ]
   },
   {
     "titre": "Chex Quest HD",
@@ -578,21 +617,12 @@
       "Puzzle"
     ],
     "retro": true,
-    "image": "https://i.ytimg.com/vi/FufNRvAWsL0/hqdefault.jpg"
-  },
-  {
-    "titre": "Bio Menace",
-    "description": "Apogee's 1993 run-and-gun platformer: a CIA agent fights the mutants of Dr. Mangle across three episodes. Released as freeware by 3D Realms in 2005.",
-    "lien": "https://www.classicdosgames.com/game/Bio_Menace.html",
-    "plateformes": [
-      "pc"
-    ],
-    "genres": [
-      "Platformer",
-      "Shooter"
-    ],
-    "retro": true,
-    "image": "https://i.ytimg.com/vi/vV6S3UvJ-nM/hqdefault.jpg"
+    "image": "https://i.ytimg.com/vi/FufNRvAWsL0/hqdefault.jpg",
+    "captures": [
+      "https://i.ytimg.com/vi/FufNRvAWsL0/hq1.jpg",
+      "https://i.ytimg.com/vi/FufNRvAWsL0/hq2.jpg",
+      "https://i.ytimg.com/vi/FufNRvAWsL0/hq3.jpg"
+    ]
   },
   {
     "titre": "Nippon Safes Inc.",
@@ -626,6 +656,11 @@
     ],
     "retro": true,
     "image": "https://i.ytimg.com/vi/xzUagi41Wo0/hqdefault.jpg",
-    "instructions": "1. On the GitHub page, open the COMPILED folder and download the file zork1.z3. 2. Go to iplayif.com (a free online player for text adventures) and open the file, or install the free Gargoyle or Frotz app. 3. Type your commands in English, for example \"open mailbox\" or \"go north\"."
+    "instructions": "1. On the GitHub page, open the COMPILED folder and download the file zork1.z3. 2. Go to iplayif.com (a free online player for text adventures) and open the file, or install the free Gargoyle or Frotz app. 3. Type your commands in English, for example \"open mailbox\" or \"go north\".",
+    "captures": [
+      "https://i.ytimg.com/vi/xzUagi41Wo0/hq1.jpg",
+      "https://i.ytimg.com/vi/xzUagi41Wo0/hq2.jpg",
+      "https://i.ytimg.com/vi/xzUagi41Wo0/hq3.jpg"
+    ]
   }
 ]
